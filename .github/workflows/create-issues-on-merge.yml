@@ -40,11 +40,11 @@ jobs:
 
             // 2. Find the comment containing the AI Review report
             const aiReviewComment = comments.find(comment => 
-              comment.body && comment.body.includes('Reporte de Revisión - escal-ai')
+              comment.body && comment.body.includes('AI Review Report - escal-ai')
             );
 
             if (!aiReviewComment) {
-              console.log('No AI review comment matching "Reporte de Revisión - escal-ai" was found. Skipping issue creation.');
+              console.log('No AI review comment matching "AI Review Report - escal-ai" was found. Skipping issue creation.');
               return;
             }
 
