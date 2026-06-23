@@ -21,7 +21,13 @@
   --grad-brand: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
   --grad-dark: linear-gradient(180deg, #0c0e12 0%, #060709 100%);
   --grad-glow: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.12) 0%, transparent 60%);
-  
+
+  /* Background variables */
+  --bg-header: rgba(12, 14, 18, 0.75);
+  --bg-nav-mobile: #0c0e12;
+  --bg-footer: rgba(8, 10, 14, 0.9);
+  --bg-grid-color: rgba(255, 255, 255, 0.02);
+
   /* Shadows & Glassmorphism */
   --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.6);
   --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.7);
@@ -32,6 +38,27 @@
   --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light Theme Variables Override */
+[data-theme="light"] {
+  --bg-color: #f8fafc; /* Slate 50 */
+  --bg-card: rgba(255, 255, 255, 0.75);
+  --bg-card-hover: rgba(241, 245, 249, 0.85);
+  --border-color: rgba(15, 23, 42, 0.08);
+  --border-hover: rgba(16, 185, 129, 0.45);
+  
+  --text-primary: #0f172a; /* Slate 900 */
+  --text-secondary: #475569; /* Slate 600 */
+  --text-muted: #94a3b8; /* Slate 400 */
+  
+  --grad-dark: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+  --grad-glow: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.06) 0%, transparent 60%);
+  
+  --bg-header: rgba(255, 255, 255, 0.75);
+  --bg-nav-mobile: #ffffff;
+  --bg-footer: rgba(241, 245, 249, 0.9);
+  --bg-grid-color: rgba(15, 23, 42, 0.04);
 }
 
 * {
@@ -56,7 +83,7 @@ body {
   overflow-x: hidden;
   position: relative;
   background-image: 
-    radial-gradient(rgba(255, 255, 255, 0.02) 1.2px, transparent 1.2px), 
+    radial-gradient(var(--bg-grid-color) 1.2px, transparent 1.2px), 
     var(--grad-dark);
   background-size: 28px 28px, 100% 100%;
 }
