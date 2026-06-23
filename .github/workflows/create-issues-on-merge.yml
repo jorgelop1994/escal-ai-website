@@ -40,8 +40,6 @@ jobs:
 
             // 2. Find the comment containing the AI Review report
             const aiReviewComment = comments.find(comment => 
-              comment.user &&
-              (comment.user.type === 'Bot' || comment.user.login.includes('github-actions')) &&
               comment.body && 
               (comment.body.includes('AI Review Report - escal-ai') || comment.body.includes('Reporte de Revisión - escal-ai'))
             );
