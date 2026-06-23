@@ -52,7 +52,7 @@ jobs:
             console.log('AI Review comment found. Parsing for non-blocking suggestions...');
 
             // 3. Regular expression to find suggestions/issues/thoughts marked as [non-blocking]
-            const regex = /(suggestion|issue|question|thought)\s+\[\s*non-blocking\s*\]\s*:\s*([\s\S]*?)(?=\n\s*(?:suggestion|issue|question|thought|praise)(?:\s+\[[^\]]+\])?\s*:|\n\s*##|\n\s*\n|$)/gi;
+            const regex = /(?:\*\*)*(suggestion|issue|question|thought)(?:\*\*)*\s+\[\s*non-blocking\s*\]\s*:\s*([\s\S]*?)(?=\n\s*(?:\*\*)*(?:suggestion|issue|question|thought|praise)(?:\*\*)*(?:\s+\[[^\]]+\])?\s*:|\n\s*---|\n\s*##|\n\s*#|$)/gi;
             const bodyText = aiReviewComment.body;
             let match;
             let count = 0;
@@ -62,9 +62,16 @@ jobs:
 
             while ((match = regex.exec(bodyText)) !== null) {
               const type = match[1].trim().toLowerCase();
-              const suggestionText = match[2].trim();
+              let suggestionText = match[2].trim();
 
               if (!suggestionText) continue;
+
+              // Clean up trailing ** from the first line if present
+              const lines = suggestionText.split('\n');
+              if (lines[0] && lines[0].endsWith('**')) {
+                lines[0] = lines[0].slice(0, -2).trim();
+                suggestionText = lines.join('\n');
+              }
 
               // Generate a clean title for the issue
               const cleanText = suggestionText.replace(/[`*_\n\r]/g, ' ').replace(/\s+/g, ' ');
