@@ -2,30 +2,30 @@
 
 /* Reset and CSS Variables */
 :root {
-  /* HSL Tailored Color Palette */
-  --bg-color: #0b0f19;
-  --bg-card: rgba(17, 24, 39, 0.7);
-  --bg-card-hover: rgba(26, 36, 57, 0.8);
-  --border-color: rgba(255, 255, 255, 0.08);
-  --border-hover: rgba(0, 242, 254, 0.3);
+  /* HSL Tailored Color Palette - Option 1: Minimalist Warm */
+  --bg-color: #0e0f11;
+  --bg-card: rgba(22, 24, 28, 0.7);
+  --bg-card-hover: rgba(32, 35, 42, 0.85);
+  --border-color: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(16, 185, 129, 0.35);
   
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-primary: #f3f3f6;
+  --text-secondary: #9ea3ae;
+  --text-muted: #6b7280;
   
   /* Brand Gradients */
-  --color-primary: #00f2fe; /* Electric Cyan */
-  --color-secondary: #4facfe; /* Deep Blue */
-  --color-accent: #7f00ff; /* Purple Glow */
+  --color-primary: #10b981; /* Matte Emerald Green */
+  --color-secondary: #059669; /* Deep Forest/Sage Green */
+  --color-accent: #d97706; /* Warm Gold / Amber */
   
   --grad-brand: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-  --grad-dark: linear-gradient(180deg, #0f172a 0%, #020617 100%);
-  --grad-glow: radial-gradient(circle at 50% 50%, rgba(0, 242, 254, 0.15) 0%, transparent 60%);
+  --grad-dark: linear-gradient(180deg, #121316 0%, #0a0b0c 100%);
+  --grad-glow: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.12) 0%, transparent 60%);
   
   /* Shadows & Glassmorphism */
-  --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
-  --shadow-lg: 0 20px 50px -10px rgba(0, 0, 0, 0.7);
+  --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.7);
+  --shadow-lg: 0 20px 50px -10px rgba(0, 0, 0, 0.8);
   --backdrop-blur: blur(12px);
   
   /* Transitions */
@@ -66,7 +66,7 @@ body::before {
   left: 20%;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(0, 242, 254, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 70%);
   z-index: 0;
   pointer-events: none;
   border-radius: 50%;
@@ -80,7 +80,7 @@ body::after {
   right: 10%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(127, 0, 255, 0.05) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(217, 119, 6, 0.03) 0%, transparent 70%);
   z-index: 0;
   pointer-events: none;
   border-radius: 50%;
@@ -147,7 +147,7 @@ a {
 
 .glass:hover {
   border-color: var(--border-hover);
-  box-shadow: 0 10px 30px -10px rgba(0, 242, 254, 0.15), var(--shadow-lg);
+  box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.12), var(--shadow-lg);
   transform: translateY(-4px);
 }
 
@@ -169,24 +169,24 @@ a {
 
 .btn-primary {
   background: var(--grad-brand);
-  color: #020617;
-  box-shadow: 0 4px 20px -5px rgba(0, 242, 254, 0.4);
+  color: #0c0d0e;
+  box-shadow: 0 4px 20px -5px rgba(16, 185, 129, 0.45);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px -2px rgba(0, 242, 254, 0.6);
+  box-shadow: 0 8px 30px -2px rgba(16, 185, 129, 0.65);
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.04);
   color: var(--text-primary);
   border: 1px solid var(--border-color);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
   transform: translateY(-2px);
 }
 

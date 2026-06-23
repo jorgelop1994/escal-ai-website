@@ -23,7 +23,7 @@ const t = useTranslations(lang);
           {t('hero.subtitle')}
         </p>
         <div class="hero-cta">
-          <a href="#services" class="btn btn-primary">{t('hero.btn.services')}</a>
+          <a href="#products" class="btn btn-primary">{t('hero.btn.services')}</a>
           <a href="#contact" class="btn btn-secondary">{t('hero.btn.contact')}</a>
         </div>
       </div>
@@ -55,38 +55,155 @@ const t = useTranslations(lang);
         {t('products.subtitle')}
       </p>
       
-      <div class="grid grid-2">
-        <div class="product-card glass">
+      <div class="products-container">
+        <!-- Product 1: Mobile Web Builder & Deployer -->
+        <div class="product-item glass">
           <div class="product-badge">{t('products.tag')}</div>
-          <div class="product-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-              <line x1="12" y1="18" x2="12.01" y2="18"></line>
-            </svg>
+          <div class="product-info">
+            <div class="product-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                <line x1="12" y1="18" x2="12.01" y2="18"></line>
+              </svg>
+            </div>
+            <h3 class="product-title">{t('products.p1.title')}</h3>
+            <p class="product-desc">{t('products.p1.desc')}</p>
           </div>
-          <h3 class="product-title">{t('products.p1.title')}</h3>
-          <p class="product-desc">
-            {t('products.p1.desc')}
-          </p>
+          
+          <!-- Interactive Web Simulator -->
+          <div class="simulator-wrapper web-simulator">
+            <div class="phone-mockup glass">
+              <div class="phone-header">
+                <span class="phone-notch"></span>
+              </div>
+              <div class="phone-content">
+                <div class="terminal-header">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                  <span class="terminal-title">escal-ai-agent</span>
+                </div>
+                <div class="terminal-body font-mono">
+                  <p class="text-emerald">$ escal-ai --init</p>
+                  <p class="typing-1">Prompt: Pizzeria with neon red order button...</p>
+                  <p class="typing-2 text-muted">Building index.html...</p>
+                  <p class="typing-3 text-muted">Optimizing CSS layout...</p>
+                  <p class="typing-4 text-amber">Deploying to Cloudflare...</p>
+                  <p class="typing-5 text-emerald">✔ Success: slice.dev</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="browser-mockup glass">
+              <div class="browser-header">
+                <span class="browser-dots">
+                  <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                </span>
+                <span class="browser-url">slice.dev</span>
+              </div>
+              <div class="browser-content">
+                <div class="preview-site">
+                  <header class="preview-nav">
+                    <span class="preview-logo">🍕 SliceHouse</span>
+                    <span class="preview-menu-btn"></span>
+                  </header>
+                  <div class="preview-hero">
+                    <h4>Fresh Pizza</h4>
+                    <p>Delivered Hot & Fast</p>
+                    <button class="preview-order-btn">Order Now</button>
+                  </div>
+                  <div class="preview-cloudflare-badge">
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                    <span>Secure Cloudflare Deploy</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         
-        <div class="product-card glass">
+        <!-- Product 2: Autonomous AI Support Agent -->
+        <div class="product-item glass">
           <div class="product-badge">{t('products.tag')}</div>
-          <div class="product-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-            </svg>
+          <div class="product-info">
+            <div class="product-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </div>
+            <h3 class="product-title">{t('products.p2.title')}</h3>
+            <p class="product-desc">{t('products.p2.desc')}</p>
           </div>
-          <h3 class="product-title">{t('products.p2.title')}</h3>
-          <p class="product-desc">
-            {t('products.p2.desc')}
-          </p>
+          
+          <!-- Interactive Chatbot Simulator -->
+          <div class="simulator-wrapper bot-simulator">
+            <!-- Kanban operations tracking -->
+            <div class="kanban-mockup glass">
+              <h4 class="kanban-title">Agent Operations</h4>
+              <div class="kanban-columns">
+                <div class="kanban-col">
+                  <h5>Inbound</h5>
+                  <div class="kanban-card">
+                    <span class="kanban-badge bg-whatsapp">WhatsApp</span>
+                    <p>"Check stock..."</p>
+                  </div>
+                </div>
+                <div class="kanban-col">
+                  <h5>RAG Sync</h5>
+                  <div class="kanban-card">
+                    <span class="kanban-badge bg-emerald">Google Sheets</span>
+                    <div class="spreadsheet-sync">
+                      <span class="sync-ping"></span>
+                      <p>menu_v2.xlsx</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="kanban-col">
+                  <h5>Live Status</h5>
+                  <div class="kanban-card status-escalated">
+                    <span class="kanban-badge bg-amber">Escalated</span>
+                    <p>Manager Alerted</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- WhatsApp Chat mockup -->
+            <div class="chat-mockup glass">
+              <div class="chat-header">
+                <span class="chat-avatar bg-whatsapp">AI</span>
+                <div class="chat-user-info">
+                  <span class="chat-username">Escal Agent</span>
+                  <span class="chat-user-status">Online</span>
+                </div>
+              </div>
+              <div class="chat-body font-sans">
+                <div class="msg msg-user">
+                  <p>Do you have Margherita pizza in stock?</p>
+                </div>
+                <div class="msg msg-bot msg-typing-1">
+                  <p class="bot-thinking">Analyzing database...</p>
+                </div>
+                <div class="msg msg-bot msg-response-1">
+                  <p>Checking Google Spreadsheet... Yes! We have 5 left for $12. Would you like to order?</p>
+                </div>
+                <div class="msg msg-user msg-user-2">
+                  <p>This is late! I demand a refund right now.</p>
+                </div>
+                <div class="msg msg-bot msg-response-2">
+                  <p>⚠️ High frustration detected. Disconnecting AI and escalating to manager on Telegram...</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Services Section -->
+  <!-- Services Section (B2B & Consulting Focus) -->
   <section id="services" class="services-section section">
     <div class="container">
       <h2 class="section-title">{t('services.title')}</h2>
@@ -102,9 +219,7 @@ const t = useTranslations(lang);
             </svg>
           </div>
           <h3 class="service-title">{t('services.s1.title')}</h3>
-          <p class="service-desc">
-            {t('services.s1.desc')}
-          </p>
+          <p class="service-desc">{t('services.s1.desc')}</p>
         </div>
         
         <div class="service-card glass">
@@ -116,21 +231,19 @@ const t = useTranslations(lang);
             </svg>
           </div>
           <h3 class="service-title">{t('services.s2.title')}</h3>
-          <p class="service-desc">
-            {t('services.s2.desc')}
-          </p>
+          <p class="service-desc">{t('services.s2.desc')}</p>
         </div>
         
         <div class="service-card glass">
           <div class="service-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+              <rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="2" y1="10" x2="22" y2="10"></line>
+              <line x1="6" y1="15" x2="10" y2="15"></line>
             </svg>
           </div>
           <h3 class="service-title">{t('services.s3.title')}</h3>
-          <p class="service-desc">
-            {t('services.s3.desc')}
-          </p>
+          <p class="service-desc">{t('services.s3.desc')}</p>
         </div>
       </div>
     </div>
@@ -172,7 +285,7 @@ const t = useTranslations(lang);
     </div>
   </section>
 
-  <!-- About / CTA Section -->
+  <!-- About Section (Strictly Anonymous) -->
   <section id="about" class="about-section section">
     <div class="container about-container">
       <div class="about-card glass">
@@ -183,6 +296,90 @@ const t = useTranslations(lang);
         <p class="about-text">
           {t('about.text.2')}
         </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section (Conceptual & Store Badges) -->
+  <section id="pricing" class="pricing-section section">
+    <div class="container">
+      <h2 class="section-title">{t('pricing.title')}</h2>
+      <p class="section-subtitle">
+        {t('pricing.subtitle')}
+      </p>
+
+      <div class="grid grid-2 pricing-grid">
+        <!-- Column 1: Base Subscription -->
+        <div class="pricing-card glass">
+          <div class="pricing-badge bg-emerald-glow">{t('pricing.base.title')}</div>
+          <h3 class="pricing-card-title">{t('pricing.base.title')}</h3>
+          <p class="pricing-card-desc">{t('pricing.base.desc')}</p>
+          
+          <ul class="pricing-features">
+            <li>
+              <span class="feat-dot"></span>
+              <div>
+                <strong>Websites:</strong> {t('pricing.base.web')}
+              </div>
+            </li>
+            <li>
+              <span class="feat-dot"></span>
+              <div>
+                <strong>AI Chatbots:</strong> {t('pricing.base.bot')}
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Column 2: Rent-An-Agent Developer Subscription -->
+        <div class="pricing-card glass border-amber-glow">
+          <div class="pricing-badge bg-amber-glow">{t('pricing.agent.title')}</div>
+          <h3 class="pricing-card-title">{t('pricing.agent.title')}</h3>
+          <p class="pricing-card-desc">{t('pricing.agent.desc')}</p>
+          
+          <ul class="pricing-features">
+            <li>
+              <span class="feat-dot bg-amber"></span>
+              <div>
+                <strong>Web Developer Mode:</strong> {t('pricing.agent.web')}
+              </div>
+            </li>
+            <li>
+              <span class="feat-dot bg-amber"></span>
+              <div>
+                <strong>Workflow Customizer:</strong> {t('pricing.agent.bot')}
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- App Download Action Card -->
+      <div class="app-download-card glass">
+        <span class="download-badge">{t('pricing.trial.tag')}</span>
+        <h4>{t('pricing.trial.tag')}</h4>
+        <p>{t('pricing.trial.desc')}</p>
+        
+        <div class="store-badges">
+          <a href="#" class="store-btn glass" aria-label="Download on Apple App Store">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.22.67-2.94 1.5-.63.73-1.18 1.87-1.03 2.98 1.12.09 2.27-.56 2.98-1.42z"></path>
+            </svg>
+            <div class="store-text">
+              <span class="store-sub">Download on the</span>
+              <span class="store-main">App Store</span>
+            </div>
+          </a>
+          <a href="#" class="store-btn glass" aria-label="Download on Google Play Store">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+              <path d="M5.25 3.25c-.25.25-.38.64-.38 1.12v15.25c0 .48.13.87.38 1.12l.06.06L13.9 12l-.06-.06L5.31 3.19l-.06.06zM17.84 9.07l-3.9 3.87.06.06 3.9 2.25c1.1.64 1.92.17 1.92-1.12v-3.94c0-1.29-.82-1.76-1.92-1.12zM13.9 11.94L5.31 20.53c.3.3.83.33 1.43 0l11.1-6.41-3.94-2.18zM6.74 3.47L13.9 12.06l3.94-2.18-11.1-6.41c-.6-.33-1.13-.3-1.43 0z"></path>
+            </svg>
+            <div class="store-text">
+              <span class="store-sub">GET IT ON</span>
+              <span class="store-main">Google Play</span>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -285,7 +482,7 @@ const t = useTranslations(lang);
     width: 280px;
     height: 280px;
     background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-    opacity: 0.35;
+    opacity: 0.15;
     animation: orb-spin 20s linear infinite;
   }
 
@@ -293,7 +490,7 @@ const t = useTranslations(lang);
     width: 200px;
     height: 200px;
     background: radial-gradient(circle, var(--color-secondary) 0%, transparent 70%);
-    opacity: 0.5;
+    opacity: 0.25;
   }
 
   .visual-card {
@@ -302,7 +499,7 @@ const t = useTranslations(lang);
     padding: 1.75rem;
     width: 260px;
     text-align: left;
-    border-color: rgba(0, 242, 254, 0.2);
+    border-color: rgba(16, 185, 129, 0.15);
   }
 
   .card-tag {
@@ -340,7 +537,7 @@ const t = useTranslations(lang);
   .card-bar-loader {
     width: 100%;
     height: 4px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 2px;
     overflow: hidden;
     margin-bottom: 1rem;
@@ -360,27 +557,28 @@ const t = useTranslations(lang);
     line-height: 1.5;
   }
 
-  /* Products Section styles */
-  .grid-2 {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: 1fr;
-  }
-
-  @media (min-width: 768px) {
-    .grid-2 {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  .product-card {
-    padding: 3rem 2.5rem;
+  /* Products Section - Detailed Layout & Simulators */
+  .products-container {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
-    height: 100%;
+    gap: 4rem;
+    margin-top: 2rem;
+  }
+
+  .product-item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding: 3.5rem 3rem;
     position: relative;
     overflow: hidden;
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .product-item {
+      grid-template-columns: 1fr 1.2fr;
+    }
   }
 
   .product-badge {
@@ -391,35 +589,531 @@ const t = useTranslations(lang);
     font-weight: 700;
     text-transform: uppercase;
     color: var(--color-primary);
-    background: rgba(0, 242, 254, 0.1);
+    background: rgba(16, 185, 129, 0.08);
     padding: 0.25rem 0.75rem;
     border-radius: 9999px;
-    border: 1px solid rgba(0, 242, 254, 0.2);
+    border: 1px solid rgba(16, 185, 129, 0.15);
     letter-spacing: 0.05em;
   }
 
   .product-icon {
     width: 48px;
     height: 48px;
-    background: linear-gradient(135deg, rgba(0, 242, 254, 0.1), rgba(79, 172, 254, 0.1));
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.08));
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--color-primary);
-    border: 1px solid rgba(0, 242, 254, 0.2);
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    margin-bottom: 1.25rem;
   }
 
   .product-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-top: 0.5rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
   }
 
   .product-desc {
     color: var(--text-secondary);
-    font-size: 0.95rem;
+    font-size: 1rem;
     line-height: 1.6;
+  }
+
+  /* Interactive Simulators General Styling */
+  .simulator-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    position: relative;
+  }
+
+  @media (min-width: 640px) {
+    .simulator-wrapper {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .dot.red { background-color: #ef4444; }
+  .dot.yellow { background-color: #f59e0b; }
+  .dot.green { background-color: #10b981; }
+
+  .font-mono {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .text-emerald { color: var(--color-primary); }
+  .text-amber { color: var(--color-accent); }
+
+  /* Product 1 Simulator (Web Builder) */
+  .phone-mockup {
+    border-radius: 24px;
+    border-color: rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .phone-header {
+    height: 20px;
+    background: rgba(255, 255, 255, 0.02);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .phone-notch {
+    width: 60px;
+    height: 8px;
+    background: #18191c;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+
+  .phone-content {
+    flex: 1;
+    padding: 1rem;
+    background: #0b0c0d;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .terminal-header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    padding-bottom: 4px;
+  }
+
+  .terminal-title {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-left: 4px;
+  }
+
+  .terminal-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  /* Simulated typing animations */
+  .typing-1 { animation: text-fade 4s infinite step-end; }
+  .typing-2 { animation: text-fade-delay1 4s infinite step-end; }
+  .typing-3 { animation: text-fade-delay2 4s infinite step-end; }
+  .typing-4 { animation: text-fade-delay3 4s infinite step-end; }
+  .typing-5 { animation: text-fade-delay4 4s infinite step-end; }
+
+  @keyframes text-fade {
+    0%, 100% { opacity: 0; }
+    10% { opacity: 1; }
+  }
+  @keyframes text-fade-delay1 {
+    0%, 30%, 100% { opacity: 0; }
+    35% { opacity: 1; }
+  }
+  @keyframes text-fade-delay2 {
+    0%, 50%, 100% { opacity: 0; }
+    55% { opacity: 1; }
+  }
+  @keyframes text-fade-delay3 {
+    0%, 70%, 100% { opacity: 0; }
+    75% { opacity: 1; }
+  }
+  @keyframes text-fade-delay4 {
+    0%, 90% { opacity: 0; }
+    92%, 100% { opacity: 1; }
+  }
+
+  .browser-mockup {
+    border-radius: 12px;
+    overflow: hidden;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    border-color: rgba(255, 255, 255, 0.05);
+    box-shadow: var(--shadow-md);
+  }
+
+  .browser-header {
+    height: 28px;
+    background: rgba(255, 255, 255, 0.02);
+    display: flex;
+    align-items: center;
+    padding: 0 0.75rem;
+    gap: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .browser-dots {
+    display: flex;
+    gap: 4px;
+  }
+
+  .browser-dots .dot {
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .browser-url {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    background: rgba(0, 0, 0, 0.2);
+    padding: 2px 1rem;
+    border-radius: 4px;
+    flex: 1;
+    max-width: 140px;
+    text-align: center;
+  }
+
+  .browser-content {
+    flex: 1;
+    background: #111215;
+    padding: 1.25rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .preview-site {
+    width: 100%;
+    height: 100%;
+    background: #18191d;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    position: relative;
+    animation: site-refresh 4s infinite ease-in-out;
+  }
+
+  .preview-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    padding-bottom: 4px;
+  }
+
+  .preview-logo {
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .preview-menu-btn {
+    width: 12px;
+    height: 8px;
+    border-top: 2px solid var(--text-secondary);
+    border-bottom: 2px solid var(--text-secondary);
+  }
+
+  .preview-hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 4px;
+  }
+
+  .preview-hero h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .preview-hero p {
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+  }
+
+  .preview-order-btn {
+    margin-top: 4px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    background-color: var(--text-secondary);
+    color: #121316;
+    animation: btn-glow 4s infinite step-end;
+  }
+
+  .preview-cloudflare-badge {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 4px;
+    padding: 2px 4px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 0.55rem;
+    color: var(--color-primary);
+    opacity: 0;
+    animation: badge-reveal 4s infinite step-end;
+  }
+
+  @keyframes btn-glow {
+    0%, 74%, 100% {
+      background-color: var(--text-secondary);
+      box-shadow: none;
+    }
+    75%, 99% {
+      background-color: #ef4444; /* Neon red button requested */
+      color: #fff;
+      box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+    }
+  }
+
+  @keyframes badge-reveal {
+    0%, 91%, 100% { opacity: 0; }
+    92%, 99% { opacity: 1; }
+  }
+
+  @keyframes site-refresh {
+    0%, 90% { transform: scale(1); filter: blur(0); }
+    91% { transform: scale(0.98); filter: blur(2px); }
+    93%, 100% { transform: scale(1); filter: blur(0); }
+  }
+
+  /* Product 2 Simulator (Chatbot & Kanban Dashboard) */
+  .kanban-mockup {
+    border-radius: 12px;
+    overflow: hidden;
+    height: 280px;
+    padding: 1rem;
+    border-color: rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .kanban-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    padding-bottom: 4px;
+  }
+
+  .kanban-columns {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .kanban-col {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .kanban-col h5 {
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 2px;
+  }
+
+  .kanban-card {
+    background: #18191c;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  }
+
+  .kanban-badge {
+    font-size: 0.5rem;
+    font-weight: 700;
+    padding: 1px 4px;
+    border-radius: 4px;
+    width: fit-content;
+  }
+  .bg-whatsapp { background-color: rgba(37, 211, 102, 0.15); color: #25d366; }
+  .bg-emerald { background-color: rgba(16, 185, 129, 0.15); color: #10b981; }
+  .bg-amber { background-color: rgba(217, 119, 6, 0.15); color: #d97706; }
+
+  .kanban-card p {
+    font-size: 0.6rem;
+    color: var(--text-primary);
+  }
+
+  .spreadsheet-sync {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .sync-ping {
+    width: 5px;
+    height: 5px;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    animation: pulse 1s infinite alternate;
+  }
+
+  .status-escalated {
+    animation: card-alert 2s infinite alternate;
+    border-color: rgba(217, 119, 6, 0.2);
+  }
+
+  @keyframes card-alert {
+    0% { box-shadow: 0 0 4px rgba(217, 119, 6, 0.1); }
+    100% { box-shadow: 0 0 10px rgba(217, 119, 6, 0.3); }
+  }
+
+  /* Chat Simulator */
+  .chat-mockup {
+    border-radius: 12px;
+    overflow: hidden;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .chat-header {
+    height: 40px;
+    background: rgba(255, 255, 255, 0.02);
+    display: flex;
+    align-items: center;
+    padding: 0 0.75rem;
+    gap: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .chat-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    font-weight: 700;
+  }
+
+  .chat-user-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chat-username {
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .chat-user-status {
+    font-size: 0.55rem;
+    color: var(--color-primary);
+  }
+
+  .chat-body {
+    flex: 1;
+    background: #0c0d0f;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    overflow-y: hidden;
+  }
+
+  .msg {
+    max-width: 80%;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    line-height: 1.4;
+  }
+
+  .msg-user {
+    align-self: flex-end;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    border-bottom-right-radius: 2px;
+  }
+
+  .msg-bot {
+    align-self: flex-start;
+    background-color: rgba(16, 185, 129, 0.08);
+    color: var(--text-primary);
+    border-bottom-left-radius: 2px;
+    border: 1px solid rgba(16, 185, 129, 0.1);
+  }
+
+  .bot-thinking {
+    font-style: italic;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .bot-thinking::after {
+    content: '...';
+    animation: ellipsis 1.5s infinite;
+  }
+
+  @keyframes ellipsis {
+    0% { content: '.'; }
+    50% { content: '..'; }
+    100% { content: '...'; }
+  }
+
+  /* WhatsApp simulation step animations */
+  .msg-typing-1 { animation: step-thinking 8s infinite step-end; }
+  .msg-response-1 { animation: step-res-1 8s infinite step-end; }
+  .msg-user-2 { animation: step-user-2 8s infinite step-end; }
+  .msg-response-2 { animation: step-res-2 8s infinite step-end; }
+
+  @keyframes step-thinking {
+    0%, 100% { display: none; opacity: 0; }
+    12% { display: flex; opacity: 1; }
+    29% { display: none; opacity: 0; }
+  }
+  @keyframes step-res-1 {
+    0%, 29%, 100% { display: none; opacity: 0; }
+    30%, 54% { display: block; opacity: 1; }
+    55% { display: none; }
+  }
+  @keyframes step-user-2 {
+    0%, 54%, 100% { display: none; opacity: 0; }
+    55%, 74% { display: block; opacity: 1; }
+    75% { display: none; }
+  }
+  @keyframes step-res-2 {
+    0%, 74%, 100% { display: none; opacity: 0; }
+    75%, 99% { display: block; opacity: 1; border-color: rgba(217, 119, 6, 0.2); background-color: rgba(217, 119, 6, 0.05); }
   }
 
   /* Services Section styles */
@@ -434,13 +1128,13 @@ const t = useTranslations(lang);
   .service-icon {
     width: 48px;
     height: 48px;
-    background: linear-gradient(135deg, rgba(0, 242, 254, 0.1), rgba(79, 172, 254, 0.1));
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.08));
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--color-primary);
-    border: 1px solid rgba(0, 242, 254, 0.2);
+    border: 1px solid rgba(16, 185, 129, 0.15);
   }
 
   .service-title {
@@ -529,6 +1223,179 @@ const t = useTranslations(lang);
     color: var(--text-secondary);
     font-size: 1.05rem;
     line-height: 1.7;
+  }
+
+  /* Pricing Section styles */
+  .pricing-grid {
+    margin-top: 2rem;
+  }
+
+  .pricing-card {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    border-color: rgba(16, 185, 129, 0.1);
+  }
+
+  .pricing-badge {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    letter-spacing: 0.05em;
+  }
+
+  .bg-emerald-glow {
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    color: var(--color-primary);
+  }
+
+  .bg-amber-glow {
+    background: rgba(217, 119, 6, 0.08);
+    border: 1px solid rgba(217, 119, 6, 0.15);
+    color: var(--color-accent);
+  }
+
+  .border-amber-glow {
+    border-color: rgba(217, 119, 6, 0.12);
+  }
+  .border-amber-glow:hover {
+    border-color: rgba(217, 119, 6, 0.35);
+    box-shadow: 0 10px 30px -10px rgba(217, 119, 6, 0.1), var(--shadow-lg) !important;
+  }
+
+  .pricing-card-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+  }
+
+  .pricing-card-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .pricing-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 1rem;
+  }
+
+  .pricing-features li {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .pricing-features li strong {
+    color: var(--text-primary);
+  }
+
+  .feat-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+
+  .feat-dot.bg-amber {
+    background-color: var(--color-accent);
+  }
+
+  /* App Download Action Card */
+  .app-download-card {
+    margin-top: 3.5rem;
+    padding: 3rem 2.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .download-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    background: rgba(217, 119, 6, 0.08);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(217, 119, 6, 0.15);
+    letter-spacing: 0.05em;
+  }
+
+  .app-download-card h4 {
+    font-size: 1.75rem;
+    font-weight: 700;
+  }
+
+  .app-download-card p {
+    color: var(--text-secondary);
+    max-width: 600px;
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+
+  .store-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .store-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    transition: all var(--transition-normal);
+  }
+
+  .store-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .store-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.1;
+  }
+
+  .store-sub {
+    font-size: 0.6rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+  }
+
+  .store-main {
+    font-size: 0.95rem;
+    font-weight: 700;
+    font-family: 'Outfit', sans-serif;
   }
 
   /* Contact Section styles */
