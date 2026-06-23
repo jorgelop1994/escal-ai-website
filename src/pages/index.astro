@@ -38,6 +38,45 @@ import MainLayout from '../layouts/MainLayout.astro';
     </div>
   </section>
 
+  <!-- Products Section -->
+  <section id="products" class="products-section section">
+    <div class="container">
+      <h2 class="section-title">Nuestros Productos</h2>
+      <p class="section-subtitle">
+        Desarrollamos soluciones tecnológicas propias diseñadas para automatizar procesos y llevar tus flujos de trabajo al entorno móvil.
+      </p>
+      
+      <div class="grid grid-2">
+        <div class="product-card glass">
+          <div class="product-badge">Próximamente</div>
+          <div class="product-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+              <line x1="12" y1="18" x2="12.01" y2="18"></line>
+            </svg>
+          </div>
+          <h3 class="product-title">Desarrollo y Despliegue Web Móvil</h3>
+          <p class="product-desc">
+            Crea, edita y despliega sitios web rápidos y modernos directamente desde tu dispositivo móvil. Una plataforma diseñada para programar y publicar sin fricciones estés donde estés.
+          </p>
+        </div>
+        
+        <div class="product-card glass">
+          <div class="product-badge">Próximamente</div>
+          <div class="product-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <h3 class="product-title">Agente AI para WhatsApp y Redes Sociales</h3>
+          <p class="product-desc">
+            Tu propio asistente inteligente entrenado con la información de tu negocio. Atiende clientes, responde preguntas frecuentes e interactúa de manera autónoma en canales de chat las 24 horas del día.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Services Section -->
   <section id="services" class="services-section section">
     <div class="container">
@@ -310,6 +349,68 @@ import MainLayout from '../layouts/MainLayout.astro';
     font-size: 0.85rem;
     color: var(--text-secondary);
     line-height: 1.5;
+  }
+
+  /* Products Section styles */
+  .grid-2 {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .product-card {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-badge {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    background: rgba(0, 242, 254, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(0, 242, 254, 0.2);
+    letter-spacing: 0.05em;
+  }
+
+  .product-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, rgba(0, 242, 254, 0.1), rgba(79, 172, 254, 0.1));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    border: 1px solid rgba(0, 242, 254, 0.2);
+  }
+
+  .product-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+  }
+
+  .product-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
   }
 
   /* Services Section styles */
