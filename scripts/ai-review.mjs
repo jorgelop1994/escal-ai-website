@@ -42,37 +42,39 @@ async function main() {
   }
 
   const prompt = `
-Analiza el siguiente git diff de un Pull Request para la web corporativa escal-ai.com.
+Analyze the following git diff of a Pull Request for the corporate website escal-ai.com.
 
-Revisa detalladamente y busca posibles problemas relacionados con:
-1. HTML semántico y accesibilidad (roles ARIA, etiquetas de formulario, contraste básico).
-2. SEO (etiquetas alt en imágenes, jerarquía de títulos h1-h6, meta tags).
-3. Rutas locales o enlaces problemáticos.
-4. Rendimiento y optimización (CSS responsive, JavaScript innecesario).
-5. Calidad del código (duplicidad, código muerto).
-6. Seguridad (detección de contraseñas, secretos, tokens o claves de API expuestas).
+Review the diff in detail and check for:
+1. Semantic HTML & Accessibility (ARIA roles, form labels, focus states, basic color contrast).
+2. SEO (image alt tags, h1-h6 heading hierarchy, metadata).
+3. Local routing or navigation issues.
+4. Performance & Core Web Vitals (responsive CSS, unneeded JavaScript, layout shifts).
+5. Code quality (duplication, dead code, modularity).
+6. Security (exposed API keys, secrets, credentials, passwords).
 
-Clasifica cada uno de los hallazgos en una de estas categorías de severidad:
-- [CRITICAL] Problemas de seguridad graves (como credenciales expuestas) o fallos críticos que rompen la compilación o navegación.
-- [HIGH] Problemas significativos de accesibilidad, SEO básico ausente o malas prácticas estructurales.
-- [MEDIUM] Fallos de maquetación responsive, redundancia de CSS o lógica JavaScript mejorable.
-- [LOW] Fallos menores de consistencia de estilo o código sobrante sin impacto mayor.
-- [SUGGESTION] Oportunidades de mejora, refactorización limpia o comentarios constructivos.
+Output Format Guidelines:
+- The review MUST be in English.
+- Format all findings using the **Conventional Comments** standard (https://conventionalcomments.org/).
+  Each comment should follow the structure:
+  \`<label> [decorations]: <subject>\`
+  - **Labels**: Use \`praise\` (for positive feedback), \`suggestion\` (for improvements), \`issue\` (for bugs or defects), \`question\` (for clarifying queries), or \`thought\` (for general comments).
+  - **Decorations**: Use \`[blocking]\` (for critical issues that must be fixed before merge, such as security secrets or broken builds) or \`[non-blocking]\` (for optional improvements or suggestions).
+  - **Examples**:
+    - \`issue [blocking]: API key is exposed in configuration.\`
+    - \`suggestion [non-blocking]: Consider using <main> tag to improve layout landmark accessibility.\`
+    - \`praise: Excellent work optimizing the hero CSS animation performance.\`
 
-Formato de respuesta:
-Genera un informe directamente en formato Markdown, en español.
-- Sé claro, constructivo y ve directo al grano.
-- Incluye un breve resumen inicial indicando si el PR es seguro de integrar desde la perspectiva de mejores prácticas y seguridad.
-- Si no encuentras ningún problema, felicita al desarrollador indicando que todo se ve excelente.
+- Provide a concise summary at the beginning of the report indicating whether the PR is safe to merge.
+- If no issues are found, congratulate the developer and let them know the PR looks perfect.
 
-Aquí está el Git Diff a revisar:
+Here is the Git Diff to review:
 \`\`\`diff
 ${diffContent}
 \`\`\`
 `;
 
   try {
-    console.log('🤖 Enviando diff a Gemini para revisión automática...');
+    console.warn('🤖 Sending diff to Gemini for automatic review...');
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${apiKey}`,
       {
@@ -106,9 +108,9 @@ ${diffContent}
       throw new Error('Respuesta vacía o formato inesperado de la API de Gemini.');
     }
 
-    console.log('\n--- REPORTE DE REVISIÓN CON IA ---\n');
+    console.warn('\n--- GEMINI AI REVIEW REPORT LOG ---\n');
     console.log(reviewText);
-    console.log('\n---------------------------------\n');
+    console.warn('\n-----------------------------------\n');
   } catch (error) {
     console.warn(`⚠️ Advertencia: Error durante la revisión automática con Gemini API.`);
     console.warn(error.message);
