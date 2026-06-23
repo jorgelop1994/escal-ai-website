@@ -38,6 +38,28 @@
   --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Mascot Theme Variables */
+  --mascot-casing-start: #2a2e3b;
+  --mascot-casing-end: #14161d;
+  --mascot-stroke: #1d222e;
+  --mascot-dark-accent: #16181f;
+  --mascot-joint: #1b1d24;
+  --mascot-screen-bg: #08090c;
+  --mascot-glow-opacity: 0.7;
+
+  /* Mockups & Simulators */
+  --mockup-bg-deep: #0b0c0d;
+  --mockup-bg-medium: #111215;
+  --mockup-bg-light: #18191d;
+  --mockup-bg-darker: rgba(0, 0, 0, 0.2);
+  --mockup-msg-user-bg: rgba(255, 255, 255, 0.05);
+  --mockup-url-bg: rgba(0, 0, 0, 0.2);
+  --mockup-border: rgba(255, 255, 255, 0.05);
+  --mockup-header-bg: rgba(255, 255, 255, 0.02);
+  --mockup-notch: #18191c;
+  --mockup-terminal-text: #f3f3f6;
+  --mockup-terminal-muted: #6b7280;
 }
 
 /* Light Theme Variables Override */
@@ -59,6 +81,28 @@
   --bg-nav-mobile: #ffffff;
   --bg-footer: rgba(241, 245, 249, 0.9);
   --bg-grid-color: rgba(15, 23, 42, 0.04);
+
+  /* Mascot Theme Variables Override */
+  --mascot-casing-start: #ffffff;
+  --mascot-casing-end: #e2e8f0;
+  --mascot-stroke: #cbd5e1;
+  --mascot-dark-accent: #f1f5f9;
+  --mascot-joint: #e2e8f0;
+  --mascot-screen-bg: #0f172a;
+  --mascot-glow-opacity: 1.0;
+
+  /* Mockups & Simulators Override */
+  --mockup-bg-deep: #ffffff;
+  --mockup-bg-medium: #f1f5f9;
+  --mockup-bg-light: #ffffff;
+  --mockup-bg-darker: rgba(15, 23, 42, 0.05);
+  --mockup-msg-user-bg: #f1f5f9;
+  --mockup-url-bg: rgba(15, 23, 42, 0.05);
+  --mockup-border: rgba(15, 23, 42, 0.08);
+  --mockup-header-bg: rgba(15, 23, 42, 0.02);
+  --mockup-notch: #cbd5e1;
+  --mockup-terminal-text: #0f172a;
+  --mockup-terminal-muted: #94a3b8;
 }
 
 * {

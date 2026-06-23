@@ -22,13 +22,13 @@ const viewBox = type === 'head' ? '30 5 180 140' : '30 5 180 290';
     <defs>
       <!-- Gradients -->
       <linearGradient id="headGrad" x1="120" y1="45" x2="120" y2="140" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stop-color="#2a2e3b" />
-        <stop offset="100%" stop-color="#14161d" />
+        <stop offset="0%" stop-color="var(--mascot-casing-start, #2a2e3b)" />
+        <stop offset="100%" stop-color="var(--mascot-casing-end, #14161d)" />
       </linearGradient>
       
       <linearGradient id="bodyGrad" x1="120" y1="154" x2="120" y2="264" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stop-color="#242833" />
-        <stop offset="100%" stop-color="#111319" />
+        <stop offset="0%" stop-color="var(--mascot-casing-start, #242833)" />
+        <stop offset="100%" stop-color="var(--mascot-casing-end, #111319)" />
       </linearGradient>
       
       <linearGradient id="emeraldGrad" x1="80" y1="15" x2="160" y2="15" gradientUnits="userSpaceOnUse">
@@ -71,26 +71,26 @@ const viewBox = type === 'head' ? '30 5 180 140' : '30 5 180 290';
         <!-- Antennae -->
         <g class="mascot-antennae">
           <!-- Stem base -->
-          <ellipse cx="120" cy="45" rx="14" ry="5" fill="#1b1d24" stroke="#1d222e" stroke-width="2" />
+          <ellipse cx="120" cy="45" rx="14" ry="5" fill="var(--mascot-joint, #1b1d24)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="2" />
           <!-- Left Antenna -->
-          <line x1="112" y1="43" x2="85" y2="18" stroke="#4b5263" stroke-width="4.5" stroke-linecap="round" />
+          <line x1="112" y1="43" x2="85" y2="18" stroke="var(--mascot-stroke, #4b5263)" stroke-width="4.5" stroke-linecap="round" />
           <circle cx="85" cy="18" r="8.5" fill="url(#emeraldGrad)" filter="url(#glow)" />
           <!-- Right Antenna -->
-          <line x1="128" y1="43" x2="155" y2="18" stroke="#4b5263" stroke-width="4.5" stroke-linecap="round" />
+          <line x1="128" y1="43" x2="155" y2="18" stroke="var(--mascot-stroke, #4b5263)" stroke-width="4.5" stroke-linecap="round" />
           <circle cx="155" cy="18" r="8.5" fill="url(#emeraldGrad)" filter="url(#glow)" />
         </g>
 
         <!-- Ears / Headphone Cushions -->
-        <rect x="36" y="70" width="18" height="45" rx="7" fill="#16181f" stroke="#10b981" stroke-width="2" />
-        <rect x="186" y="70" width="18" height="45" rx="7" fill="#16181f" stroke="#10b981" stroke-width="2" />
-        <rect x="52" y="80" width="4" height="25" fill="#2d323f" />
-        <rect x="184" y="80" width="4" height="25" fill="#2d323f" />
+        <rect x="36" y="70" width="18" height="45" rx="7" fill="var(--mascot-dark-accent, #16181f)" stroke="#10b981" stroke-width="2" />
+        <rect x="186" y="70" width="18" height="45" rx="7" fill="var(--mascot-dark-accent, #16181f)" stroke="#10b981" stroke-width="2" />
+        <rect x="52" y="80" width="4" height="25" fill="var(--mascot-joint, #2d323f)" />
+        <rect x="184" y="80" width="4" height="25" fill="var(--mascot-joint, #2d323f)" />
 
         <!-- Head Outer Casing -->
-        <rect x="54" y="45" width="132" height="95" rx="28" ry="28" fill="url(#headGrad)" stroke="#1d222e" stroke-width="3" filter="url(#dropShadow)" />
+        <rect x="54" y="45" width="132" height="95" rx="28" ry="28" fill="url(#headGrad)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="3" filter="url(#dropShadow)" />
 
         <!-- Faceplate Inner Screen -->
-        <rect x="64" y="55" width="112" height="75" rx="18" ry="18" fill="#08090c" stroke="#1d222e" stroke-width="1.5" />
+        <rect x="64" y="55" width="112" height="75" rx="18" ry="18" fill="var(--mascot-screen-bg, #08090c)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="1.5" />
 
         <!-- Eyes -->
         <g class="mascot-eyes">
@@ -106,24 +106,24 @@ const viewBox = type === 'head' ? '30 5 180 140' : '30 5 180 290';
       {type === 'full' && (
         <g class="mascot-body-group">
           <!-- Neck -->
-          <rect x="102" y="137" width="36" height="20" rx="3" fill="#16181f" stroke="#1d222e" stroke-width="2" />
+          <rect x="102" y="137" width="36" height="20" rx="3" fill="var(--mascot-dark-accent, #16181f)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="2" />
           
           <!-- Arms -->
           <!-- Left Arm -->
-          <rect x="50" y="175" width="15" height="10" rx="2" fill="#1b1d24" stroke="#1d222e" stroke-width="1.5" />
-          <rect x="42" y="180" width="11" height="52" rx="5" fill="url(#headGrad)" stroke="#1d222e" stroke-width="2" />
-          <circle cx="47.5" cy="236" r="7" fill="#16181f" stroke="#1d222e" stroke-width="1.5" />
+          <rect x="50" y="175" width="15" height="10" rx="2" fill="var(--mascot-joint, #1b1d24)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="1.5" />
+          <rect x="42" y="180" width="11" height="52" rx="5" fill="url(#headGrad)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="2" />
+          <circle cx="47.5" cy="236" r="7" fill="var(--mascot-dark-accent, #16181f)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="1.5" />
           
           <!-- Right Arm -->
-          <rect x="175" y="175" width="15" height="10" rx="2" fill="#1b1d24" stroke="#1d222e" stroke-width="1.5" />
-          <rect x="187" y="180" width="11" height="52" rx="5" fill="url(#headGrad)" stroke="#1d222e" stroke-width="2" />
-          <circle cx="192.5" cy="236" r="7" fill="#16181f" stroke="#1d222e" stroke-width="1.5" />
+          <rect x="175" y="175" width="15" height="10" rx="2" fill="var(--mascot-joint, #1b1d24)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="1.5" />
+          <rect x="187" y="180" width="11" height="52" rx="5" fill="url(#headGrad)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="2" />
+          <circle cx="192.5" cy="236" r="7" fill="var(--mascot-dark-accent, #16181f)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="1.5" />
 
           <!-- Torso Casing -->
-          <rect x="66" y="152" width="108" height="110" rx="32" ry="32" fill="url(#bodyGrad)" stroke="#1d222e" stroke-width="3" filter="url(#dropShadow)" />
+          <rect x="66" y="152" width="108" height="110" rx="32" ry="32" fill="url(#bodyGrad)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="3" filter="url(#dropShadow)" />
 
           <!-- Chest Screen -->
-          <rect x="78" y="170" width="84" height="74" rx="14" ry="14" fill="#08090b" stroke="#1d222e" stroke-width="2" />
+          <rect x="78" y="170" width="84" height="74" rx="14" ry="14" fill="var(--mascot-screen-bg, #08090b)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="2" />
 
           <!-- Ascending Bar Chart (Live pulse / Escalation logo) -->
           <g class="mascot-chest-bars">
@@ -198,6 +198,10 @@ const viewBox = type === 'head' ? '30 5 180 140' : '30 5 180 290';
   }
 
   /* Eye Blinking */
+  .mascot-eye {
+    opacity: var(--mascot-glow-opacity, 0.7);
+    transition: opacity var(--transition-normal);
+  }
   .animated .mascot-eye {
     transform-box: fill-box;
     transform-origin: center;
