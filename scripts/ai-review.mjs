@@ -119,7 +119,7 @@ ${diffContent}
         const data = await response.json();
         reviewText = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
-        if (!reviewText) {
+        if (!reviewText || reviewText.trim() === '') {
           console.warn(`⚠️ Warning: Empty response from model ${model}. Trying fallback...`);
           continue;
         }
@@ -140,7 +140,9 @@ ${diffContent}
     console.log(reviewText);
     console.warn('\n-----------------------------------\n');
 
-    if (reviewText.includes('[blocking]')) {
+    // Use a precise regex to check for actual blocking findings (e.g. "issue [blocking]:") to avoid matching conversational mentions of "[blocking]".
+    const hasBlocking = /(?:^|\n)\s*(?:[-*+]\s+)?(?:issue|suggestion|thought|question|praise)\s+\[\s*blocking\s*\]\s*:/i.test(reviewText);
+    if (hasBlocking) {
       console.error('\n❌ PR Review failed: Gemini detected blocking issues (such as security vulnerabilities or credentials leaks). Please fix them before merging.');
       process.exit(1);
     }
