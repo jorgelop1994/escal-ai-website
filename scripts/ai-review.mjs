@@ -42,7 +42,9 @@ async function main() {
 
   // Check if diff is too large. If it is too large to safely analyze, block the PR to enforce small commits.
   if (diffContent.length > 300000) {
-    console.error('❌ Error: PR diff is too large (> 300,000 characters) to be safely analyzed by the AI. Please split this PR into smaller, modular changes.');
+    const errorMsg = '❌ Error: PR diff is too large (> 300,000 characters) to be safely analyzed by the AI. Please split this PR into smaller, modular changes.';
+    console.log(errorMsg);
+    console.error(errorMsg);
     process.exit(1);
   }
 
@@ -143,7 +145,9 @@ ${diffContent}
     // Use a precise regex to check for actual blocking findings (e.g. "issue [blocking]:") to avoid matching conversational mentions of "[blocking]".
     const hasBlocking = /(?:^|\n)\s*(?:[-*+]\s+)?(?:issue|suggestion|thought|question|praise)\s+\[\s*blocking\s*\]\s*:/i.test(reviewText);
     if (hasBlocking) {
-      console.error('\n❌ PR Review failed: Gemini detected blocking issues (such as security vulnerabilities or credentials leaks). Please fix them before merging.');
+      const errorMsg = '\n❌ PR Review failed: Gemini detected blocking issues (such as security vulnerabilities or credentials leaks). Please fix them before merging.';
+      console.log(errorMsg);
+      console.error(errorMsg);
       process.exit(1);
     }
   } catch (error) {
