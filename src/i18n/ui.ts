@@ -1,0 +1,133 @@
+export const languages = {
+  en: 'EN',
+  es: 'ES',
+};
+
+export const defaultLang = 'en';
+
+export const ui = {
+  en: {
+    // Navigation
+    'nav.services': 'Services',
+    'nav.products': 'Products',
+    'nav.process': 'Process',
+    'nav.about': 'About Us',
+    'nav.contact': 'Contact',
+    // Footer
+    'footer.desc': 'Driving business transformation through strategic AI consulting and custom autonomous agents.',
+    'footer.nav': 'Navigation',
+    'footer.contact': 'Contact',
+    'footer.legal.privacy': 'Privacy',
+    'footer.legal.terms': 'Terms',
+    'footer.bottom': 'All rights reserved.',
+    // Hero
+    'hero.title.1': 'Automate and ',
+    'hero.title.highlight': 'scale',
+    'hero.title.2': ' your business with Artificial Intelligence',
+    'hero.subtitle': 'We design AI strategies and develop custom autonomous agents tailored to your company\'s workflows. Increase efficiency, eliminate repetitive tasks, and make data-driven decisions.',
+    'hero.btn.services': 'View Services',
+    'hero.btn.contact': 'Schedule a Call',
+    'hero.card.tag': 'AI Agent Status',
+    'hero.card.status': 'Analyzing workflows...',
+    'hero.card.desc': 'Integrating LLMs and automating internal operations pipelines securely.',
+    // Products
+    'products.title': 'Our Products',
+    'products.subtitle': 'We develop custom technology solutions designed to automate processes and take your workflows mobile.',
+    'products.tag': 'Coming Soon',
+    'products.p1.title': 'Mobile Web Development & Deployment',
+    'products.p1.desc': 'Create, edit, and deploy fast, modern websites directly from your mobile device. A platform designed to code and publish friction-free wherever you are.',
+    'products.p2.title': 'AI Agent for WhatsApp & Social Media',
+    'products.p2.desc': 'Your own intelligent assistant trained with your business knowledge. Serve customers, answer FAQs, and interact autonomously on chat channels 24/7.',
+    // Services
+    'services.title': 'Our Services',
+    'services.subtitle': 'Artificial Intelligence solutions that generate real business value immediately.',
+    'services.s1.title': 'AI Strategy Consulting',
+    'services.s1.desc': 'We assess your current workflows, identify bottlenecks and key integration opportunities, and design a customized technology adoption roadmap.',
+    'services.s2.title': 'Custom Autonomous Agents',
+    'services.s2.desc': 'We develop specialized virtual assistants and AI agents to automate customer service, report generation, operations, and complex data analysis.',
+    'services.s3.title': 'Model Integration (LLMs)',
+    'services.s3.desc': 'We connect advanced language models (GPT-4, Claude, Gemini) with your databases, APIs, and communication tools (Slack, WhatsApp, CRM) guaranteeing data privacy.',
+    // Process
+    'process.title': 'How We Work',
+    'process.subtitle': 'A transparent, iterative, and agile process oriented to achieve measurable business results in the shortest time.',
+    'process.step1.title': 'Discovery & Audit',
+    'process.step1.desc': 'We analyze your team\'s operations and workflows to pinpoint the most repetitive and costly tasks where AI will have the highest ROI.',
+    'process.step2.title': 'Rapid Prototyping',
+    'process.step2.desc': 'We design and develop a functional MVP (Minimum Viable Product) in a few weeks to validate technical feasibility and ensure it solves the target problem.',
+    'process.step3.title': 'Deployment & Optimization',
+    'process.step3.desc': 'We deploy the agent or integration in production in secure, monitored environments, providing additional training and continuous optimization based on usage.',
+    // About
+    'about.title.1': 'About ',
+    'about.title.2': 'escal-ai',
+    'about.text.1': 'We are a team specialized in demystifying Artificial Intelligence for businesses. We don\'t sell hype or empty promises: we analyze your business reality and create practical technology that saves time and money.',
+    'about.text.2': 'We believe in iterative development and building long-term relationships with our corporate partners, acting as the expert tech arm of their business transformation.',
+    // Contact
+    'contact.title': 'Boost your business today',
+    'contact.subtitle': 'Do you have a process that consumes too much time or want to explore how AI can help you grow? Let\'s talk.',
+    'contact.card.title': 'Let\'s talk about your project',
+    'contact.card.desc': 'Tell us briefly about your needs and we will get back to you in less than 24 hours.',
+    'contact.card.btn': 'Email us at info@escal-ai.com',
+  },
+  es: {
+    // Navigation
+    'nav.services': 'Servicios',
+    'nav.products': 'Productos',
+    'nav.process': 'Proceso',
+    'nav.about': 'Nosotros',
+    'nav.contact': 'Contacto',
+    // Footer
+    'footer.desc': 'Impulsando la transformación de negocios mediante consultoría de Inteligencia Artificial estratégica y desarrollo de agentes autónomos a medida.',
+    'footer.nav': 'Navegación',
+    'footer.contact': 'Contacto',
+    'footer.legal.privacy': 'Privacidad',
+    'footer.legal.terms': 'Términos',
+    'footer.bottom': 'Todos los derechos reservados.',
+    // Hero
+    'hero.title.1': 'Automatiza y ',
+    'hero.title.highlight': 'escala',
+    'hero.title.2': ' tu negocio con Inteligencia Artificial',
+    'hero.subtitle': 'Diseñamos estrategias de IA y desarrollamos agentes autónomos adaptados a los flujos de trabajo de tu empresa. Aumenta la eficiencia, elimina tareas repetitivas y toma decisiones basadas en datos.',
+    'hero.btn.services': 'Ver Servicios',
+    'hero.btn.contact': 'Agenda una consulta',
+    'hero.card.tag': 'Estado del Agente AI',
+    'hero.card.status': 'Analizando procesos...',
+    'hero.card.desc': 'Integrando LLMs y automatizando flujos de operaciones internas de forma segura.',
+    // Products
+    'products.title': 'Nuestros Productos',
+    'products.subtitle': 'Desarrollamos soluciones tecnológicas propias diseñadas para automatizar procesos y llevar tus flujos de trabajo al entorno móvil.',
+    'products.tag': 'Próximamente',
+    'products.p1.title': 'Desarrollo y Despliegue Web Móvil',
+    'products.p1.desc': 'Crea, edita y despliega sitios web rápidos y modernos directamente desde tu dispositivo móvil. Una plataforma diseñada para programar y publicar sin fricciones estés donde estés.',
+    'products.p2.title': 'Agente AI para WhatsApp y Redes Sociales',
+    'products.p2.desc': 'Tu propio asistente inteligente entrenado con la información de tu negocio. Atiende clientes, responde preguntas frecuentes e interactúa de manera autónoma en canales de chat las 24 horas del día.',
+    // Services
+    'services.title': 'Nuestros Servicios',
+    'services.subtitle': 'Soluciones de Inteligencia Artificial que generan valor real para tu organización de forma inmediata.',
+    'services.s1.title': 'Consultoría de Estrategia AI',
+    'services.s1.desc': 'Evaluamos tu flujo de trabajo actual, identificamos cuellos de botella y oportunidades clave de integración, y diseñamos una hoja de ruta de adopción tecnológica adaptada a tu presupuesto.',
+    'services.s2.title': 'Agentes Autónomos a Medida',
+    'services.s2.desc': 'Desarrollamos asistentes virtuales y agentes AI especializados para automatizar la atención a clientes, la generación de informes, operaciones internas y análisis de información compleja.',
+    'services.s3.title': 'Integración de Modelos (LLMs)',
+    'services.s3.desc': 'Conectamos modelos de lenguaje avanzados (GPT-4, Claude, Gemini) con tus bases de datos, APIs y herramientas de comunicación (Slack, WhatsApp, CRM) garantizando la privacidad de tus datos.',
+    // Process
+    'process.title': 'Cómo Trabajamos',
+    'process.subtitle': 'Un proceso transparente, iterativo y ágil orientado a conseguir resultados de negocio medibles en el menor tiempo.',
+    'process.step1.title': 'Descubrimiento y Auditoría',
+    'process.step1.desc': 'Analizamos las operaciones y flujos de trabajo de tu equipo para encontrar las tareas más costosas y repetitivas donde la IA tendrá mayor retorno de inversión (ROI).',
+    'process.step2.title': 'Prototipado Rápido',
+    'process.step2.desc': 'Diseñamos y desarrollamos un MVP (Mínimo Producto Viable) funcional en pocas semanas para validar la viabilidad técnica y asegurar que solucione el problema planteado.',
+    'process.step3.title': 'Despliegue y Optimización',
+    'process.step3.desc': 'Desplegamos el agente o la integración en producción en entornos seguros y monitorizados, realizando entrenamientos adicionales y mejoras continuas basadas en su uso.',
+    // About
+    'about.title.1': 'Sobre ',
+    'about.title.2': 'escal-ai',
+    'about.text.1': 'Somos un equipo especializado en desmitificar la Inteligencia Artificial para las empresas. No vendemos humo ni promesas vacías: analizamos la realidad de tu negocio y creamos tecnología práctica que ahorra tiempo y dinero.',
+    'about.text.2': 'Creemos en el desarrollo iterativo y en la construcción de relaciones a largo plazo con nuestros partners corporativos, actuando como el brazo tecnológico experto de su transformación empresarial.',
+    // Contact
+    'contact.title': 'Impulsa tu negocio hoy',
+    'contact.subtitle': '¿Tienes un proceso que consume demasiado tiempo o quieres explorar cómo la IA puede ayudarte a crecer? Contáctanos.',
+    'contact.card.title': 'Hablemos de tu proyecto',
+    'contact.card.desc': 'Cuéntanos brevemente tus necesidades y nos pondremos en contacto contigo en menos de 24 horas.',
+    'contact.card.btn': 'Escríbenos a info@escal-ai.com',
+  },
+} as const;

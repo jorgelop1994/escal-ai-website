@@ -2,20 +2,27 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import type { ui } from '../i18n/ui';
 
 interface Props {
   title?: string;
   description?: string;
+  lang?: keyof typeof ui;
 }
 
 const { 
-  title = "escal-ai | Consultoría de Inteligencia Artificial y Agentes Autónomos", 
-  description = "Acompañamos a tu empresa en la transformación digital mediante consultoría estratégica de Inteligencia Artificial y desarrollo de agentes inteligentes a medida."
+  lang = 'en',
+  title = lang === 'es' 
+    ? "escal-ai | Consultoría de Inteligencia Artificial y Agentes Autónomos" 
+    : "escal-ai | Artificial Intelligence Consulting & Autonomous Agents", 
+  description = lang === 'es' 
+    ? "Acompañamos a tu empresa en la transformación digital mediante consultoría estratégica de Inteligencia Artificial y desarrollo de agentes inteligentes a medida."
+    : "We guide your business through digital transformation with strategic AI consulting and custom autonomous intelligent agents."
 } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -43,11 +50,11 @@ const {
     <meta property="twitter:description" content={description} />
   </head>
   <body>
-    <Header />
+    <Header lang={lang} />
     <main id="main-content" class="main-content">
       <slot />
     </main>
-    <Footer />
+    <Footer lang={lang} />
   </body>
 </html>
 

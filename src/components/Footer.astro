@@ -1,42 +1,52 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { useTranslations } from '../i18n/utils';
+import type { ui } from '../i18n/ui';
+
+interface Props {
+  lang: keyof typeof ui;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 const currentYear = new Date().getFullYear();
 ---
 <footer class="footer">
   <div class="container footer-grid">
     <div class="footer-brand">
-      <a href="/" class="logo" aria-label="escal-ai home">
+      <a href={getRelativeLocaleUrl(lang, '/')} class="logo" aria-label="escal-ai home">
         <span class="logo-accent">escal</span><span class="logo-dot">-ai</span>
       </a>
       <p class="brand-description">
-        Impulsando la transformación de negocios mediante consultoría de Inteligencia Artificial estratégica y desarrollo de agentes autónomos a medida.
+        {t('footer.desc')}
       </p>
     </div>
     
     <div class="footer-links-group">
-      <h3 class="footer-heading">Navegación</h3>
+      <h3 class="footer-heading">{t('footer.nav')}</h3>
       <ul class="footer-links">
-        <li><a href="#products">Productos</a></li>
-        <li><a href="#services">Servicios</a></li>
-        <li><a href="#process">Nuestro Proceso</a></li>
-        <li><a href="#about">Nosotros</a></li>
+        <li><a href={getRelativeLocaleUrl(lang, '#products')}>{t('nav.products')}</a></li>
+        <li><a href={getRelativeLocaleUrl(lang, '#services')}>{t('nav.services')}</a></li>
+        <li><a href={getRelativeLocaleUrl(lang, '#process')}>{t('nav.process')}</a></li>
+        <li><a href={getRelativeLocaleUrl(lang, '#about')}>{t('nav.about')}</a></li>
       </ul>
     </div>
     
     <div class="footer-links-group">
-      <h3 class="footer-heading">Contacto</h3>
+      <h3 class="footer-heading">{t('footer.contact')}</h3>
       <ul class="footer-links">
         <li><a href="mailto:info@escal-ai.com">info@escal-ai.com</a></li>
-        <li><span class="footer-text">Barcelona, España</span></li>
+        <li><span class="footer-text">Barcelona, Spain</span></li>
       </ul>
     </div>
   </div>
   
   <div class="footer-bottom">
     <div class="container footer-bottom-container">
-      <p>&copy; {currentYear} escal-ai. Todos los derechos reservados.</p>
+      <p>&copy; {currentYear} escal-ai. {t('footer.bottom')}</p>
       <div class="footer-legal">
-        <a href="#privacy">Privacidad</a>
-        <a href="#terms">Términos</a>
+        <a href="#privacy">{t('footer.legal.privacy')}</a>
+        <a href="#terms">{t('footer.legal.terms')}</a>
       </div>
     </div>
   </div>
