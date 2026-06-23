@@ -1,43 +1,42 @@
-# Astro Starter Kit: Minimal
+# escal-ai-website
 
-```sh
-npm create astro@latest -- --template minimal
+Sitio web corporativo de [escal-ai.com](https://escal-ai.com).
+
+## Stack Tecnológico
+
+- **Framework**: Astro (como generador de sitios estáticos).
+- **Estilos y Scripts**: CSS Vanilla y JavaScript nativo mínimo (sin React, Vue ni Tailwind CSS).
+- **Despliegue**: Cloudflare Pages (integración automática de Git).
+- **CI/CD**: GitHub Actions para validaciones automáticas y revisión de Pull Requests con Gemini API.
+
+## Comandos de Desarrollo
+
+Ejecuta todos los comandos desde la raíz del proyecto:
+
+```bash
+# Instalar dependencias
+npm install
+
+# Iniciar el servidor de desarrollo local (en http://localhost:4321)
+npm run dev
+
+# Ejecutar el analizador estático y verificación de tipos (Astro Check)
+npm run check
+
+# Compilar el sitio estático para producción (salida en ./dist/)
+npm run build
+
+# Previsualizar el build de producción localmente antes de desplegar
+npm run preview
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Flujo de Trabajo (Git Flow)
 
-## 🚀 Project Structure
+Para mantener la estabilidad de la rama principal (`main`), se aplican las siguientes reglas:
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+1. **Ramas**: No está permitido hacer `push` directo a `main`. Crea siempre una rama de trabajo:
+   - `feature/nombre-del-cambio` para nuevas características.
+   - `fix/nombre-del-cambio` para correcciones.
+2. **Pull Requests**: Abre un PR hacia `main` para integrar tus cambios.
+3. **Validación**: Cada PR ejecuta la acción de CI/CD que instala dependencias, corre `astro check` y compila el sitio. Adicionalmente, la Gemini API realiza una revisión automática del código modificado.
+4. **Fusión**: Utiliza **Squash and Merge** y elimina la rama de trabajo tras completar la integración.
