@@ -75,7 +75,7 @@ const t = useTranslations(lang);
           </div>
           
           <!-- Interactive Web Simulator -->
-          <div class="simulator-wrapper web-simulator">
+          <div class="simulator-wrapper web-simulator" role="region" aria-label={lang === 'es' ? "Simulador interactivo de creación de web móvil" : "Interactive mobile web builder simulator"}>
             <div class="phone-mockup glass">
               <div class="phone-header">
                 <span class="phone-notch"></span>
@@ -142,7 +142,7 @@ const t = useTranslations(lang);
           </div>
           
           <!-- Interactive Chatbot Simulator -->
-          <div class="simulator-wrapper bot-simulator">
+          <div class="simulator-wrapper bot-simulator" role="region" aria-label={lang === 'es' ? "Simulador interactivo de operaciones del agente de chat" : "Interactive chat agent operations simulator"}>
             <!-- Kanban operations tracking -->
             <div class="kanban-mockup glass">
               <h4 class="kanban-title">Agent Operations</h4>
@@ -333,6 +333,9 @@ const t = useTranslations(lang);
               </div>
             </li>
           </ul>
+          <div class="pricing-action">
+            <a href="#contact" class="btn btn-secondary pricing-btn">{t('pricing.cta')}</a>
+          </div>
         </div>
 
         <!-- Column 2: Rent-An-Agent Developer Subscription -->
@@ -355,6 +358,9 @@ const t = useTranslations(lang);
               </div>
             </li>
           </ul>
+          <div class="pricing-action">
+            <a href="#contact" class="btn btn-primary pricing-btn">{t('pricing.cta')}</a>
+          </div>
         </div>
       </div>
 
@@ -1337,6 +1343,7 @@ const t = useTranslations(lang);
     flex-direction: column;
     gap: 1.25rem;
     margin-top: 1rem;
+    flex-grow: 1;
   }
 
   .pricing-features li {
@@ -1362,6 +1369,17 @@ const t = useTranslations(lang);
 
   .feat-dot.bg-amber {
     background-color: var(--color-accent);
+  }
+
+  .pricing-action {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: stretch;
+  }
+
+  .pricing-btn {
+    width: 100%;
+    justify-content: center;
   }
 
   /* App Download Action Card */

@@ -33,9 +33,21 @@ const t = useTranslations(lang);
 
     <div class="header-actions">
       <div class="lang-switcher">
-        <a href="/" class={lang === 'en' ? "lang-btn active" : "lang-btn"} aria-label="Switch to English">EN</a>
+        <a 
+          href="/" 
+          class={lang === 'en' ? "lang-btn active" : "lang-btn"} 
+          aria-label="Switch to English"
+          aria-current={lang === 'en' ? "page" : undefined}
+          aria-disabled={lang === 'en' ? "true" : undefined}
+        >EN</a>
         <span class="lang-divider">/</span>
-        <a href="/es/" class={lang === 'es' ? "lang-btn active" : "lang-btn"} aria-label="Switch to Spanish">ES</a>
+        <a 
+          href="/es/" 
+          class={lang === 'es' ? "lang-btn active" : "lang-btn"} 
+          aria-label="Switch to Spanish"
+          aria-current={lang === 'es' ? "page" : undefined}
+          aria-disabled={lang === 'es' ? "true" : undefined}
+        >ES</a>
       </div>
       <button id="theme-toggle" class="theme-toggle" aria-label="Toggle visual theme" title="Toggle theme">
         <svg class="sun-icon" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

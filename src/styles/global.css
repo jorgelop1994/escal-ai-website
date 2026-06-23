@@ -341,3 +341,12 @@ a {
   outline: 2px solid var(--color-primary);
   outline-offset: 4px;
 }
+
+/* Interactive Element Focus States */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.store-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
