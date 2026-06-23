@@ -103,11 +103,13 @@ jobs:
             
             // Find existing review comment by the bot
             const botComment = comments.find(comment => 
-              comment.user.type === 'Bot' && 
-              comment.body.includes('Reporte de Revisión - escal-ai')
+              comment.user &&
+              (comment.user.type === 'Bot' || comment.user.login.includes('github-actions')) &&
+              comment.body && 
+              comment.body.includes('AI Review Report - escal-ai')
             );
             
-            const commentBody = `### 🤖 Reporte de Revisión - escal-ai\n\n${review}`;
+            const commentBody = `### 🤖 AI Review Report - escal-ai\n\n${review}`;
             
             if (botComment) {
               await github.rest.issues.updateComment({

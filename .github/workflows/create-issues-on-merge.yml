@@ -1,7 +1,7 @@
 name: Create Issues from AI Review on Merge
 
 on:
-  pull_request:
+  pull_request_target:
     types: [closed]
     branches:
       - main
@@ -32,14 +32,22 @@ jobs:
               issue_number: prNumber,
             });
 
-            // 2. Find the comment authored by the bot containing the AI Review report
+            console.log(`Found ${comments.length} comments on PR #${prNumber}:`);
+            for (const comment of comments) {
+              const author = comment.user ? `${comment.user.login} (${comment.user.type})` : 'unknown';
+              console.log(`- Comment by ${author}: "${comment.body ? comment.body.substring(0, 50).replace(/\n/g, ' ') : ''}..."`);
+            }
+
+            // 2. Find the comment containing the AI Review report
             const aiReviewComment = comments.find(comment => 
-              comment.user.type === 'Bot' && 
-              comment.body.includes('Reporte de Revisión - escal-ai')
+              comment.user &&
+              (comment.user.type === 'Bot' || comment.user.login.includes('github-actions')) &&
+              comment.body && 
+              comment.body.includes('AI Review Report - escal-ai')
             );
 
             if (!aiReviewComment) {
-              console.log('No AI review comment found. Skipping issue creation.');
+              console.log('No AI review comment matching "AI Review Report - escal-ai" was found. Skipping issue creation.');
               return;
             }
 
