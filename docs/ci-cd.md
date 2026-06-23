@@ -17,8 +17,13 @@ graph TD
     C1 -- Falla --x D[Fusión Bloqueada]
     C1 -- Éxito --> E[Aprobación del PR]
     E --> F[Merge a rama 'main']
+    
     F --> G[Cloudflare Pages: Auto Build]
     G --> H[Despliegue Exitoso a Producción]
+    
+    F --> I[GitHub Actions: AI Review Auto-Issues]
+    I --> I1[Parsear comentarios del Bot en PR]
+    I1 --> I2[Crear GitHub Issues para 'non-blocking']
 ```
 
 ---
@@ -63,6 +68,24 @@ Para evitar compilaciones innecesarias de ramas en desarrollo y mantener el fluj
 2. **Despliegues de Vista Previa (Desactivados)**:
    * **Opción (Preview branch)**: `None (Disable automatic branch deployments)`.
    * **Acción**: Cloudflare **no** compilará vistas previas temporales para los PRs. La verificación de los PRs se hace de forma exclusiva a través de los tests de GitHub Actions.
+
+---
+
+## 3. Creación Automática de Issues (Al fusionar PRs)
+
+Para asegurar que las sugerencias de la IA no se pierdan en el historial del PR, se ejecuta un workflow automatizado definido en [.github/workflows/create-issues-on-merge.yml](file:///Users/george/Documents/development/escal-ai-website/.github/workflows/create-issues-on-merge.yml) cuando se completa la fusión.
+
+### Disparadores (Triggers)
+* **Evento**: `pull_request` (tipo: `closed`).
+* **Condición**: El PR debe haber sido fusionado (`merged: true`) en la rama `main`.
+
+### Flujo del Proceso
+1. **Búsqueda del Reporte**: El script lee todos los comentarios del PR buscando el comentario del bot (`🤖 Reporte de Revisión - escal-ai`).
+2. **Extracción y Limpieza**: Utiliza una expresión regular para identificar todos los bloques marcados como `suggestion [non-blocking]` o `issue [non-blocking]`.
+3. **Creación en GitHub**: Para cada coincidencia, crea un nuevo GitHub Issue:
+   * **Título**: Limpia caracteres especiales y resume la sugerencia a 60 caracteres.
+   * **Cuerpo**: Detalla el feedback del bot y enlaza al PR de origen.
+   * **Etiquetas**: Asigna etiquetas descriptivas: `ai-review`, `non-blocking`, y `bug` (para issues) o `enhancement` (para sugerencias).
 
 ---
 
