@@ -80,6 +80,7 @@ export const ui = {
     'pricing.download.appstore.main': 'App Store',
     'pricing.download.playstore.sub': 'Coming soon to',
     'pricing.download.playstore.main': 'Google Play',
+    'pricing.cta': 'Inquire About Plan',
     // Contact
     'contact.title': 'Boost your business today',
     'contact.subtitle': 'Do you have a process that consumes too much time or want to explore how AI can help you grow? Let\'s talk.',
@@ -163,6 +164,7 @@ export const ui = {
     'pricing.download.appstore.main': 'App Store',
     'pricing.download.playstore.sub': 'Próximamente en',
     'pricing.download.playstore.main': 'Google Play',
+    'pricing.cta': 'Consultar Plan',
     // Contact
     'contact.title': 'Impulsa tu negocio hoy',
     'contact.subtitle': '¿Tienes un proceso que consume demasiado tiempo o quieres explorar cómo la IA puede ayudarte a crecer? Contáctanos.',
