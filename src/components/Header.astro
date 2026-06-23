@@ -2,6 +2,7 @@
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { useTranslations } from '../i18n/utils';
 import type { ui } from '../i18n/ui';
+import Mascot from './Mascot.astro';
 
 interface Props {
   lang: keyof typeof ui;
@@ -13,7 +14,10 @@ const t = useTranslations(lang);
 <header class="header">
   <div class="container header-container">
     <a href={getRelativeLocaleUrl(lang, '/')} class="logo" aria-label="escal-ai home">
-      <span class="logo-accent">escal</span><span class="logo-dot">-ai</span>
+      <Mascot type="head" size="small" animated={false} className="logo-icon" />
+      <span class="logo-text">
+        <span class="logo-accent">escal</span><span class="logo-dot">-ai</span>
+      </span>
     </a>
     
     <nav class="nav" id="navigation-menu" aria-label="Primary Navigation">
@@ -33,6 +37,22 @@ const t = useTranslations(lang);
         <span class="lang-divider">/</span>
         <a href="/es/" class={lang === 'es' ? "lang-btn active" : "lang-btn"} aria-label="Switch to Spanish">ES</a>
       </div>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle visual theme" title="Toggle theme">
+        <svg class="sun-icon" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
       <a href={getRelativeLocaleUrl(lang, '#contact')} class="btn btn-primary nav-btn-desktop">{t('nav.contact')}</a>
       <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="navigation-menu" aria-label="Toggle navigation menu">
         <svg class="hamburger" viewBox="0 0 100 100" width="30" height="30">
@@ -52,7 +72,7 @@ const t = useTranslations(lang);
     left: 0;
     width: 100%;
     z-index: 100;
-    background: rgba(14, 15, 17, 0.7);
+    background: var(--bg-header);
     backdrop-filter: var(--backdrop-blur);
     -webkit-backdrop-filter: var(--backdrop-blur);
     border-bottom: 1px solid var(--border-color);
@@ -72,6 +92,7 @@ const t = useTranslations(lang);
     letter-spacing: -0.03em;
     display: flex;
     align-items: center;
+    gap: 0.5rem;
   }
 
   .logo-accent {
@@ -168,7 +189,7 @@ const t = useTranslations(lang);
       top: 4.5rem;
       left: 0;
       width: 100%;
-      background: #0e0f11;
+      background: var(--bg-nav-mobile);
       border-bottom: 1px solid var(--border-color);
       max-height: 0;
       overflow: hidden;
@@ -241,26 +262,92 @@ const t = useTranslations(lang);
   .lang-divider {
     color: var(--text-muted);
   }
+
+  /* Theme Switcher Styles */
+  .theme-toggle {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+    outline: none;
+  }
+
+  .theme-toggle:hover,
+  .theme-toggle:focus {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+  }
+
+  .theme-toggle:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  :global([data-theme="light"]) .theme-toggle:hover,
+  :global([data-theme="light"]) .theme-toggle:focus {
+    background: rgba(15, 23, 42, 0.05);
+  }
+
+  .sun-icon {
+    display: none;
+  }
+  .moon-icon {
+    display: block;
+  }
+
+  :global([data-theme="light"]) .sun-icon {
+    display: block;
+  }
+  :global([data-theme="light"]) .moon-icon {
+    display: none;
+  }
 </style>
 
 <script>
-  const menuToggle = document.getElementById('menu-toggle');
-  const navMenu = document.getElementById('navigation-menu');
+  function initHeader() {
+    const menuToggle = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('navigation-menu');
 
-  if (menuToggle && navMenu) {
-    menuToggle.addEventListener('click', () => {
-      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-      menuToggle.setAttribute('aria-expanded', String(!isExpanded));
-      navMenu.classList.toggle('is-open');
-    });
-
-    // Close menu when clicking links
-    const navLinks = navMenu.querySelectorAll('a');
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        menuToggle.setAttribute('aria-expanded', 'false');
-        navMenu.classList.remove('is-open');
+    if (menuToggle && navMenu && !menuToggle.dataset.headerInitialized) {
+      menuToggle.dataset.headerInitialized = 'true';
+      menuToggle.addEventListener('click', () => {
+        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+        navMenu.classList.toggle('is-open');
       });
-    });
+
+      // Close menu when clicking links
+      const navLinks = navMenu.querySelectorAll('a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          menuToggle.setAttribute('aria-expanded', 'false');
+          navMenu.classList.remove('is-open');
+        });
+      });
+    }
+
+    // Theme Switcher Logic
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle && !themeToggle.dataset.themeInitialized) {
+      themeToggle.dataset.themeInitialized = 'true';
+      themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+      });
+    }
   }
+
+  // Run on initial load
+  initHeader();
+
+  // Run on page change when Astro View Transitions are active
+  document.addEventListener('astro:page-load', initHeader);
 </script>

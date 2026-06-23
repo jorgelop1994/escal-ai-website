@@ -2,6 +2,7 @@
 import MainLayout from '../layouts/MainLayout.astro';
 import { useTranslations } from '../i18n/utils';
 import type { ui } from '../i18n/ui';
+import Mascot from './Mascot.astro';
 
 interface Props {
   lang: keyof typeof ui;
@@ -31,6 +32,9 @@ const t = useTranslations(lang);
         <div class="visual-blob">
           <div class="glow-orb border-glow"></div>
           <div class="glow-orb inner-glow"></div>
+          <div class="mascot-hero-wrapper">
+            <Mascot type="full" size="large" animated={true} />
+          </div>
           <div class="visual-card glass">
             <span class="card-tag">{t('hero.card.tag')}</span>
             <div class="card-status-row">
@@ -408,6 +412,23 @@ const t = useTranslations(lang);
 </MainLayout>
 
 <style>
+  /* Ambient Background Glows */
+  .products-section {
+    background-image: radial-gradient(circle at 85% 40%, rgba(16, 185, 129, 0.05) 0%, transparent 65%);
+  }
+  .services-section {
+    background-image: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.02) 0%, transparent 50%);
+  }
+  .process-section {
+    background-image: radial-gradient(circle at 15% 45%, rgba(217, 119, 6, 0.04) 0%, transparent 65%);
+  }
+  .pricing-section {
+    background-image: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.04) 0%, transparent 65%);
+  }
+  .contact-section {
+    background-image: radial-gradient(circle at 50% 100%, rgba(217, 119, 6, 0.05) 0%, transparent 65%);
+  }
+
   /* Hero Section styles */
   .hero-container {
     display: grid;
@@ -493,13 +514,30 @@ const t = useTranslations(lang);
     opacity: 0.25;
   }
 
+  .mascot-hero-wrapper {
+    position: absolute;
+    z-index: 3;
+    top: -20px;
+  }
+
   .visual-card {
-    position: relative;
-    z-index: 2;
+    position: absolute;
+    bottom: -30px;
+    right: -40px;
+    z-index: 4;
     padding: 1.75rem;
-    width: 260px;
+    width: 240px;
     text-align: left;
     border-color: rgba(16, 185, 129, 0.15);
+  }
+
+  @media (max-width: 768px) {
+    .visual-card {
+      bottom: -40px;
+      right: -10px;
+      width: 200px;
+      padding: 1.25rem;
+    }
   }
 
   .card-tag {
@@ -657,7 +695,7 @@ const t = useTranslations(lang);
   /* Product 1 Simulator (Web Builder) */
   .phone-mockup {
     border-radius: 24px;
-    border-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--mockup-border);
     overflow: hidden;
     height: 280px;
     display: flex;
@@ -667,7 +705,7 @@ const t = useTranslations(lang);
 
   .phone-header {
     height: 20px;
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--mockup-header-bg);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -676,7 +714,7 @@ const t = useTranslations(lang);
   .phone-notch {
     width: 60px;
     height: 8px;
-    background: #18191c;
+    background: var(--mockup-notch, #18191c);
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
   }
@@ -684,7 +722,7 @@ const t = useTranslations(lang);
   .phone-content {
     flex: 1;
     padding: 1rem;
-    background: #0b0c0d;
+    background: var(--mockup-bg-deep);
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -694,7 +732,7 @@ const t = useTranslations(lang);
     display: flex;
     align-items: center;
     gap: 4px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid var(--mockup-border);
     padding-bottom: 4px;
   }
 
@@ -709,6 +747,7 @@ const t = useTranslations(lang);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    color: var(--mockup-terminal-text);
   }
 
   /* Simulated typing animations */
@@ -745,18 +784,18 @@ const t = useTranslations(lang);
     height: 280px;
     display: flex;
     flex-direction: column;
-    border-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--mockup-border);
     box-shadow: var(--shadow-md);
   }
 
   .browser-header {
     height: 28px;
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--mockup-header-bg);
     display: flex;
     align-items: center;
     padding: 0 0.75rem;
     gap: 0.75rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid var(--mockup-border);
   }
 
   .browser-dots {
@@ -767,13 +806,14 @@ const t = useTranslations(lang);
   .browser-dots .dot {
     width: 5px;
     height: 5px;
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--text-muted);
+    opacity: 0.5;
   }
 
   .browser-url {
     font-size: 0.65rem;
-    color: var(--text-muted);
-    background: rgba(0, 0, 0, 0.2);
+    color: var(--text-secondary);
+    background: var(--mockup-url-bg);
     padding: 2px 1rem;
     border-radius: 4px;
     flex: 1;
@@ -783,7 +823,7 @@ const t = useTranslations(lang);
 
   .browser-content {
     flex: 1;
-    background: #111215;
+    background: var(--mockup-bg-medium);
     padding: 1.25rem;
     position: relative;
     display: flex;
@@ -794,8 +834,8 @@ const t = useTranslations(lang);
   .preview-site {
     width: 100%;
     height: 100%;
-    background: #18191d;
-    border: 1px solid rgba(255, 255, 255, 0.04);
+    background: var(--mockup-bg-light);
+    border: 1px solid var(--mockup-border);
     border-radius: 8px;
     padding: 0.75rem;
     display: flex;
@@ -904,7 +944,7 @@ const t = useTranslations(lang);
     overflow: hidden;
     height: 280px;
     padding: 1rem;
-    border-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--mockup-border);
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -913,7 +953,7 @@ const t = useTranslations(lang);
   .kanban-title {
     font-size: 0.85rem;
     font-weight: 700;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid var(--mockup-border);
     padding-bottom: 4px;
   }
 
@@ -925,7 +965,7 @@ const t = useTranslations(lang);
   }
 
   .kanban-col {
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--mockup-bg-darker);
     border-radius: 8px;
     padding: 0.5rem;
     display: flex;
@@ -942,14 +982,14 @@ const t = useTranslations(lang);
   }
 
   .kanban-card {
-    background: #18191c;
-    border: 1px solid rgba(255, 255, 255, 0.03);
+    background: var(--mockup-bg-light);
+    border: 1px solid var(--mockup-border);
     border-radius: 6px;
     padding: 0.5rem;
     display: flex;
     flex-direction: column;
     gap: 4px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
 
   .kanban-badge {
@@ -999,17 +1039,17 @@ const t = useTranslations(lang);
     height: 280px;
     display: flex;
     flex-direction: column;
-    border-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--mockup-border);
   }
 
   .chat-header {
     height: 40px;
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--mockup-header-bg);
     display: flex;
     align-items: center;
     padding: 0 0.75rem;
     gap: 0.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid var(--mockup-border);
   }
 
   .chat-avatar {
@@ -1040,7 +1080,7 @@ const t = useTranslations(lang);
 
   .chat-body {
     flex: 1;
-    background: #0c0d0f;
+    background: var(--mockup-bg-deep);
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -1058,7 +1098,7 @@ const t = useTranslations(lang);
 
   .msg-user {
     align-self: flex-end;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: var(--mockup-msg-user-bg);
     color: var(--text-primary);
     border-bottom-right-radius: 2px;
   }

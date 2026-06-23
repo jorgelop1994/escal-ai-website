@@ -24,6 +24,15 @@ const {
 <!DOCTYPE html>
 <html lang={lang}>
   <head>
+    <!-- Theme Initializer to prevent visual flash of dark/light on load -->
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', initialTheme);
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     

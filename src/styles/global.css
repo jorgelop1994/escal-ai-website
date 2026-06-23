@@ -3,11 +3,11 @@
 /* Reset and CSS Variables */
 :root {
   /* HSL Tailored Color Palette - Option 1: Minimalist Warm */
-  --bg-color: #0e0f11;
-  --bg-card: rgba(22, 24, 28, 0.7);
-  --bg-card-hover: rgba(32, 35, 42, 0.85);
-  --border-color: rgba(255, 255, 255, 0.06);
-  --border-hover: rgba(16, 185, 129, 0.35);
+  --bg-color: #08090c;
+  --bg-card: rgba(24, 28, 36, 0.55);
+  --bg-card-hover: rgba(36, 42, 54, 0.75);
+  --border-color: rgba(255, 255, 255, 0.09);
+  --border-hover: rgba(16, 185, 129, 0.5);
   
   --text-primary: #f3f3f6;
   --text-secondary: #9ea3ae;
@@ -19,9 +19,15 @@
   --color-accent: #d97706; /* Warm Gold / Amber */
   
   --grad-brand: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-  --grad-dark: linear-gradient(180deg, #121316 0%, #0a0b0c 100%);
+  --grad-dark: linear-gradient(180deg, #0c0e12 0%, #060709 100%);
   --grad-glow: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.12) 0%, transparent 60%);
-  
+
+  /* Background variables */
+  --bg-header: rgba(12, 14, 18, 0.75);
+  --bg-nav-mobile: #0c0e12;
+  --bg-footer: rgba(8, 10, 14, 0.9);
+  --bg-grid-color: rgba(255, 255, 255, 0.02);
+
   /* Shadows & Glassmorphism */
   --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.6);
   --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.7);
@@ -32,6 +38,71 @@
   --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Mascot Theme Variables */
+  --mascot-casing-start: #2a2e3b;
+  --mascot-casing-end: #14161d;
+  --mascot-stroke: #1d222e;
+  --mascot-dark-accent: #16181f;
+  --mascot-joint: #1b1d24;
+  --mascot-screen-bg: #08090c;
+  --mascot-glow-opacity: 0.7;
+
+  /* Mockups & Simulators */
+  --mockup-bg-deep: #0b0c0d;
+  --mockup-bg-medium: #111215;
+  --mockup-bg-light: #18191d;
+  --mockup-bg-darker: rgba(0, 0, 0, 0.2);
+  --mockup-msg-user-bg: rgba(255, 255, 255, 0.05);
+  --mockup-url-bg: rgba(0, 0, 0, 0.2);
+  --mockup-border: rgba(255, 255, 255, 0.05);
+  --mockup-header-bg: rgba(255, 255, 255, 0.02);
+  --mockup-notch: #18191c;
+  --mockup-terminal-text: #f3f3f6;
+  --mockup-terminal-muted: #6b7280;
+}
+
+/* Light Theme Variables Override */
+[data-theme="light"] {
+  --bg-color: #f8fafc; /* Slate 50 */
+  --bg-card: rgba(255, 255, 255, 0.75);
+  --bg-card-hover: rgba(241, 245, 249, 0.85);
+  --border-color: rgba(15, 23, 42, 0.08);
+  --border-hover: rgba(16, 185, 129, 0.45);
+  
+  --text-primary: #0f172a; /* Slate 900 */
+  --text-secondary: #475569; /* Slate 600 */
+  --text-muted: #516075; /* Slate 600 compliant contrast (~4.7:1) */
+  
+  --grad-dark: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+  --grad-glow: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.06) 0%, transparent 60%);
+  
+  --bg-header: rgba(255, 255, 255, 0.75);
+  --bg-nav-mobile: #ffffff;
+  --bg-footer: rgba(241, 245, 249, 0.9);
+  --bg-grid-color: rgba(15, 23, 42, 0.04);
+
+  /* Mascot Theme Variables Override */
+  --mascot-casing-start: #ffffff;
+  --mascot-casing-end: #e2e8f0;
+  --mascot-stroke: #cbd5e1;
+  --mascot-dark-accent: #ffffff;
+  --mascot-joint: #cbd5e1;
+  --mascot-screen-bg: #0f172a;
+  --mascot-glow-opacity: 1.0;
+
+  /* Mockups & Simulators Override */
+  --mockup-bg-deep: #ffffff;
+  --mockup-bg-medium: #f1f5f9;
+  --mockup-bg-light: #ffffff;
+  --mockup-bg-darker: rgba(15, 23, 42, 0.05);
+  --mockup-msg-user-bg: #f1f5f9;
+  --mockup-url-bg: rgba(15, 23, 42, 0.05);
+  --mockup-border: rgba(15, 23, 42, 0.08);
+  --mockup-header-bg: rgba(15, 23, 42, 0.02);
+  --mockup-notch: #cbd5e1;
+  --mockup-terminal-text: #0f172a;
+  --mockup-terminal-muted: #94a3b8;
 }
 
 * {
@@ -55,7 +126,10 @@ body {
   flex-direction: column;
   overflow-x: hidden;
   position: relative;
-  background-image: var(--grad-dark);
+  background-image: 
+    radial-gradient(var(--bg-grid-color) 1.2px, transparent 1.2px), 
+    var(--grad-dark);
+  background-size: 28px 28px, 100% 100%;
 }
 
 /* Base Decorative Background Glows */
@@ -142,12 +216,16 @@ a {
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-md);
   border-radius: 16px;
-  transition: border-color var(--transition-normal), transform var(--transition-normal), box-shadow var(--transition-normal);
+  transition: border-color var(--transition-normal), transform var(--transition-normal), box-shadow var(--transition-normal), background-color var(--transition-normal);
 }
 
 .glass:hover {
+  background-color: var(--bg-card-hover);
   border-color: var(--border-hover);
-  box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.12), var(--shadow-lg);
+  box-shadow: 
+    0 10px 30px -10px rgba(16, 185, 129, 0.15), 
+    0 0 20px 0 rgba(16, 185, 129, 0.06), 
+    var(--shadow-lg);
   transform: translateY(-4px);
 }
 
@@ -186,8 +264,9 @@ a {
 
 .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.22);
   transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.03);
 }
 
 /* Text Highlights */
