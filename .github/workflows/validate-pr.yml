@@ -39,25 +39,17 @@ jobs:
       - name: Fetch Target Branch
         run: git fetch origin main
 
-      - name: Filter Changed Code Files
-        id: filter
+      - name: Generate Diff for AI Review
+        id: diff
         run: |
-          # Find all changed files relative to target branch main
-          CHANGED_FILES=$(git diff --name-only origin/main...)
-          echo "Changed files list:"
-          echo "$CHANGED_FILES"
+          # Generate diff for all changes, excluding lockfile noise
+          git diff origin/main... ':!package-lock.json' > pr.diff
           
-          # Filter for code assets only (exclude README, docs, config, tests not related to client build)
-          CODE_CHANGES=$(echo "$CHANGED_FILES" | grep -E '\.(astro|js|mjs|ts|tsx|css|html|json)$' | grep -v 'package-lock.json' || true)
-          
-          if [ -z "$CODE_CHANGES" ]; then
-            echo "No relevant code modifications found. Skipping AI review."
-            echo "run_review=false" >> $GITHUB_ENV
-          else
-            echo "Code modifications found. Generating diff for review."
+          if [ -s pr.diff ]; then
             echo "run_review=true" >> $GITHUB_ENV
-            # Write specific code changes to pr.diff
-            git diff origin/main... -- $CODE_CHANGES > pr.diff
+          else
+            echo "No changes found (excluding lockfile). Skipping AI review."
+            echo "run_review=false" >> $GITHUB_ENV
           fi
 
       - name: Run Gemini Code Review
