@@ -3,8 +3,13 @@
 import fs from 'fs';
 import path from 'path';
 
-// Define target model
-const MODEL_NAME = 'gemini-2.5-flash';
+// Define target models in order of priority (Plan A, Plan B, etc.)
+const MODELS = [
+  'gemini-2.5-flash',
+  'gemini-2.5-pro',
+  'gemini-1.5-flash',
+  'gemini-1.5-pro'
+];
 
 async function main() {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -73,40 +78,60 @@ ${diffContent}
 \`\`\`
 `;
 
+  let success = false;
+  let reviewText = '';
+
   try {
-    console.warn('🤖 Sending diff to Gemini for automatic review...');
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${apiKey}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                {
-                  text: prompt,
-                },
-              ],
-            },
-          ],
-        }),
+    for (const model of MODELS) {
+    try {
+      console.warn(`🤖 Sending diff to Gemini (${model}) for automatic review...`);
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            contents: [
+              {
+                parts: [
+                  {
+                    text: prompt,
+                  },
+                ],
+              },
+            ],
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        const errText = await response.text();
+        console.warn(`⚠️ Warning: Model ${model} failed with status ${response.status}. Trying fallback...`);
+        console.warn(errText);
+        continue;
       }
-    );
 
-    if (!response.ok) {
-      const errText = await response.text();
-      throw new Error(`Gemini API Error: ${response.status} ${response.statusText} - ${errText}`);
+      const data = await response.json();
+      reviewText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+      if (!reviewText) {
+        console.warn(`⚠️ Warning: Empty response from model ${model}. Trying fallback...`);
+        continue;
+      }
+
+      success = true;
+      console.warn(`✔ Automatic review succeeded with model: ${model}`);
+      break;
+    } catch (e) {
+      console.warn(`⚠️ Warning: Request error with model ${model} (${e.message}). Trying fallback...`);
     }
+  }
 
-    const data = await response.json();
-    const reviewText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-    if (!reviewText) {
-      throw new Error('Empty response or unexpected format from the Gemini API.');
-    }
+  if (!success) {
+    throw new Error('All configured Gemini models failed or returned empty responses.');
+  }
 
     console.warn('\n--- GEMINI AI REVIEW REPORT LOG ---\n');
     console.log(reviewText);
