@@ -40,10 +40,10 @@ async function main() {
     process.exit(0);
   }
 
-  // Check if diff is too large (Gemini can handle large inputs, but we should be mindful of token sizes)
+  // Check if diff is too large. If it is too large to safely analyze, block the PR to enforce small commits.
   if (diffContent.length > 300000) {
-    console.warn('⚠️ The diff is too large. Truncating for AI review.');
-    diffContent = diffContent.slice(0, 300000) + '\n\n... [DIFF TRUNCATED DUE TO SIZE] ...';
+    console.error('❌ Error: PR diff is too large (> 300,000 characters) to be safely analyzed by the AI. Please split this PR into smaller, modular changes.');
+    process.exit(1);
   }
 
   const prompt = `
@@ -55,7 +55,9 @@ Review the diff in detail and check for:
 3. Local routing or navigation issues.
 4. Performance & Core Web Vitals (responsive CSS, unneeded JavaScript, layout shifts).
 5. Code quality (duplication, dead code, modularity).
-6. Security (exposed API keys, secrets, credentials, passwords).
+6. Security & Leak Detection:
+   - Check for exposed API keys, secrets, credentials, passwords, or private keys.
+   - Check for obfuscated code or suspicious decoding functions (e.g. atob, eval, dynamic Function, Base64/Hex decoding of image/binary payloads) that could indicate dynamic code injection or steganography vulnerabilities.
 
 Output Format Guidelines:
 - The review MUST be in English.
@@ -66,6 +68,7 @@ Output Format Guidelines:
   - **Decorations**: Use \`[blocking]\` (for critical issues that must be fixed before merge, such as security secrets or broken builds) or \`[non-blocking]\` (for optional improvements or suggestions).
   - **Examples**:
     - \`issue [blocking]: API key is exposed in configuration.\`
+    - \`issue [blocking]: Suspicious base64 decoder found which might execute hidden payloads.\`
     - \`suggestion [non-blocking]: Consider using <main> tag to improve layout landmark accessibility.\`
     - \`praise: Excellent work optimizing the hero CSS animation performance.\`
 
@@ -83,59 +86,64 @@ ${diffContent}
 
   try {
     for (const model of MODELS) {
-    try {
-      console.warn(`🤖 Sending diff to Gemini (${model}) for automatic review...`);
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            contents: [
-              {
-                parts: [
-                  {
-                    text: prompt,
-                  },
-                ],
-              },
-            ],
-          }),
+      try {
+        console.warn(`🤖 Sending diff to Gemini (${model}) for automatic review...`);
+        const response = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              contents: [
+                {
+                  parts: [
+                    {
+                      text: prompt,
+                    },
+                  ],
+                },
+              ],
+            }),
+          }
+        );
+
+        if (!response.ok) {
+          const errText = await response.text();
+          console.warn(`⚠️ Warning: Model ${model} failed with status ${response.status}. Trying fallback...`);
+          console.warn(errText);
+          continue;
         }
-      );
 
-      if (!response.ok) {
-        const errText = await response.text();
-        console.warn(`⚠️ Warning: Model ${model} failed with status ${response.status}. Trying fallback...`);
-        console.warn(errText);
-        continue;
+        const data = await response.json();
+        reviewText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+        if (!reviewText) {
+          console.warn(`⚠️ Warning: Empty response from model ${model}. Trying fallback...`);
+          continue;
+        }
+
+        success = true;
+        console.warn(`✔ Automatic review succeeded with model: ${model}`);
+        break;
+      } catch (e) {
+        console.warn(`⚠️ Warning: Request error with model ${model} (${e.message}). Trying fallback...`);
       }
-
-      const data = await response.json();
-      reviewText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-      if (!reviewText) {
-        console.warn(`⚠️ Warning: Empty response from model ${model}. Trying fallback...`);
-        continue;
-      }
-
-      success = true;
-      console.warn(`✔ Automatic review succeeded with model: ${model}`);
-      break;
-    } catch (e) {
-      console.warn(`⚠️ Warning: Request error with model ${model} (${e.message}). Trying fallback...`);
     }
-  }
 
-  if (!success) {
-    throw new Error('All configured Gemini models failed or returned empty responses.');
-  }
+    if (!success) {
+      throw new Error('All configured Gemini models failed or returned empty responses.');
+    }
 
     console.warn('\n--- GEMINI AI REVIEW REPORT LOG ---\n');
     console.log(reviewText);
     console.warn('\n-----------------------------------\n');
+
+    if (reviewText.includes('[blocking]')) {
+      console.error('\n❌ PR Review failed: Gemini detected blocking issues (such as security vulnerabilities or credentials leaks). Please fix them before merging.');
+      process.exit(1);
+    }
   } catch (error) {
     console.warn(`⚠️ Warning: Error during automatic review with Gemini API.`);
     console.warn(error.message);

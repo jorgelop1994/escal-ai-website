@@ -42,8 +42,8 @@ jobs:
       - name: Generate Diff for AI Review
         id: diff
         run: |
-          # Generate diff for all changes, excluding lockfile noise
-          git diff origin/main... ':!package-lock.json' > pr.diff
+          # Generate diff for all changes, excluding lockfiles, images, documents, and assets
+          git diff origin/main... ':!package-lock.json' ':!*.png' ':!*.jpg' ':!*.jpeg' ':!*.gif' ':!*.webp' ':!*.svg' ':!*.ico' ':!*.woff' ':!*.woff2' ':!*.pdf' > pr.diff
           
           if [ -s pr.diff ]; then
             echo "run_review=true" >> $GITHUB_ENV
