@@ -106,7 +106,7 @@ jobs:
               comment.user &&
               (comment.user.type === 'Bot' || comment.user.login.includes('github-actions')) &&
               comment.body && 
-              comment.body.includes('AI Review Report - escal-ai')
+              (comment.body.includes('AI Review Report - escal-ai') || comment.body.includes('Reporte de Revisión - escal-ai'))
             );
             
             const commentBody = `### 🤖 AI Review Report - escal-ai\n\n${review}`;
