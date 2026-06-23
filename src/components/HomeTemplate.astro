@@ -1548,19 +1548,49 @@ const t = useTranslations(lang);
       const originalText = copyBtn.querySelector('span')?.textContent || '';
       const copiedText = copyBtn.getAttribute('data-copied-text') || 'Copied!';
       
+      const showSuccess = () => {
+        const textSpan = copyBtn.querySelector('span');
+        if (textSpan) {
+          textSpan.textContent = copiedText;
+          copyBtn.classList.add('copied');
+          setTimeout(() => {
+            textSpan.textContent = originalText;
+            copyBtn.classList.remove('copied');
+          }, 2000);
+        }
+      };
+
       copyBtn.addEventListener('click', () => {
-        navigator.clipboard.writeText('info@escal-ai.com').then(() => {
-          const textSpan = copyBtn.querySelector('span');
-          if (textSpan) {
-            textSpan.textContent = copiedText;
-            copyBtn.classList.add('copied');
-            setTimeout(() => {
-              textSpan.textContent = originalText;
-              copyBtn.classList.remove('copied');
-            }, 2000);
-          }
-        });
+        const email = 'info@escal-ai.com';
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(email).then(showSuccess).catch(err => {
+            console.error('Clipboard API failed, trying fallback...', err);
+            fallbackCopy(email);
+          });
+        } else {
+          fallbackCopy(email);
+        }
       });
+
+      function fallbackCopy(text: string) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          const successful = document.execCommand('copy');
+          if (successful) {
+            showSuccess();
+          } else {
+            console.error('Fallback copy command was unsuccessful');
+          }
+        } catch (err) {
+          console.error('Fallback copy command failed', err);
+        }
+        document.body.removeChild(textarea);
+      }
     }
   }
 
