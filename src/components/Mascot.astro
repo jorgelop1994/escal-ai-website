@@ -81,10 +81,12 @@ const viewBox = type === 'head' ? '30 5 180 140' : '30 5 180 290';
         </g>
 
         <!-- Ears / Headphone Cushions -->
-        <rect x="36" y="70" width="18" height="45" rx="7" fill="var(--mascot-dark-accent, #16181f)" stroke="#10b981" stroke-width="2" />
-        <rect x="186" y="70" width="18" height="45" rx="7" fill="var(--mascot-dark-accent, #16181f)" stroke="#10b981" stroke-width="2" />
-        <rect x="52" y="80" width="4" height="25" fill="var(--mascot-joint, #2d323f)" />
-        <rect x="184" y="80" width="4" height="25" fill="var(--mascot-joint, #2d323f)" />
+        <g filter="url(#dropShadow)">
+          <rect x="36" y="70" width="18" height="45" rx="7" fill="var(--mascot-dark-accent, #16181f)" stroke="#10b981" stroke-width="2" />
+          <rect x="186" y="70" width="18" height="45" rx="7" fill="var(--mascot-dark-accent, #16181f)" stroke="#10b981" stroke-width="2" />
+          <rect x="52" y="80" width="4" height="25" fill="var(--mascot-joint, #2d323f)" />
+          <rect x="184" y="80" width="4" height="25" fill="var(--mascot-joint, #2d323f)" />
+        </g>
 
         <!-- Head Outer Casing -->
         <rect x="54" y="45" width="132" height="95" rx="28" ry="28" fill="url(#headGrad)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="3" filter="url(#dropShadow)" />
@@ -109,15 +111,17 @@ const viewBox = type === 'head' ? '30 5 180 140' : '30 5 180 290';
           <rect x="102" y="137" width="36" height="20" rx="3" fill="var(--mascot-dark-accent, #16181f)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="2" />
           
           <!-- Arms -->
-          <!-- Left Arm -->
-          <rect x="50" y="175" width="15" height="10" rx="2" fill="var(--mascot-joint, #1b1d24)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="1.5" />
-          <rect x="42" y="180" width="11" height="52" rx="5" fill="url(#headGrad)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="2" />
-          <circle cx="47.5" cy="236" r="7" fill="var(--mascot-dark-accent, #16181f)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="1.5" />
-          
-          <!-- Right Arm -->
-          <rect x="175" y="175" width="15" height="10" rx="2" fill="var(--mascot-joint, #1b1d24)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="1.5" />
-          <rect x="187" y="180" width="11" height="52" rx="5" fill="url(#headGrad)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="2" />
-          <circle cx="192.5" cy="236" r="7" fill="var(--mascot-dark-accent, #16181f)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="1.5" />
+          <g filter="url(#dropShadow)">
+            <!-- Left Arm -->
+            <rect x="50" y="175" width="15" height="10" rx="2" fill="var(--mascot-joint, #1b1d24)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="1.5" />
+            <rect x="42" y="180" width="11" height="52" rx="5" fill="url(#headGrad)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="2" />
+            <circle cx="47.5" cy="236" r="7" fill="var(--mascot-dark-accent, #16181f)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="1.5" />
+            
+            <!-- Right Arm -->
+            <rect x="175" y="175" width="15" height="10" rx="2" fill="var(--mascot-joint, #1b1d24)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="1.5" />
+            <rect x="187" y="180" width="11" height="52" rx="5" fill="url(#headGrad)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="2" />
+            <circle cx="192.5" cy="236" r="7" fill="var(--mascot-dark-accent, #16181f)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="1.5" />
+          </g>
 
           <!-- Torso Casing -->
           <rect x="66" y="152" width="108" height="110" rx="32" ry="32" fill="url(#bodyGrad)" stroke="var(--mascot-stroke, #1d222e)" stroke-width="3" filter="url(#dropShadow)" />
