@@ -34,7 +34,7 @@ const t = useTranslations(lang);
     <div class="header-actions">
       <div class="lang-switcher">
         <a 
-          href="/" 
+          href={lang === 'en' ? undefined : "/"} 
           class={lang === 'en' ? "lang-btn active" : "lang-btn"} 
           aria-label="Switch to English"
           aria-current={lang === 'en' ? "page" : undefined}
@@ -42,7 +42,7 @@ const t = useTranslations(lang);
         >EN</a>
         <span class="lang-divider">/</span>
         <a 
-          href="/es/" 
+          href={lang === 'es' ? undefined : "/es/"} 
           class={lang === 'es' ? "lang-btn active" : "lang-btn"} 
           aria-label="Switch to Spanish"
           aria-current={lang === 'es' ? "page" : undefined}
