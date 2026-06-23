@@ -2,6 +2,7 @@
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { useTranslations } from '../i18n/utils';
 import type { ui } from '../i18n/ui';
+import Mascot from './Mascot.astro';
 
 interface Props {
   lang: keyof typeof ui;
@@ -13,7 +14,10 @@ const t = useTranslations(lang);
 <header class="header">
   <div class="container header-container">
     <a href={getRelativeLocaleUrl(lang, '/')} class="logo" aria-label="escal-ai home">
-      <span class="logo-accent">escal</span><span class="logo-dot">-ai</span>
+      <Mascot type="head" size="small" animated={false} className="logo-icon" />
+      <span class="logo-text">
+        <span class="logo-accent">escal</span><span class="logo-dot">-ai</span>
+      </span>
     </a>
     
     <nav class="nav" id="navigation-menu" aria-label="Primary Navigation">
@@ -72,6 +76,7 @@ const t = useTranslations(lang);
     letter-spacing: -0.03em;
     display: flex;
     align-items: center;
+    gap: 0.5rem;
   }
 
   .logo-accent {
