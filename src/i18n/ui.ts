@@ -86,6 +86,8 @@ export const ui = {
     'contact.card.title': 'Let\'s talk about your project',
     'contact.card.desc': 'Tell us briefly about your needs and we will get back to you in less than 24 hours.',
     'contact.card.btn': 'Email us at info@escal-ai.com',
+    'contact.card.copy': 'Copy Email',
+    'contact.card.copied': 'Copied!',
   },
   es: {
     // Navigation
@@ -167,5 +169,7 @@ export const ui = {
     'contact.card.title': 'Hablemos de tu proyecto',
     'contact.card.desc': 'Cuéntanos brevemente tus necesidades y nos pondremos en contacto contigo en menos de 24 horas.',
     'contact.card.btn': 'Escríbenos a info@escal-ai.com',
+    'contact.card.copy': 'Copiar Email',
+    'contact.card.copied': '¡Copiado!',
   },
 } as const;
