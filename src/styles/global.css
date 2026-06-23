@@ -3,11 +3,11 @@
 /* Reset and CSS Variables */
 :root {
   /* HSL Tailored Color Palette - Option 1: Minimalist Warm */
-  --bg-color: #0e0f11;
-  --bg-card: rgba(22, 24, 28, 0.7);
-  --bg-card-hover: rgba(32, 35, 42, 0.85);
-  --border-color: rgba(255, 255, 255, 0.06);
-  --border-hover: rgba(16, 185, 129, 0.35);
+  --bg-color: #08090c;
+  --bg-card: rgba(24, 28, 36, 0.55);
+  --bg-card-hover: rgba(36, 42, 54, 0.75);
+  --border-color: rgba(255, 255, 255, 0.09);
+  --border-hover: rgba(16, 185, 129, 0.5);
   
   --text-primary: #f3f3f6;
   --text-secondary: #9ea3ae;
@@ -19,7 +19,7 @@
   --color-accent: #d97706; /* Warm Gold / Amber */
   
   --grad-brand: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-  --grad-dark: linear-gradient(180deg, #121316 0%, #0a0b0c 100%);
+  --grad-dark: linear-gradient(180deg, #0c0e12 0%, #060709 100%);
   --grad-glow: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.12) 0%, transparent 60%);
   
   /* Shadows & Glassmorphism */
@@ -55,7 +55,10 @@ body {
   flex-direction: column;
   overflow-x: hidden;
   position: relative;
-  background-image: var(--grad-dark);
+  background-image: 
+    radial-gradient(rgba(255, 255, 255, 0.02) 1.2px, transparent 1.2px), 
+    var(--grad-dark);
+  background-size: 28px 28px, 100% 100%;
 }
 
 /* Base Decorative Background Glows */
@@ -142,12 +145,16 @@ a {
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-md);
   border-radius: 16px;
-  transition: border-color var(--transition-normal), transform var(--transition-normal), box-shadow var(--transition-normal);
+  transition: border-color var(--transition-normal), transform var(--transition-normal), box-shadow var(--transition-normal), background-color var(--transition-normal);
 }
 
 .glass:hover {
+  background-color: var(--bg-card-hover);
   border-color: var(--border-hover);
-  box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.12), var(--shadow-lg);
+  box-shadow: 
+    0 10px 30px -10px rgba(16, 185, 129, 0.15), 
+    0 0 20px 0 rgba(16, 185, 129, 0.06), 
+    var(--shadow-lg);
   transform: translateY(-4px);
 }
 
@@ -186,8 +193,9 @@ a {
 
 .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.22);
   transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.03);
 }
 
 /* Text Highlights */
