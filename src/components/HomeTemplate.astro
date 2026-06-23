@@ -1,0 +1,579 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { useTranslations } from '../i18n/utils';
+import type { ui } from '../i18n/ui';
+
+interface Props {
+  lang: keyof typeof ui;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<MainLayout lang={lang}>
+  <!-- Hero Section -->
+  <section class="hero-section section">
+    <div class="container hero-container">
+      <div class="hero-content">
+        <h1 class="hero-title">
+          {t('hero.title.1')}<span class="text-gradient">{t('hero.title.highlight')}</span>{t('hero.title.2')}
+        </h1>
+        <p class="hero-subtitle">
+          {t('hero.subtitle')}
+        </p>
+        <div class="hero-cta">
+          <a href="#services" class="btn btn-primary">{t('hero.btn.services')}</a>
+          <a href="#contact" class="btn btn-secondary">{t('hero.btn.contact')}</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="visual-blob">
+          <div class="glow-orb border-glow"></div>
+          <div class="glow-orb inner-glow"></div>
+          <div class="visual-card glass">
+            <span class="card-tag">{t('hero.card.tag')}</span>
+            <div class="card-status-row">
+              <span class="status-indicator"></span>
+              <span class="status-text">{t('hero.card.status')}</span>
+            </div>
+            <div class="card-bar-loader">
+              <div class="card-bar-progress"></div>
+            </div>
+            <p class="card-description">{t('hero.card.desc')}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section id="products" class="products-section section">
+    <div class="container">
+      <h2 class="section-title">{t('products.title')}</h2>
+      <p class="section-subtitle">
+        {t('products.subtitle')}
+      </p>
+      
+      <div class="grid grid-2">
+        <div class="product-card glass">
+          <div class="product-badge">{t('products.tag')}</div>
+          <div class="product-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+              <line x1="12" y1="18" x2="12.01" y2="18"></line>
+            </svg>
+          </div>
+          <h3 class="product-title">{t('products.p1.title')}</h3>
+          <p class="product-desc">
+            {t('products.p1.desc')}
+          </p>
+        </div>
+        
+        <div class="product-card glass">
+          <div class="product-badge">{t('products.tag')}</div>
+          <div class="product-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <h3 class="product-title">{t('products.p2.title')}</h3>
+          <p class="product-desc">
+            {t('products.p2.desc')}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="services-section section">
+    <div class="container">
+      <h2 class="section-title">{t('services.title')}</h2>
+      <p class="section-subtitle">
+        {t('services.subtitle')}
+      </p>
+      
+      <div class="grid grid-3">
+        <div class="service-card glass">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+          </div>
+          <h3 class="service-title">{t('services.s1.title')}</h3>
+          <p class="service-desc">
+            {t('services.s1.desc')}
+          </p>
+        </div>
+        
+        <div class="service-card glass">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+          </div>
+          <h3 class="service-title">{t('services.s2.title')}</h3>
+          <p class="service-desc">
+            {t('services.s2.desc')}
+          </p>
+        </div>
+        
+        <div class="service-card glass">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+            </svg>
+          </div>
+          <h3 class="service-title">{t('services.s3.title')}</h3>
+          <p class="service-desc">
+            {t('services.s3.desc')}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section id="process" class="process-section section">
+    <div class="container">
+      <h2 class="section-title">{t('process.title')}</h2>
+      <p class="section-subtitle">
+        {t('process.subtitle')}
+      </p>
+      
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <h3 class="step-title">{t('process.step1.title')}</h3>
+            <p class="step-desc">{t('process.step1.desc')}</p>
+          </div>
+        </div>
+        
+        <div class="process-step">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <h3 class="step-title">{t('process.step2.title')}</h3>
+            <p class="step-desc">{t('process.step2.desc')}</p>
+          </div>
+        </div>
+        
+        <div class="process-step">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <h3 class="step-title">{t('process.step3.title')}</h3>
+            <p class="step-desc">{t('process.step3.desc')}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About / CTA Section -->
+  <section id="about" class="about-section section">
+    <div class="container about-container">
+      <div class="about-card glass">
+        <h2 class="about-title">{t('about.title.1')}<span class="text-gradient">{t('about.title.2')}</span></h2>
+        <p class="about-text">
+          {t('about.text.1')}
+        </p>
+        <p class="about-text">
+          {t('about.text.2')}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact-section section">
+    <div class="container contact-container">
+      <h2 class="section-title">{t('contact.title')}</h2>
+      <p class="section-subtitle">
+        {t('contact.subtitle')}
+      </p>
+      
+      <div class="contact-card glass">
+        <h3 class="contact-card-title">{t('contact.card.title')}</h3>
+        <p class="contact-card-text">{t('contact.card.desc')}</p>
+        <a href="mailto:info@escal-ai.com?subject=Inquiry%20escal-ai" class="btn btn-primary contact-mail-btn">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          {t('contact.card.btn')}
+        </a>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  /* Hero Section styles */
+  .hero-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+    padding-top: 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-container {
+      grid-template-columns: 1.2fr 0.8fr;
+    }
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: left;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  @media (min-width: 768px) {
+    .hero-title {
+      font-size: 4rem;
+    }
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 600px;
+  }
+
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  .visual-blob {
+    width: 320px;
+    height: 320px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+  }
+
+  .border-glow {
+    width: 280px;
+    height: 280px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    opacity: 0.35;
+    animation: orb-spin 20s linear infinite;
+  }
+
+  .inner-glow {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, var(--color-secondary) 0%, transparent 70%);
+    opacity: 0.5;
+  }
+
+  .visual-card {
+    position: relative;
+    z-index: 2;
+    padding: 1.75rem;
+    width: 260px;
+    text-align: left;
+    border-color: rgba(0, 242, 254, 0.2);
+  }
+
+  .card-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-status-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .status-indicator {
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--color-primary);
+    animation: pulse 1.5s ease-in-out infinite alternate;
+  }
+
+  .status-text {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .card-bar-loader {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+
+  .card-bar-progress {
+    width: 65%;
+    height: 100%;
+    background: var(--grad-brand);
+    border-radius: 2px;
+    animation: bar-load 3s ease-in-out infinite alternate;
+  }
+
+  .card-description {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* Products Section styles */
+  .grid-2 {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .product-card {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-badge {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    background: rgba(0, 242, 254, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(0, 242, 254, 0.2);
+    letter-spacing: 0.05em;
+  }
+
+  .product-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, rgba(0, 242, 254, 0.1), rgba(79, 172, 254, 0.1));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    border: 1px solid rgba(0, 242, 254, 0.2);
+  }
+
+  .product-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+  }
+
+  .product-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* Services Section styles */
+  .service-card {
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    height: 100%;
+  }
+
+  .service-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, rgba(0, 242, 254, 0.1), rgba(79, 172, 254, 0.1));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    border: 1px solid rgba(0, 242, 254, 0.2);
+  }
+
+  .service-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .service-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* Process Section styles */
+  .process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .process-step {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  @media (max-width: 600px) {
+    .process-step {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+
+  .step-num {
+    font-family: 'Outfit', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+    background: var(--grad-brand);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.8;
+  }
+
+  .step-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .step-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .step-desc {
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* About Section styles */
+  .about-container {
+    max-width: 800px;
+  }
+
+  .about-card {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .about-card {
+      padding: 2rem 1.5rem;
+    }
+  }
+
+  .about-title {
+    font-size: 2rem;
+  }
+
+  .about-text {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  /* Contact Section styles */
+  .contact-container {
+    max-width: 700px;
+  }
+
+  .contact-card {
+    padding: 3rem 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .contact-card-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+  }
+
+  .contact-card-text {
+    color: var(--text-secondary);
+    max-width: 500px;
+    line-height: 1.6;
+  }
+
+  .contact-mail-btn {
+    margin-top: 1rem;
+    text-shadow: none;
+  }
+
+  /* Keyframe Animations */
+  @keyframes orb-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes pulse {
+    0% { opacity: 0.6; transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1.05); }
+  }
+
+  @keyframes bar-load {
+    0% { width: 10%; }
+    100% { width: 90%; }
+  }
+</style>

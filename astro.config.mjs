@@ -3,5 +3,12 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://escal-ai.com"
+  site: "https://escal-ai.com",
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "es"],
+    routing: {
+      prefixDefaultLocale: false
+    }
+  }
 });

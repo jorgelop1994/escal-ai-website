@@ -9,7 +9,7 @@ const MODEL_NAME = 'gemini-2.5-flash';
 async function main() {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    console.warn('⚠️ GEMINI_API_KEY no configurado en el entorno. Saltando revisión con IA.');
+    console.warn('⚠️ GEMINI_API_KEY is not configured in the environment. Skipping AI review.');
     process.exit(0);
   }
 
@@ -22,7 +22,7 @@ async function main() {
     if (fs.existsSync(filePath)) {
       diffContent = fs.readFileSync(filePath, 'utf8');
     } else {
-      console.error(`❌ El archivo de diff especificado no existe: ${filePath}`);
+      console.error(`❌ The specified diff file does not exist: ${filePath}`);
       process.exit(1);
     }
   } else {
@@ -31,14 +31,14 @@ async function main() {
   }
 
   if (!diffContent || diffContent.trim() === '') {
-    console.log('📝 No hay cambios en el diff para revisar.');
+    console.log('📝 No changes found in the diff to review.');
     process.exit(0);
   }
 
   // Check if diff is too large (Gemini can handle large inputs, but we should be mindful of token sizes)
   if (diffContent.length > 300000) {
-    console.warn('⚠️ El diff es muy grande. Se truncará para la revisión de IA.');
-    diffContent = diffContent.slice(0, 300000) + '\n\n... [DIFF TRUNCADO POR TAMAÑO] ...';
+    console.warn('⚠️ The diff is too large. Truncating for AI review.');
+    diffContent = diffContent.slice(0, 300000) + '\n\n... [DIFF TRUNCATED DUE TO SIZE] ...';
   }
 
   const prompt = `
@@ -98,23 +98,23 @@ ${diffContent}
 
     if (!response.ok) {
       const errText = await response.text();
-      throw new Error(`Error en la API de Gemini: ${response.status} ${response.statusText} - ${errText}`);
+      throw new Error(`Gemini API Error: ${response.status} ${response.statusText} - ${errText}`);
     }
 
     const data = await response.json();
     const reviewText = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
     if (!reviewText) {
-      throw new Error('Respuesta vacía o formato inesperado de la API de Gemini.');
+      throw new Error('Empty response or unexpected format from the Gemini API.');
     }
 
     console.warn('\n--- GEMINI AI REVIEW REPORT LOG ---\n');
     console.log(reviewText);
     console.warn('\n-----------------------------------\n');
   } catch (error) {
-    console.warn(`⚠️ Advertencia: Error durante la revisión automática con Gemini API.`);
+    console.warn(`⚠️ Warning: Error during automatic review with Gemini API.`);
     console.warn(error.message);
-    console.warn('El flujo continuará normalmente para no bloquear correcciones urgentes.');
+    console.warn('The workflow will continue normally to avoid blocking urgent fixes.');
     process.exit(0);
   }
 }
