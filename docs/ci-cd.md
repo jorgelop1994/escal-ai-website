@@ -80,7 +80,7 @@ Para asegurar que las sugerencias de la IA no se pierdan en el historial del PR,
 * **Condición**: El PR debe haber sido fusionado (`merged: true`) en la rama `main`.
 
 ### Flujo del Proceso
-1. **Búsqueda del Reporte**: El script lee todos los comentarios del PR buscando el comentario del bot (`🤖 Reporte de Revisión - escal-ai`).
+1. **Búsqueda del Reporte**: El script lee todos los comentarios del PR buscando el comentario del bot (`🤖 AI Review Report - escal-ai`).
 2. **Extracción y Limpieza**: Utiliza una expresión regular para identificar todos los bloques marcados como `suggestion [non-blocking]` o `issue [non-blocking]`.
 3. **Creación en GitHub**: Para cada coincidencia, crea un nuevo GitHub Issue:
    * **Título**: Limpia caracteres especiales y resume la sugerencia a 60 caracteres.
@@ -110,7 +110,7 @@ npm run build  # Verifica que la compilación de producción sea correcta
 ### 3. Crear el Pull Request
 Sube tu rama y crea el PR en GitHub. Revisa los resultados en la pestaña de **Checks**:
 * Si los checks están en verde: El código compila y cumple las reglas.
-* Revisa el comentario del bot `🤖 Reporte de Revisión - escal-ai` en la pestaña de conversación para leer las recomendaciones del modelo de lenguaje.
+* Revisa el comentario del bot `🤖 AI Review Report - escal-ai` en la pestaña de conversación para leer las recomendaciones del modelo de lenguaje.
 
 ### 4. Merge a producción
 Una vez aprobado el PR, utiliza la opción **Squash and Merge** en GitHub para fusionarlo. Al completarse, Cloudflare Pages iniciará automáticamente la publicación final y en aproximadamente 1 minuto la web estará actualizada.
