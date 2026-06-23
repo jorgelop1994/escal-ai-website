@@ -40,3 +40,5 @@ Para mantener la estabilidad de la rama principal (`main`), se aplican las sigui
 2. **Pull Requests**: Abre un PR hacia `main` para integrar tus cambios.
 3. **Validación**: Cada PR ejecuta la acción de CI/CD que instala dependencias, corre `astro check` y compila el sitio. Adicionalmente, la Gemini API realiza una revisión automática del código modificado.
 4. **Fusión**: Utiliza **Squash and Merge** y elimina la rama de trabajo tras completar la integración.
+
+Para más detalles sobre el funcionamiento técnico, configuración y resolución de problemas del pipeline, consulta la [Documentación de CI/CD](docs/ci-cd.md).
