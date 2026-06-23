@@ -18,7 +18,7 @@ const viewBox = type === 'head' ? '10 0 220 170' : '10 0 220 320';
 ---
 
 <div class={`mascot-container ${size} ${type} ${animated ? 'animated' : ''} ${className}`}>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox={viewBox} fill="none" class="mascot-svg">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox={viewBox} fill="none" class="mascot-svg" aria-hidden="true">
     <defs>
       <!-- Gradients -->
       <linearGradient id="headGrad" x1="120" y1="45" x2="120" y2="140" gradientUnits="userSpaceOnUse">

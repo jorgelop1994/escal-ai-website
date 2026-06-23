@@ -305,34 +305,42 @@ const t = useTranslations(lang);
 </style>
 
 <script>
-  const menuToggle = document.getElementById('menu-toggle');
-  const navMenu = document.getElementById('navigation-menu');
+  function initHeader() {
+    const menuToggle = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('navigation-menu');
 
-  if (menuToggle && navMenu) {
-    menuToggle.addEventListener('click', () => {
-      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-      menuToggle.setAttribute('aria-expanded', String(!isExpanded));
-      navMenu.classList.toggle('is-open');
-    });
-
-    // Close menu when clicking links
-    const navLinks = navMenu.querySelectorAll('a');
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        menuToggle.setAttribute('aria-expanded', 'false');
-        navMenu.classList.remove('is-open');
+    if (menuToggle && navMenu) {
+      menuToggle.addEventListener('click', () => {
+        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+        navMenu.classList.toggle('is-open');
       });
-    });
+
+      // Close menu when clicking links
+      const navLinks = navMenu.querySelectorAll('a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          menuToggle.setAttribute('aria-expanded', 'false');
+          navMenu.classList.remove('is-open');
+        });
+      });
+    }
+
+    // Theme Switcher Logic
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+      });
+    }
   }
 
-  // Theme Switcher Logic
-  const themeToggle = document.getElementById('theme-toggle');
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-    });
-  }
+  // Run on initial load
+  initHeader();
+
+  // Run on page change when Astro View Transitions are active
+  document.addEventListener('astro:page-load', initHeader);
 </script>
