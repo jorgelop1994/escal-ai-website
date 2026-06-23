@@ -76,17 +76,19 @@ jobs:
               }
               createdTitles.add(issueTitle);
 
-              const issueBody = `### AI Review Suggestion
-            
-**Source:** Non-blocking suggestion from PR #${prNumber}
-
-**Type:** ${type}
-
-**Feedback details:**
-${suggestionText}
-
----
-*This issue was automatically generated on merge from the AI Review Report.*`;
+              const issueBody = [
+                '### AI Review Suggestion',
+                '',
+                `**Source:** Non-blocking suggestion from PR #${prNumber}`,
+                '',
+                `**Type:** ${type}`,
+                '',
+                '**Feedback details:**',
+                suggestionText,
+                '',
+                '---',
+                '*This issue was automatically generated on merge from the AI Review Report.*'
+              ].join('\n');
 
               // 4. Create the GitHub Issue
               try {
