@@ -122,7 +122,8 @@ const t = useTranslations(lang);
   }
 
   .nav-link:hover,
-  .nav-link:focus {
+  .nav-link:focus,
+  .nav-link.active {
     color: var(--text-primary);
   }
 
@@ -137,7 +138,8 @@ const t = useTranslations(lang);
     transition: width var(--transition-fast);
   }
 
-  .nav-link:hover::after {
+  .nav-link:hover::after,
+  .nav-link.active::after {
     width: 100%;
   }
 
@@ -342,6 +344,36 @@ const t = useTranslations(lang);
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
       });
+    }
+
+    // Scroll Spy Logic
+    const sections = document.querySelectorAll('section[id]');
+    const navLinksList = document.querySelectorAll('.nav-link');
+    
+    if (sections.length > 0 && navLinksList.length > 0) {
+      const observerOptions = {
+        root: null,
+        rootMargin: '-30% 0px -50% 0px',
+        threshold: 0
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            navLinksList.forEach(link => {
+              const href = link.getAttribute('href') || '';
+              if (href.includes('#' + id)) {
+                link.classList.add('active');
+              } else {
+                link.classList.remove('active');
+              }
+            });
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach(section => observer.observe(section));
     }
   }
 

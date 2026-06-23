@@ -399,13 +399,22 @@ const t = useTranslations(lang);
       <div class="contact-card glass">
         <h3 class="contact-card-title">{t('contact.card.title')}</h3>
         <p class="contact-card-text">{t('contact.card.desc')}</p>
-        <a href="mailto:info@escal-ai.com?subject=Inquiry%20escal-ai" class="btn btn-primary contact-mail-btn">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-            <polyline points="22,6 12,13 2,6"></polyline>
-          </svg>
-          {t('contact.card.btn')}
-        </a>
+        <div class="contact-actions">
+          <a href="mailto:info@escal-ai.com?subject=Inquiry%20escal-ai" class="btn btn-primary contact-mail-btn">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            {t('contact.card.btn')}
+          </a>
+          <button id="copy-email-btn" class="btn btn-secondary contact-copy-btn" data-copied-text={t('contact.card.copied')} aria-label="Copy email address to clipboard">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>{t('contact.card.copy')}</span>
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -1473,9 +1482,27 @@ const t = useTranslations(lang);
     line-height: 1.6;
   }
 
-  .contact-mail-btn {
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
     margin-top: 1rem;
+    width: 100%;
+    max-width: 540px;
+  }
+
+  .contact-mail-btn,
+  .contact-copy-btn {
+    flex: 1 1 240px;
     text-shadow: none;
+    margin-top: 0;
+  }
+
+  .contact-copy-btn.copied {
+    background-color: rgba(16, 185, 129, 0.15) !important;
+    border-color: var(--color-primary) !important;
+    color: var(--color-primary) !important;
   }
 
   /* Keyframe Animations */
@@ -1494,3 +1521,34 @@ const t = useTranslations(lang);
     100% { width: 90%; }
   }
 </style>
+
+<script>
+  function initContact() {
+    const copyBtn = document.getElementById('copy-email-btn');
+    if (copyBtn && !copyBtn.dataset.contactInitialized) {
+      copyBtn.dataset.contactInitialized = 'true';
+      const originalText = copyBtn.querySelector('span')?.textContent || '';
+      const copiedText = copyBtn.getAttribute('data-copied-text') || 'Copied!';
+      
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText('info@escal-ai.com').then(() => {
+          const textSpan = copyBtn.querySelector('span');
+          if (textSpan) {
+            textSpan.textContent = copiedText;
+            copyBtn.classList.add('copied');
+            setTimeout(() => {
+              textSpan.textContent = originalText;
+              copyBtn.classList.remove('copied');
+            }, 2000);
+          }
+        });
+      });
+    }
+  }
+
+  // Run on initial load
+  initContact();
+
+  // Run on page change when Astro View Transitions are active
+  document.addEventListener('astro:page-load', initContact);
+</script>
