@@ -1,0 +1,124 @@
+name: PR Validation and AI Review
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  validate:
+    name: Build, Check and AI Review
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history to enable diff comparison
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Astro Diagnostics (astro check)
+        run: npm run check
+
+      - name: Build Static Site
+        run: npm run build
+
+      - name: Fetch Target Branch
+        run: git fetch origin main
+
+      - name: Filter Changed Code Files
+        id: filter
+        run: |
+          # Find all changed files relative to target branch main
+          CHANGED_FILES=$(git diff --name-only origin/main...)
+          echo "Changed files list:"
+          echo "$CHANGED_FILES"
+          
+          # Filter for code assets only (exclude README, docs, config, tests not related to client build)
+          CODE_CHANGES=$(echo "$CHANGED_FILES" | grep -E '\.(astro|js|mjs|ts|tsx|css|html|json)$' | grep -v 'package-lock.json' || true)
+          
+          if [ -z "$CODE_CHANGES" ]; then
+            echo "No relevant code modifications found. Skipping AI review."
+            echo "run_review=false" >> $GITHUB_ENV
+          else
+            echo "Code modifications found. Generating diff for review."
+            echo "run_review=true" >> $GITHUB_ENV
+            # Write specific code changes to pr.diff
+            git diff origin/main... -- $CODE_CHANGES > pr.diff
+          fi
+
+      - name: Run Gemini Code Review
+        if: env.run_review == 'true'
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          if [ -z "$GEMINI_API_KEY" ]; then
+            echo "⚠️ GEMINI_API_KEY is not defined. Skipping AI review."
+            echo "comment_exists=false" >> $GITHUB_ENV
+          else
+            # Run the review script and write results to review.md
+            node scripts/ai-review.mjs pr.diff > review.md
+            
+            # Check if file was created and is non-empty
+            if [ -f review.md ] && [ -s review.md ]; then
+              echo "comment_exists=true" >> $GITHUB_ENV
+            else
+              echo "comment_exists=false" >> $GITHUB_ENV
+            fi
+          fi
+
+      - name: Post Review Comment on PR
+        if: env.comment_exists == 'true'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            // Read generated review file
+            const review = fs.readFileSync('review.md', 'utf8');
+            
+            // Fetch list of comments
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            
+            // Find existing review comment by the bot
+            const botComment = comments.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('Reporte de Revisión - escal-ai')
+            );
+            
+            const commentBody = `### 🤖 Reporte de Revisión - escal-ai\n\n${review}`;
+            
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: commentBody
+              });
+              console.log('Updated existing PR review comment.');
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: commentBody
+              });
+              console.log('Created new PR review comment.');
+            }

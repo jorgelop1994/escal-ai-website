@@ -1,0 +1,219 @@
+---
+---
+<header class="header">
+  <div class="container header-container">
+    <a href="/" class="logo" aria-label="escal-ai home">
+      <span class="logo-accent">escal</span><span class="logo-dot">-ai</span>
+    </a>
+    
+    <nav class="nav" id="navigation-menu" aria-label="Primary Navigation">
+      <ul class="nav-list">
+        <li><a href="#services" class="nav-link">Servicios</a></li>
+        <li><a href="#process" class="nav-link">Proceso</a></li>
+        <li><a href="#about" class="nav-link">Nosotros</a></li>
+        <li><a href="#contact" class="btn btn-secondary nav-btn-mobile">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href="#contact" class="btn btn-primary nav-btn-desktop">Contacto</a>
+      <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="navigation-menu" aria-label="Toggle navigation menu">
+        <svg class="hamburger" viewBox="0 0 100 100" width="30" height="30">
+          <line class="line top" x1="15" y1="30" x2="85" y2="30" stroke="currentColor" stroke-width="8" stroke-linecap="round"></line>
+          <line class="line middle" x1="15" y1="50" x2="85" y2="50" stroke="currentColor" stroke-width="8" stroke-linecap="round"></line>
+          <line class="line bottom" x1="15" y1="70" x2="85" y2="70" stroke="currentColor" stroke-width="8" stroke-linecap="round"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: rgba(11, 15, 25, 0.7);
+    backdrop-filter: var(--backdrop-blur);
+    -webkit-backdrop-filter: var(--backdrop-blur);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4.5rem;
+  }
+
+  .logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-accent {
+    background: var(--grad-brand);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .logo-dot {
+    color: var(--text-primary);
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 2rem;
+  }
+
+  .nav-link {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    position: relative;
+    padding: 0.5rem 0;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus {
+    color: var(--text-primary);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--grad-brand);
+    transition: width var(--transition-fast);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .nav-btn-desktop {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .nav-btn-mobile {
+    display: none;
+  }
+
+  /* Hamburger Toggle Menu styling */
+  .menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: background-color var(--transition-fast);
+  }
+
+  .menu-toggle:hover,
+  .menu-toggle:focus {
+    background: rgba(255, 255, 255, 0.05);
+    outline: none;
+  }
+
+  .line {
+    transition: transform var(--transition-normal), stroke-dasharray var(--transition-normal);
+  }
+
+  /* Mobile style layout */
+  @media (max-width: 768px) {
+    .menu-toggle {
+      display: block;
+    }
+
+    .nav {
+      position: absolute;
+      top: 4.5rem;
+      left: 0;
+      width: 100%;
+      background: #0b0f19;
+      border-bottom: 1px solid var(--border-color);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height var(--transition-slow) ease-in-out;
+    }
+
+    .nav-list {
+      flex-direction: column;
+      padding: 2rem 1.5rem;
+      gap: 1.5rem;
+      align-items: stretch;
+      text-align: center;
+    }
+
+    .nav-btn-desktop {
+      display: none;
+    }
+
+    .nav-btn-mobile {
+      display: inline-flex;
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    /* Menu open state styling */
+    .nav.is-open {
+      max-height: 20rem;
+    }
+
+    /* Hamburger animation */
+    .menu-toggle[aria-expanded="true"] .top {
+      transform: translateY(20px) rotate(45deg);
+      transform-origin: center;
+    }
+    .menu-toggle[aria-expanded="true"] .middle {
+      opacity: 0;
+    }
+    .menu-toggle[aria-expanded="true"] .bottom {
+      transform: translateY(-20px) rotate(-45deg);
+      transform-origin: center;
+    }
+  }
+</style>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const navMenu = document.getElementById('navigation-menu');
+
+  if (menuToggle && navMenu) {
+    menuToggle.addEventListener('click', () => {
+      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+      navMenu.classList.toggle('is-open');
+    });
+
+    // Close menu when clicking links
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        menuToggle.setAttribute('aria-expanded', 'false');
+        navMenu.classList.remove('is-open');
+      });
+    });
+  }
+</script>
