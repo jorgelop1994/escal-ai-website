@@ -60,15 +60,27 @@ jobs:
           if [ -z "$GEMINI_API_KEY" ]; then
             echo "⚠️ GEMINI_API_KEY is not defined. Skipping AI review."
             echo "comment_exists=false" >> $GITHUB_ENV
+            echo "review_failed=false" >> $GITHUB_ENV
           else
-            # Run the review script and write results to review.md
+            # Run the review script and write results to review.md.
+            # Capture the exit status so the workflow does not stop before posting the comment.
+            set +e
             node scripts/ai-review.mjs pr.diff > review.md
+            exit_code=$?
+            set -e
             
             # Check if file was created and is non-empty
             if [ -f review.md ] && [ -s review.md ]; then
               echo "comment_exists=true" >> $GITHUB_ENV
             else
               echo "comment_exists=false" >> $GITHUB_ENV
+            fi
+            
+            # Record whether the review script failed
+            if [ $exit_code -ne 0 ]; then
+              echo "review_failed=true" >> $GITHUB_ENV
+            else
+              echo "review_failed=false" >> $GITHUB_ENV
             fi
           fi
 
@@ -114,3 +126,10 @@ jobs:
               });
               console.log('Created new PR review comment.');
             }
+
+      - name: Enforce AI Review Failure
+        if: env.review_failed == 'true'
+        run: |
+          echo "❌ AI Review failed due to detected blocking issues or limit exceedance. Please see the PR comment above for details."
+          exit 1
+
