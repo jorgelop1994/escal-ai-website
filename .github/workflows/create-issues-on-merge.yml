@@ -1,0 +1,101 @@
+name: Create Issues from AI Review on Merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+permissions:
+  issues: write
+  pull-requests: read
+
+jobs:
+  create_issues:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    name: Create Issues for Non-blocking Suggestions
+
+    steps:
+      - name: Fetch PR Comments and Create Issues
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            console.log(`Processing merged PR #${prNumber} for non-blocking AI suggestions...`);
+
+            // 1. Fetch all comments on the PR
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+            });
+
+            // 2. Find the comment authored by the bot containing the AI Review report
+            const aiReviewComment = comments.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('Reporte de Revisión - escal-ai')
+            );
+
+            if (!aiReviewComment) {
+              console.log('No AI review comment found. Skipping issue creation.');
+              return;
+            }
+
+            console.log('AI Review comment found. Parsing for non-blocking suggestions...');
+
+            // 3. Regular expression to find suggestions/issues/thoughts marked as [non-blocking]
+            const regex = /(suggestion|issue|question|thought)\s+\[\s*non-blocking\s*\]\s*:\s*([\s\S]*?)(?=\n\s*(?:suggestion|issue|question|thought|praise)(?:\s+\[[^\]]+\])?\s*:|\n\s*##|\n\s*\n|$)/gi;
+            const bodyText = aiReviewComment.body;
+            let match;
+            let count = 0;
+
+            // Use a Set to prevent creating duplicate issues if the regex matches multiple times
+            const createdTitles = new Set();
+
+            while ((match = regex.exec(bodyText)) !== null) {
+              const type = match[1].trim().toLowerCase();
+              const suggestionText = match[2].trim();
+
+              if (!suggestionText) continue;
+
+              // Generate a clean title for the issue
+              const cleanText = suggestionText.replace(/[`*_\n\r]/g, ' ').replace(/\s+/g, ' ');
+              const issueTitle = `[AI Suggestion] ${cleanText.substring(0, 60)}${cleanText.length > 60 ? '...' : ''}`;
+
+              if (createdTitles.has(issueTitle)) {
+                console.log(`Duplicate suggestion detected, skipping: "${issueTitle}"`);
+                continue;
+              }
+              createdTitles.add(issueTitle);
+
+              const issueBody = `### AI Review Suggestion
+            
+**Source:** Non-blocking suggestion from PR #${prNumber}
+
+**Type:** ${type}
+
+**Feedback details:**
+${suggestionText}
+
+---
+*This issue was automatically generated on merge from the AI Review Report.*`;
+
+              // 4. Create the GitHub Issue
+              try {
+                await github.rest.issues.create({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  title: issueTitle,
+                  body: issueBody,
+                  labels: ['ai-review', 'non-blocking', type === 'issue' ? 'bug' : 'enhancement']
+                });
+                console.log(`Successfully created issue: "${issueTitle}"`);
+                count++;
+              } catch (err) {
+                console.error(`Failed to create issue for: "${issueTitle}". Error:`, err.message);
+              }
+            }
+
+            console.log(`Finished processing. Created ${count} issues.`);
