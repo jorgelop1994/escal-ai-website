@@ -314,7 +314,8 @@ const t = useTranslations(lang);
     const menuToggle = document.getElementById('menu-toggle');
     const navMenu = document.getElementById('navigation-menu');
 
-    if (menuToggle && navMenu) {
+    if (menuToggle && navMenu && !menuToggle.dataset.headerInitialized) {
+      menuToggle.dataset.headerInitialized = 'true';
       menuToggle.addEventListener('click', () => {
         const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
         menuToggle.setAttribute('aria-expanded', String(!isExpanded));
@@ -333,7 +334,8 @@ const t = useTranslations(lang);
 
     // Theme Switcher Logic
     const themeToggle = document.getElementById('theme-toggle');
-    if (themeToggle) {
+    if (themeToggle && !themeToggle.dataset.themeInitialized) {
+      themeToggle.dataset.themeInitialized = 'true';
       themeToggle.addEventListener('click', () => {
         const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
