@@ -1,133 +1,133 @@
-# Documentación del Pipeline de CI/CD (Integración y Despliegue Continuo)
+# CI/CD Pipeline Documentation (Continuous Integration and Deployment)
 
-Este documento detalla el funcionamiento, la arquitectura y las instrucciones del pipeline de CI/CD para el proyecto **escal-ai-website**.
+This document details the operation, architecture, and instructions for the CI/CD pipeline of the **escal-ai-website** project.
 
 ---
 
-## 🛠️ Arquitectura General del Pipeline
+## 🛠️ General Pipeline Architecture
 
-El ciclo de vida del código se divide en dos fases independientes para garantizar que la rama `main` siempre se mantenga estable y libre de errores de compilación:
+The code lifecycle is divided into two independent phases to ensure that the `main` branch is always kept stable and free of build errors:
 
 ```mermaid
 graph TD
-    A[Desarrollador crea Rama] --> B[Creación de Pull Request]
+    A[Developer creates Branch] --> B[Pull Request Creation]
     B --> C[GitHub Actions: CI/CD Validation]
     C --> C1[npm run check & build]
     C --> C2[Gemini AI Code Review]
-    C1 -- Falla --x D[Fusión Bloqueada]
-    C1 -- Éxito --> E[Aprobación del PR]
-    E --> F[Merge a rama 'main']
+    C1 -- Fail --x D[Merge Blocked]
+    C1 -- Success --> E[PR Approval]
+    E --> F[Merge to 'main' branch]
     
     F --> G[Cloudflare Pages: Auto Build]
-    G --> H[Despliegue Exitoso a Producción]
+    G --> H[Successful Deployment to Production]
     
     F --> I[GitHub Actions: AI Review Auto-Issues]
-    I --> I1[Parsear comentarios del Bot en PR]
-    I1 --> I2[Crear GitHub Issues para 'non-blocking']
+    I --> I1[Parse Bot Comments on PR]
+    I1 --> I2[Create GitHub Issues for 'non-blocking']
 ```
 
 ---
 
-## 1. Validación en Pull Requests (GitHub Actions)
+## 1. Pull Request Validation (GitHub Actions)
 
-Cada vez que se abre un Pull Request (PR) apuntando a la rama `main`, o se actualiza una rama existente con nuevos commits, se ejecuta el workflow de GitHub Actions definido en [.github/workflows/validate-pr.yml](file:///Users/george/Documents/development/escal-ai-website/.github/workflows/validate-pr.yml).
+Every time a Pull Request (PR) targeting the `main` branch is opened or an existing branch is updated with new commits, the GitHub Actions workflow defined in [.github/workflows/validate-pr.yml](file:///Users/george/Documents/development/escal-ai-website/.github/workflows/validate-pr.yml) is executed.
 
-### Disparadores (Triggers)
-* **Eventos**: `pull_request` (tipos: `opened`, `synchronize`, `reopened`).
-* **Rama Destino**: `main`.
+### Triggers
+* **Events**: `pull_request` (types: `opened`, `synchronize`, `reopened`).
+* **Target Branch**: `main`.
 
-### Secuencia de Pasos del Workflow
+### Workflow Step Sequence
 
-1. **Checkout del Código**: Descarga el código fuente completo (incluyendo el historial de commits necesario para comparar el diff).
-2. **Setup de Node.js**: Instala y configura la versión 22 de Node.js con soporte de caché para `npm`.
-3. **Instalación de Dependencias**: Ejecuta `npm ci` para instalar exactamente las dependencias del archivo `package-lock.json`.
-4. **Validación de Código (Astro Check)**: Ejecuta `npm run check` para analizar el tipado en TypeScript y la estructura de los archivos `.astro` en busca de errores.
-5. **Compilación del Sitio (Build)**: Ejecuta `npm run build` para asegurar que el sitio compila correctamente. La salida se almacena temporalmente en el directorio `/dist/`.
-6. **Gemini AI Review (Opcional en PRs)**:
-   * Compara los cambios de tu rama con `main` para generar un archivo `pr.diff` (excluyendo ruidos de dependencias en `package-lock.json`).
-   * Llama al script local [scripts/ai-review.mjs](file:///Users/george/Documents/development/escal-ai-website/scripts/ai-review.mjs) pasando el diff y usando la clave `GEMINI_API_KEY`.
-   * Publica o actualiza un comentario interactivo en el PR de GitHub con sugerencias, fallos potenciales y mejoras de rendimiento.
+1. **Checkout Code**: Downloads the complete source code (including the commit history required to compare the diff).
+2. **Setup Node.js**: Installs and configures Node.js version 22 with caching support for `npm`.
+3. **Install Dependencies**: Runs `npm ci` to install the exact dependencies from the `package-lock.json` file.
+4. **Code Validation (Astro Check)**: Runs `npm run check` to analyze TypeScript types and the structure of `.astro` files for errors.
+5. **Static Site Build**: Runs `npm run build` to ensure the site compiles correctly. The output is temporarily stored in the `/dist/` directory.
+6. **Gemini AI Review (Optional on PRs)**:
+   * Compares the changes of your branch with `main` to generate a `pr.diff` file (excluding noise from dependency changes in `package-lock.json`).
+   * Calls the local script [scripts/ai-review.mjs](file:///Users/george/Documents/development/escal-ai-website/scripts/ai-review.mjs) passing the diff and using the `GEMINI_API_KEY` secret.
+   * Posts or updates an interactive comment on the GitHub PR with suggestions, potential bugs, and performance improvements.
 
-### Secretos Utilizados en GitHub
-* `GITHUB_TOKEN` (interno de GitHub): Permite a la acción publicar comentarios de revisión automáticamente en el PR.
-* `GEMINI_API_KEY`: API Key de Google Gemini para procesar el diff del código y generar la revisión automatizada.
-
----
-
-## 2. Despliegue en Producción (Cloudflare Pages)
-
-El despliegue final del sitio web está conectado directamente a la rama `main` en Cloudflare Pages, siguiendo el concepto de despliegues pasivos y optimizados.
-
-### Configuración en el Panel de Cloudflare Pages:
-
-Para evitar compilaciones innecesarias de ramas en desarrollo y mantener el flujo limpio, se aplican las siguientes reglas bajo la pestaña **Settings** > **Builds & deployments** > **Branch control**:
-
-1. **Despliegues de Producción (Automáticos)**:
-   * **Opción**: `Enable automatic production branch deployments` (Activada).
-   * **Acción**: Cada vez que se hace un *merge* o un *push* directo a la rama `main`, Cloudflare Pages detecta el cambio, compila tu proyecto Astro y actualiza el sitio en producción (`https://escal-ai.com`).
-2. **Despliegues de Vista Previa (Desactivados)**:
-   * **Opción (Preview branch)**: `None (Disable automatic branch deployments)`.
-   * **Acción**: Cloudflare **no** compilará vistas previas temporales para los PRs. La verificación de los PRs se hace de forma exclusiva a través de los tests de GitHub Actions.
+### Secrets Used in GitHub
+* `GITHUB_TOKEN` (built-in GitHub secret): Allows the action to automatically post review comments on the PR.
+* `GEMINI_API_KEY`: Google Gemini API Key to process the code diff and generate the automated review.
 
 ---
 
-## 3. Creación Automática de Issues (Al fusionar PRs)
+## 2. Production Deployment (Cloudflare Pages)
 
-Para asegurar que las sugerencias de la IA no se pierdan en el historial del PR, se ejecuta un workflow automatizado definido en [.github/workflows/create-issues-on-merge.yml](file:///Users/george/Documents/development/escal-ai-website/.github/workflows/create-issues-on-merge.yml) cuando se completa la fusión.
+The final deployment of the website is directly connected to the `main` branch in Cloudflare Pages, following the concept of passive and optimized deployments.
 
-### Disparadores (Triggers)
-* **Evento**: `pull_request` (tipo: `closed`).
-* **Condición**: El PR debe haber sido fusionado (`merged: true`) en la rama `main`.
+### Configuration in the Cloudflare Pages Panel:
 
-### Flujo del Proceso
-1. **Búsqueda del Reporte**: El script lee todos los comentarios del PR buscando el comentario del bot (`🤖 AI Review Report - escal-ai`).
-2. **Extracción y Limpieza**: Utiliza una expresión regular para identificar todos los bloques marcados como `suggestion [non-blocking]` o `issue [non-blocking]`.
-3. **Creación en GitHub**: Para cada coincidencia, crea un nuevo GitHub Issue:
-   * **Título**: Limpia caracteres especiales y resume la sugerencia a 60 caracteres.
-   * **Cuerpo**: Detalla el feedback del bot y enlaza al PR de origen.
-   * **Etiquetas**: Asigna etiquetas descriptivas: `ai-review`, `non-blocking`, y `bug` (para issues) o `enhancement` (para sugerencias).
+To avoid unnecessary builds of development branches and keep the workflow clean, the following rules are applied under the **Settings** > **Builds & deployments** > **Branch control** tab:
+
+1. **Production Deployments (Automatic)**:
+   * **Option**: `Enable automatic production branch deployments` (Enabled).
+   * **Action**: Every time a merge or a direct push is made to the `main` branch, Cloudflare Pages detects the change, builds your Astro project, and updates the production site (`https://escal-ai.com`).
+2. **Preview Deployments (Disabled)**:
+   * **Option (Preview branch)**: `None (Disable automatic branch deployments)`.
+   * **Action**: Cloudflare will **not** build temporary previews for PRs. PR verification is done exclusively through GitHub Actions checks.
 
 ---
 
-## 🚦 Instrucciones y Buenas Prácticas de Desarrollo
+## 3. Automatic Issue Creation (Upon merging PRs)
 
-Para trabajar con este pipeline de forma fluida, debes seguir el flujo de Git estructurado:
+To ensure that AI suggestions are not lost in the PR history, an automated workflow defined in [.github/workflows/create-issues-on-merge.yml](file:///Users/george/Documents/development/escal-ai-website/.github/workflows/create-issues-on-merge.yml) is executed when the merge is completed.
 
-### 1. Trabajar en ramas específicas
-Nunca envíes commits directamente a `main` (está bloqueado en GitHub). Crea una rama adecuada:
+### Triggers
+* **Event**: `pull_request` (type: `closed`).
+* **Condition**: The PR must have been merged (`merged: true`) into the `main` branch.
+
+### Process Flow
+1. **Search for Report**: The script reads all comments on the PR searching for the bot comment (`🤖 AI Review Report - escal-ai`).
+2. **Extraction and Cleanup**: Uses a regular expression to identify all blocks marked as `suggestion [non-blocking]` or `issue [non-blocking]`.
+3. **GitHub Issue Creation**: For each match, it creates a new GitHub Issue:
+   * **Title**: Cleans special characters and truncates the suggestion to 60 characters.
+   * **Body**: Details the bot's feedback and links back to the source PR.
+   * **Labels**: Assigns descriptive labels: `ai-review`, `non-blocking`, and `bug` (for issues) or `enhancement` (for suggestions).
+
+---
+
+## 🚦 Development Instructions and Best Practices
+
+To work smoothly with this pipeline, you must follow the structured Git flow:
+
+### 1. Work in specific branches
+Never push commits directly to `main` (it is locked on GitHub). Always create an appropriate branch:
 ```bash
-git checkout -b feature/nombre-de-tu-cambio   # Para mejoras y features
-git checkout -b fix/nombre-de-tu-cambio       # Para corregir bugs
+git checkout -b feature/your-change-name   # For enhancements and features
+git checkout -b fix/your-change-name       # For bug fixes
 ```
 
-### 2. Validar tu código localmente antes de subirlo
-Ahorra tiempo de CI/CD corriendo las validaciones en tu máquina local:
+### 2. Validate your code locally before pushing
+Save CI/CD time by running validations on your local machine:
 ```bash
-npm run check  # Verifica errores de Astro y TypeScript
-npm run build  # Verifica que la compilación de producción sea correcta
+npm run check  # Verifies Astro and TypeScript errors
+npm run build  # Verifies that the production compilation is correct
 ```
 
-### 3. Crear el Pull Request
-Sube tu rama y crea el PR en GitHub. Revisa los resultados en la pestaña de **Checks**:
-* Si los checks están en verde: El código compila y cumple las reglas.
-* Revisa el comentario del bot `🤖 AI Review Report - escal-ai` en la pestaña de conversación para leer las recomendaciones del modelo de lenguaje.
+### 3. Create the Pull Request
+Push your branch and create the PR on GitHub. Check the results in the **Checks** tab:
+* If the checks are green: The code compiles and complies with the rules.
+* Check the bot's comment `🤖 AI Review Report - escal-ai` in the conversation tab to read the model's recommendations.
 
-### 4. Merge a producción
-Una vez aprobado el PR, utiliza la opción **Squash and Merge** en GitHub para fusionarlo. Al completarse, Cloudflare Pages iniciará automáticamente la publicación final y en aproximadamente 1 minuto la web estará actualizada.
+### 4. Merge to production
+Once the PR is approved, use the **Squash and Merge** option on GitHub to merge it. Upon completion, Cloudflare Pages will automatically trigger the final publication, and in about 1 minute the site will be updated.
 
 ---
 
-## 🔍 Solución de Problemas (Troubleshooting)
+## 🔍 Troubleshooting
 
-### El build falla en GitHub Actions pero compila en mi PC
-* Asegúrate de haber subido todos los archivos necesarios y que no haya diferencias por ignorar archivos esenciales en `.gitignore`.
-* Verifica que no hayas modificado `package.json` agregando dependencias que no existan en `package-lock.json` (usa `npm install` localmente para actualizarlo antes de subir).
+### Build fails in GitHub Actions but compiles on my PC
+* Make sure you have uploaded all necessary files and there are no differences due to ignoring essential files in `.gitignore`.
+* Verify that you have not modified `package.json` by adding dependencies that do not exist in `package-lock.json` (run `npm install` locally to update it before pushing).
 
-### El AI Review no aparece en mi PR
-* Revisa que el secreto `GEMINI_API_KEY` esté configurado en los ajustes de tu repositorio de GitHub.
-* Si el PR solo contiene cambios en archivos que no modifican código (como la documentación en `.md` o el archivo `package-lock.json`), el script omitirá la revisión automáticamente para optimizar costos de API.
-* Si la API de Gemini está caída o sin saldo, el pipeline continuará en verde sin bloquear la integración (emergencia).
+### AI Review does not appear on my PR
+* Check that the `GEMINI_API_KEY` secret is configured in your GitHub repository settings.
+* If the PR only contains changes to files that do not modify code (such as documentation in `.md` or the `package-lock.json` file), the script will automatically skip the review to optimize API costs.
+* If the Gemini API is down or out of quota, the pipeline will continue in green without blocking the integration (emergency bypass).
 
-### Cloudflare no actualiza la web tras hacer merge
-* Verifica los logs directamente en el panel de Cloudflare Pages > **Deployments**.
-* Revisa que el nombre de la rama de producción configurada en Cloudflare coincida exactamente con la rama principal en tu repositorio (debe ser `main`).
+### Cloudflare does not update the website after merging
+* Verify the logs directly in the Cloudflare Pages panel under > **Deployments**.
+* Check that the production branch name configured in Cloudflare exactly matches the main branch in your repository (should be `main`).
