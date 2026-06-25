@@ -1,0 +1,439 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { useTranslations } from '../i18n/utils';
+import type { ui } from '../i18n/ui';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import Mascot from './Mascot.astro';
+
+interface Props {
+  lang: keyof typeof ui;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+<MainLayout 
+  lang={lang}
+  title={t('systems.reviewer.meta.title')}
+  description={t('systems.reviewer.meta.desc')}
+>
+  <div class="system-detail-page section">
+    <div class="container">
+      <!-- Back Navigation -->
+      <div class="back-nav">
+        <a href={getRelativeLocaleUrl(lang, '/')} class="back-link">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          {t('systems.reviewer.back')}
+        </a>
+      </div>
+
+      <!-- Hero Section -->
+      <div class="system-hero">
+        <div class="hero-left">
+          <span class="system-tag">{t('systems.reviewer.hero.tag')}</span>
+          <h1 class="system-title">{t('systems.reviewer.hero.title')}</h1>
+          <p class="system-desc">{t('systems.reviewer.hero.desc')}</p>
+          <a href={getRelativeLocaleUrl(lang, '/') + '#contact'} class="btn btn-primary cta-btn">
+            {t('systems.reviewer.cta.contact')}
+          </a>
+        </div>
+        <div class="hero-right">
+          <!-- PR Review Mockup -->
+          <div class="review-mockup glass">
+            <div class="review-header">
+              <span class="review-status-dot"></span>
+              <span class="review-pr-title">PR #42: Improve primary button contrast</span>
+            </div>
+            <div class="review-code-diff font-mono">
+              <div class="diff-line diff-del">-   color: #ffffff;</div>
+              <div class="diff-line diff-add">+   color: #0c0d0e; /* Compliant contrast (&gt;5.3:1) */</div>
+              <div class="diff-line diff-add">+   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);</div>
+            </div>
+            <div class="review-bot-comment">
+              <div class="comment-author">
+                <Mascot type="head" size="small" animated={false} className="comment-avatar" />
+                <div class="author-details">
+                  <span class="author-name">escal-reviewer</span>
+                  <span class="author-badge">bot</span>
+                </div>
+              </div>
+              <div class="comment-body">
+                <p><strong>blocking:</strong> White text on green fails WCAG 2.1 AA (2.53:1). Restored dark gray text (#0c0d0e) with a light text-shadow for a compliant contrast and premium look.</p>
+              </div>
+            </div>
+            <div class="merge-action-badge">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              <span>Merge: Auto-issues created</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Core Capabilities -->
+      <div class="capabilities-section">
+        <h2 class="section-title text-center">{t('systems.reviewer.features.title')}</h2>
+        <div class="capabilities-grid">
+          <div class="capability-card glass">
+            <h4>{t('systems.reviewer.features.f1.title')}</h4>
+            <p>{t('systems.reviewer.features.f1.desc')}</p>
+          </div>
+          <div class="capability-card glass">
+            <h4>{t('systems.reviewer.features.f2.title')}</h4>
+            <p>{t('systems.reviewer.features.f2.desc')}</p>
+          </div>
+          <div class="capability-card glass">
+            <h4>{t('systems.reviewer.features.f3.title')}</h4>
+            <p>{t('systems.reviewer.features.f3.desc')}</p>
+          </div>
+          <div class="capability-card glass">
+            <h4>{t('systems.reviewer.features.f4.title')}</h4>
+            <p>{t('systems.reviewer.features.f4.desc')}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Setup Guide / Code Snippet -->
+      <div class="setup-section">
+        <h2 class="section-title text-center">{t('systems.reviewer.setup.title')}</h2>
+        <p class="setup-desc text-center">{t('systems.reviewer.setup.desc')}</p>
+        <div class="code-terminal glass font-mono">
+          <div class="terminal-bar">
+            <span class="dots">
+              <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+            </span>
+            <span class="terminal-title">.github/workflows/ai-reviewer.yml</span>
+          </div>
+          <pre><code><span class="code-key">name</span>: <span class="code-val">AI Code Reviewer</span>
+<span class="code-key">on</span>:
+  <span class="code-key">pull_request</span>:
+    <span class="code-key">types</span>: [<span class="code-val">opened, synchronize</span>]
+
+<span class="code-key">jobs</span>:
+  <span class="code-key">review</span>:
+    <span class="code-key">runs-on</span>: <span class="code-val">ubuntu-latest</span>
+    <span class="code-key">steps</span>:
+      - <span class="code-key">uses</span>: <span class="code-val">actions/checkout@v4</span>
+      
+      - <span class="code-key">name</span>: <span class="code-val">Run AI Code Reviewer</span>
+        <span class="code-key">uses</span>: <span class="code-val">jorgelop1994/escal-reviewer@main</span>
+        <span class="code-key">env</span>:
+          <span class="code-key">GITHUB_TOKEN</span>: <span class="code-val">{'${{ secrets.GITHUB_TOKEN }}'}</span>
+          <span class="code-key">GEMINI_API_KEY</span>: <span class="code-val">{'${{ secrets.GEMINI_API_KEY }}'}</span></code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</MainLayout>
+
+<style>
+  .system-detail-page {
+    padding: 3rem 0 6rem 0;
+    position: relative;
+    background-image: radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.04) 0%, transparent 60%);
+  }
+
+  .back-nav {
+    margin-bottom: 2.5rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    transition: color var(--transition-fast);
+  }
+
+  .back-link:hover {
+    color: var(--text-primary);
+  }
+
+  .back-link svg {
+    transition: transform var(--transition-fast);
+  }
+
+  .back-link:hover svg {
+    transform: translateX(-4px);
+  }
+
+  .system-hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+    margin-bottom: 5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .system-hero {
+      grid-template-columns: 1.15fr 0.85fr;
+    }
+  }
+
+  .system-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    background: rgba(16, 185, 129, 0.08);
+    padding: 0.3rem 0.85rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    letter-spacing: 0.05em;
+    display: inline-block;
+    margin-bottom: 1.25rem;
+  }
+
+  .system-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+  }
+
+  .system-desc {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    text-align: left;
+  }
+
+  .cta-btn {
+    align-self: flex-start;
+  }
+
+  /* PR Review Mockup details */
+  .review-mockup {
+    border-radius: 16px;
+    border-color: var(--mockup-border);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .review-header {
+    height: 42px;
+    background: var(--mockup-header-bg);
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    gap: 0.75rem;
+    border-bottom: 1px solid var(--mockup-border);
+  }
+
+  .review-status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--color-primary);
+  }
+
+  .review-pr-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .review-code-diff {
+    background: var(--mockup-bg-deep);
+    padding: 1rem;
+    border-bottom: 1px solid var(--mockup-border);
+    font-size: 0.75rem;
+    text-align: left;
+  }
+
+  .diff-line {
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 0.15rem;
+  }
+
+  .diff-del {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+  }
+
+  .diff-add {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+  }
+
+  .review-bot-comment {
+    padding: 1.25rem;
+    background: var(--bg-card-hover);
+    border-bottom: 1px solid var(--mockup-border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: left;
+  }
+
+  .comment-author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .comment-avatar {
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 50%;
+    border: 1px solid var(--border-hover);
+    background: var(--bg-color);
+    padding: 2px;
+  }
+
+  .author-details {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .author-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .author-badge {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--color-primary);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .comment-body {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  .merge-action-badge {
+    padding: 0.75rem 1rem;
+    background: var(--mockup-header-bg);
+    display: flex;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    border-top: 1px solid var(--mockup-border);
+  }
+
+  /* Capabilities Grid styling */
+  .capabilities-section {
+    margin-bottom: 5rem;
+  }
+
+  .capabilities-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .capabilities-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .capability-card {
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: left;
+  }
+
+  .capability-card h4 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .capability-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* Setup Code Terminal */
+  .setup-section {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .setup-desc {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    margin: 1.25rem auto 2.5rem auto;
+    max-width: 600px;
+  }
+
+  .code-terminal {
+    border-radius: 16px;
+    border-color: var(--mockup-border);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    background: var(--bg-card);
+  }
+
+  .terminal-bar {
+    height: 42px;
+    background: var(--mockup-header-bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.25rem;
+    border-bottom: 1px solid var(--mockup-border);
+  }
+
+  .dots {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .code-terminal pre {
+    margin: 0;
+    padding: 1.5rem;
+    background: var(--mockup-bg-deep);
+    overflow-x: auto;
+    text-align: left;
+  }
+
+  .code-terminal code {
+    color: #f3f3f6;
+    font-size: 0.85rem;
+  }
+
+  .code-key {
+    color: #34d399; /* Emerald key color */
+  }
+
+  .code-val {
+    color: #fbbf24; /* Amber value color */
+  }
+</style>
