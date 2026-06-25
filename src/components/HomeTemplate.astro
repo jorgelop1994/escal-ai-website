@@ -1519,8 +1519,20 @@ const t = useTranslations(lang);
   .contact-mail-btn,
   .contact-copy-btn {
     flex: 1 1 240px;
-    text-shadow: none;
     margin-top: 0;
+  }
+
+  .contact-mail-btn svg,
+  .contact-copy-btn svg {
+    transition: transform var(--transition-normal);
+  }
+
+  .contact-mail-btn:hover svg {
+    transform: scale(1.1) rotate(-5deg);
+  }
+
+  .contact-copy-btn:hover svg {
+    transform: scale(1.1);
   }
 
   .contact-copy-btn.copied {
