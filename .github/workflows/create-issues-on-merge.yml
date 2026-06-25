@@ -51,8 +51,8 @@ jobs:
 
             console.log('AI Review comment found. Parsing for non-blocking suggestions...');
 
-            // 3. Regular expression to find suggestions/issues/thoughts marked as [non-blocking]
-            const regex = /(?:\*\*)*(suggestion|issue|question|thought)(?:\*\*)*\s+\[\s*non-blocking\s*\]\s*:\s*([\s\S]*?)(?=\n\s*(?:\*\*)*(?:suggestion|issue|question|thought|praise)(?:\*\*)*(?:\s+\[[^\]]+\])?\s*:|\n\s*---|\n\s*##|\n\s*#|$)/gi;
+            // 3. Regular expression to find suggestions/issues marked as [non-blocking]
+            const regex = /(?:\*\*)*(suggestion|issue)(?:\*\*)*\s+\[\s*non-blocking\s*\]\s*:\s*([\s\S]*?)(?=\n\s*(?:\*\*)*(?:suggestion|issue|question|thought|praise)(?:\*\*)*(?:\s+\[[^\]]+\])?\s*:|\n\s*---|\n\s*##|\n\s*#|$)/gi;
             const bodyText = aiReviewComment.body;
             let match;
             let count = 0;
