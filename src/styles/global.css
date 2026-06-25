@@ -17,6 +17,7 @@
   --color-accent: #d97706; /* Warm Gold / Amber */
   
   --grad-brand: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  --grad-btn-primary: linear-gradient(180deg, var(--color-primary) 0%, var(--color-secondary) 100%);
   --grad-dark: linear-gradient(180deg, #0c0e12 0%, #060709 100%);
   --grad-glow: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.12) 0%, transparent 60%);
 
@@ -255,30 +256,30 @@ a {
 }
 
 .btn-primary {
-  background: linear-gradient(180deg, #10b981 0%, #059669 100%);
-  color: #ffffff;
-  border: 1px solid rgba(16, 185, 129, 0.45);
+  background: var(--grad-btn-primary);
+  color: #0c0d0e;
+  border: 1px solid rgba(8, 10, 16, 0.15);
   box-shadow: 
-    0 4px 14px rgba(16, 185, 129, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.25);
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    0 4px 14px rgba(16, 185, 129, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 
-    0 8px 24px rgba(16, 185, 129, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35);
-  border-color: rgba(16, 185, 129, 0.7);
-  filter: brightness(1.06);
+    0 8px 24px rgba(16, 185, 129, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  border-color: rgba(8, 10, 16, 0.25);
+  filter: brightness(1.05);
 }
 
 .btn-primary:active {
   transform: translateY(0);
   box-shadow: 
     0 2px 8px rgba(16, 185, 129, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  filter: brightness(0.96);
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  filter: brightness(0.95);
 }
 
 .btn-secondary {
