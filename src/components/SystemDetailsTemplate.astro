@@ -1,0 +1,108 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { useTranslations } from '../i18n/utils';
+import type { ui } from '../i18n/ui';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import ReviewMockup from './ReviewMockup.astro';
+import '../styles/system-details.css';
+
+interface Props {
+  lang: keyof typeof ui;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+<MainLayout 
+  lang={lang}
+  title={t('systems.reviewer.meta.title')}
+  description={t('systems.reviewer.meta.desc')}
+>
+  <div class="system-detail-page section">
+    <div class="container">
+      <!-- Back Navigation -->
+      <div class="back-nav">
+        <a href={getRelativeLocaleUrl(lang, '/')} class="back-link">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          {t('systems.reviewer.back')}
+        </a>
+      </div>
+
+      <!-- Hero Section -->
+      <div class="system-hero">
+        <div class="hero-left">
+          <span class="system-tag">{t('systems.reviewer.hero.tag')}</span>
+          <h1 class="system-title">{t('systems.reviewer.hero.title')}</h1>
+          <p class="system-desc">{t('systems.reviewer.hero.desc')}</p>
+          <a href={getRelativeLocaleUrl(lang, '/') + '#contact'} class="btn btn-primary cta-btn">
+            {t('systems.reviewer.cta.contact')}
+          </a>
+        </div>
+        <div class="hero-right">
+          <!-- PR Review Mockup -->
+          <ReviewMockup 
+            lang={lang} 
+            ariaLabel={lang === 'es' ? "Simulador interactivo de revisión de código por IA" : "Interactive AI code review simulator"} 
+          />
+        </div>
+      </div>
+
+      <!-- Core Capabilities -->
+      <div class="capabilities-section">
+        <h2 class="section-title text-center">{t('systems.reviewer.features.title')}</h2>
+        <div class="capabilities-grid">
+          <div class="capability-card glass">
+            <h4>{t('systems.reviewer.features.f1.title')}</h4>
+            <p>{t('systems.reviewer.features.f1.desc')}</p>
+          </div>
+          <div class="capability-card glass">
+            <h4>{t('systems.reviewer.features.f2.title')}</h4>
+            <p>{t('systems.reviewer.features.f2.desc')}</p>
+          </div>
+          <div class="capability-card glass">
+            <h4>{t('systems.reviewer.features.f3.title')}</h4>
+            <p>{t('systems.reviewer.features.f3.desc')}</p>
+          </div>
+          <div class="capability-card glass">
+            <h4>{t('systems.reviewer.features.f4.title')}</h4>
+            <p>{t('systems.reviewer.features.f4.desc')}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Setup Guide / Code Snippet -->
+      <div class="setup-section">
+        <h2 class="section-title text-center">{t('systems.reviewer.setup.title')}</h2>
+        <p class="setup-desc text-center">{t('systems.reviewer.setup.desc')}</p>
+        <div class="code-terminal glass font-mono">
+          <div class="terminal-bar">
+            <span class="dots">
+              <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+            </span>
+            <span class="terminal-title">.github/workflows/ai-reviewer.yml</span>
+          </div>
+          <pre><code><span class="code-key">name</span>: <span class="code-val">AI Code Reviewer</span>
+<span class="code-key">on</span>:
+  <span class="code-key">pull_request</span>:
+    <span class="code-key">types</span>: [<span class="code-val">opened, synchronize</span>]
+
+<span class="code-key">jobs</span>:
+  <span class="code-key">review</span>:
+    <span class="code-key">runs-on</span>: <span class="code-val">ubuntu-latest</span>
+    <span class="code-key">steps</span>:
+      - <span class="code-key">uses</span>: <span class="code-val">actions/checkout@v4</span>
+      
+      - <span class="code-key">name</span>: <span class="code-val">Run AI Code Reviewer</span>
+        <span class="code-key">uses</span>: <span class="code-val">jorgelop1994/escal-reviewer@main</span>
+        <span class="code-key">env</span>:
+          <span class="code-key">GITHUB_TOKEN</span>: <span class="code-val">{'${{ secrets.GITHUB_TOKEN }}'}</span>
+          <span class="code-key">GEMINI_API_KEY</span>: <span class="code-val">{'${{ secrets.GEMINI_API_KEY }}'}</span></code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</MainLayout>
+

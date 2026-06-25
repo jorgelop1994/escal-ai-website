@@ -1,0 +1,178 @@
+.system-detail-page {
+  padding: 3rem 0 6rem 0;
+  position: relative;
+  background-image: radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.04) 0%, transparent 60%);
+}
+
+.back-nav {
+  margin-bottom: 2.5rem;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.back-link:hover {
+  color: var(--text-primary);
+}
+
+.back-link svg {
+  transition: transform var(--transition-fast);
+}
+
+.back-link:hover svg {
+  transform: translateX(-4px);
+}
+
+.system-hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 5rem;
+}
+
+@media (min-width: 1024px) {
+  .system-hero {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+.system-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  background: rgba(16, 185, 129, 0.08);
+  padding: 0.3rem 0.85rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  letter-spacing: 0.05em;
+  display: inline-block;
+  margin-bottom: 1.25rem;
+}
+
+.system-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.system-desc {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  max-width: 600px;
+  text-align: left;
+}
+
+.cta-btn {
+  align-self: flex-start;
+}
+
+/* Capabilities Grid styling */
+.capabilities-section {
+  margin-bottom: 5rem;
+}
+
+.capabilities-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 640px) {
+  .capabilities-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.capability-card {
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: left;
+}
+
+.capability-card h4 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.capability-card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* Setup Code Terminal */
+.setup-section {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.setup-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin: 1.25rem auto 2.5rem auto;
+  max-width: 600px;
+}
+
+.code-terminal {
+  border-radius: 16px;
+  border-color: var(--mockup-border);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  background: var(--bg-card);
+}
+
+.terminal-bar {
+  height: 42px;
+  background: var(--mockup-header-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+  border-bottom: 1px solid var(--mockup-border);
+}
+
+.dots {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.code-terminal pre {
+  margin: 0;
+  padding: 1.5rem;
+  background: var(--mockup-bg-deep);
+  overflow-x: auto;
+  text-align: left;
+}
+
+.code-terminal code {
+  color: var(--color-code-text);
+  font-size: 0.85rem;
+}
+
+.code-key {
+  color: var(--color-code-key);
+}
+
+.code-val {
+  color: var(--color-code-val);
+}

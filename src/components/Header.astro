@@ -22,12 +22,12 @@ const t = useTranslations(lang);
     
     <nav class="nav" id="navigation-menu" aria-label="Primary Navigation">
       <ul class="nav-list">
-        <li><a href={getRelativeLocaleUrl(lang, '#products')} class="nav-link">{t('nav.products')}</a></li>
-        <li><a href={getRelativeLocaleUrl(lang, '#services')} class="nav-link">{t('nav.services')}</a></li>
-        <li><a href={getRelativeLocaleUrl(lang, '#process')} class="nav-link">{t('nav.process')}</a></li>
-        <li><a href={getRelativeLocaleUrl(lang, '#about')} class="nav-link">{t('nav.about')}</a></li>
-        <li><a href={getRelativeLocaleUrl(lang, '#pricing')} class="nav-link">{t('nav.pricing')}</a></li>
-        <li><a href={getRelativeLocaleUrl(lang, '#contact')} class="btn btn-secondary nav-btn-mobile">{t('nav.contact')}</a></li>
+        <li><a href={getRelativeLocaleUrl(lang, '/') + '#products'} class="nav-link">{t('nav.products')}</a></li>
+        <li><a href={getRelativeLocaleUrl(lang, '/') + '#services'} class="nav-link">{t('nav.services')}</a></li>
+        <li><a href={getRelativeLocaleUrl(lang, '/') + '#process'} class="nav-link">{t('nav.process')}</a></li>
+        <li><a href={getRelativeLocaleUrl(lang, '/') + '#about'} class="nav-link">{t('nav.about')}</a></li>
+        <li><a href={getRelativeLocaleUrl(lang, '/') + '#pricing'} class="nav-link">{t('nav.pricing')}</a></li>
+        <li><a href={getRelativeLocaleUrl(lang, '/') + '#contact'} class="btn btn-secondary nav-btn-mobile">{t('nav.contact')}</a></li>
       </ul>
     </nav>
 
@@ -65,7 +65,7 @@ const t = useTranslations(lang);
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
       </button>
-      <a href={getRelativeLocaleUrl(lang, '#contact')} class="btn btn-primary nav-btn-desktop">{t('nav.contact')}</a>
+      <a href={getRelativeLocaleUrl(lang, '/') + '#contact'} class="btn btn-primary nav-btn-desktop">{t('nav.contact')}</a>
       <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="navigation-menu" aria-label="Toggle navigation menu">
         <svg class="hamburger" viewBox="0 0 100 100" width="30" height="30">
           <line class="line top" x1="15" y1="30" x2="85" y2="30" stroke="currentColor" stroke-width="8" stroke-linecap="round"></line>
