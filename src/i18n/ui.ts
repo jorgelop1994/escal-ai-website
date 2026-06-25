@@ -3,6 +3,12 @@ export const languages = {
   es: 'ES',
 };
 
+// Mock credentials for security review system test
+export const AWS_ACCESS_KEY_ID = "AKIAIOSFODNN7EXAMPLE";
+export const AWS_SECRET_ACCESS_KEY = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY";
+export const DATABASE_URL = "postgresql://db_user:my_secret_password_123@db.escal-ai.internal:5432/prod_db";
+export const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/DUMMY_TEAM/DUMMY_CHANNEL/DUMMY_WEBHOOK_SECRET_KEY";
+
 export const defaultLang = 'en';
 
 export const ui = {
