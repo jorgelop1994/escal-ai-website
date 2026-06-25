@@ -52,10 +52,96 @@ jobs:
             echo "run_review=false" >> $GITHUB_ENV
           fi
 
+      - name: Fetch Linked Issues Context
+        if: env.run_review == 'true'
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const prNumber = context.payload.pull_request.number;
+            const prBody = context.payload.pull_request.body || '';
+            const prTitle = context.payload.pull_request.title || '';
+            const branchName = context.payload.pull_request.head.ref || '';
+            const combinedText = `${prTitle}\n${prBody}`;
+            
+            const issueNumbers = new Set();
+            
+            // 1. GraphQL official linked issues
+            try {
+              const query = `
+                query($owner: String!, $repo: String!, $prNumber: Int!) {
+                  repository(owner: $owner, name: $repo) {
+                    pullRequest(number: $prNumber) {
+                      closingIssuesReferences(first: 10) {
+                        nodes {
+                          number
+                        }
+                      }
+                    }
+                  }
+                }
+              `;
+              const variables = {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                prNumber: prNumber
+              };
+              const result = await github.graphql(query, variables);
+              const nodes = result.repository?.pullRequest?.closingIssuesReferences?.nodes || [];
+              console.log(`GraphQL closingIssuesReferences found ${nodes.length} issue(s).`);
+              for (const node of nodes) {
+                issueNumbers.add(node.number);
+              }
+            } catch (err) {
+              console.warn(`Error querying GraphQL closingIssuesReferences: ${err.message}`);
+            }
+            
+            // 2. Regex fallback
+            const regexes = [
+              /(?:closes|fixes|resolves|close|fix|resolve)?\s*#(\d+)/gi,
+              /(?:closes|fixes|resolves|close|fix|resolve)?\s*gh-(\d+)/gi
+            ];
+            for (const regex of regexes) {
+              let match;
+              while ((match = regex.exec(combinedText)) !== null) {
+                issueNumbers.add(parseInt(match[1], 10));
+              }
+            }
+            const branchMatch = branchName.match(/(?:issue|fix|bug)-?(\d+)/i);
+            if (branchMatch) {
+              issueNumbers.add(parseInt(branchMatch[1], 10));
+            }
+            
+            console.log(`Identified issue numbers: ${Array.from(issueNumbers).join(', ')}`);
+            
+            let issuesContext = '';
+            for (const issueNum of issueNumbers) {
+              try {
+                console.log(`Fetching issue #${issueNum} details...`);
+                const { data: issue } = await github.rest.issues.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNum,
+                });
+                issuesContext += `--- Issue #${issueNum} ---\n`;
+                issuesContext += `Title: ${issue.title}\n`;
+                issuesContext += `Body:\n${issue.body || 'No description provided.'}\n\n`;
+              } catch (err) {
+                console.warn(`Could not fetch issue #${issueNum}: ${err.message}`);
+              }
+            }
+            
+            fs.writeFileSync('pr_issues.txt', issuesContext);
+            console.log('Wrote linked issues context to pr_issues.txt');
+
       - name: Run Gemini Code Review
         if: env.run_review == 'true'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           if [ -z "$GEMINI_API_KEY" ]; then
             echo "⚠️ GEMINI_API_KEY is not defined. Skipping AI review."

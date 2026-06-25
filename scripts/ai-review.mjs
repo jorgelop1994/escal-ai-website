@@ -48,8 +48,33 @@ async function main() {
     process.exit(1);
   }
 
-  const prompt = `
-Analyze the following git diff of a Pull Request for the corporate website escal-ai.com.
+  const prTitle = process.env.PR_TITLE || '';
+  const prBody = process.env.PR_BODY || '';
+  const prNumber = process.env.PR_NUMBER || '';
+
+  let issueContent = '';
+  const issuesFilePath = path.resolve('pr_issues.txt');
+  if (fs.existsSync(issuesFilePath)) {
+    try {
+      issueContent = fs.readFileSync(issuesFilePath, 'utf8');
+      console.warn(`✔ Read linked issues context from pr_issues.txt (${issueContent.length} chars)`);
+    } catch (err) {
+      console.warn(`⚠️ Warning: Failed to read pr_issues.txt: ${err.message}`);
+    }
+  }
+
+  let prContext = '';
+  if (prTitle || prBody || prNumber || issueContent) {
+    prContext = `PR Number: #${prNumber || 'unknown'}
+PR Title: ${prTitle || 'No title provided'}
+PR Description:
+${prBody || 'No description provided.'}
+${issueContent ? `\nResolved/Linked Issues Details:\n${issueContent}` : ''}
+`;
+  }
+
+  const systemInstructionText = `You are a senior code reviewer and security auditor for the corporate website escal-ai.com.
+Your task is to analyze the git diff of a Pull Request.
 
 Review the diff in detail and check for:
 1. Semantic HTML & Accessibility (ARIA roles, form labels, focus states, basic color contrast).
@@ -60,6 +85,12 @@ Review the diff in detail and check for:
 6. Security & Leak Detection:
    - Check for exposed API keys, secrets, credentials, passwords, or private keys.
    - Check for obfuscated code or suspicious decoding functions (e.g. atob, eval, dynamic Function, Base64/Hex decoding of image/binary payloads) that could indicate dynamic code injection or steganography vulnerabilities.
+
+Guidelines for PR & Issues Context:
+- Understand the context of this PR using the provided PR Title, PR Description, and Linked Issues Details.
+- If this PR is specifically intended to fix a bug, implement a suggestion, or close an issue (e.g., resolving a previously reported suggestion or feedback), do NOT raise suggestions that caution against or repeat the very fix the PR is implementing.
+- Acknowledge the fix or remain silent about it if it is implemented correctly, rather than warning about its potential side effects or raising a redundant non-blocking suggestion.
+- Focus suggestions only on actual new bugs or completely unrelated issues introduced by the changes.
 
 Output Format Guidelines:
 - The review MUST be in English.
@@ -75,9 +106,12 @@ Output Format Guidelines:
     - \`praise: Excellent work optimizing the hero CSS animation performance.\`
 
 - Provide a concise summary at the beginning of the report indicating whether the PR is safe to merge.
-- If no issues are found, congratulate the developer and let them know the PR looks perfect.
+- If no issues are found, congratulate the developer and let them know the PR looks perfect.`;
 
-Here is the Git Diff to review:
+  const userContentText = `Here is the context of the Pull Request being reviewed:
+${prContext ? prContext : 'No PR or Issue context metadata was provided.'}
+
+Here is the Git Diff of the changes:
 \`\`\`diff
 ${diffContent}
 \`\`\`
@@ -98,11 +132,18 @@ ${diffContent}
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+              system_instruction: {
+                parts: [
+                  {
+                    text: systemInstructionText,
+                  },
+                ],
+              },
               contents: [
                 {
                   parts: [
                     {
-                      text: prompt,
+                      text: userContentText,
                     },
                   ],
                 },
