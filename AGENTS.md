@@ -24,8 +24,8 @@ Consult these guides before working on related tasks:
 ## Workflow & Git Flow Rules
 
 - **Branch Protection**: Direct pushes to `main` are strictly forbidden. Always create a branch matching the naming convention:
-  - `feature/nombre-del-cambio` for features and enhancements.
-  - `fix/nombre-del-cambio` for bug fixes.
+  - `feature/change-name` for features and enhancements.
+  - `fix/change-name` for bug fixes.
 - **Pull Requests**: Integrate all changes via a Pull Request (PR) targeting `main`. Use squash merges and delete the branch after merging.
 - **CI/CD Validations**: Every PR triggers a validation pipeline in GitHub Actions that runs:
   - `npm ci` (Dependency installation)
