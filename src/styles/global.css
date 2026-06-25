@@ -256,13 +256,15 @@ a {
 
 .btn-primary {
   background: var(--grad-brand);
-  color: #0c0d0e;
-  box-shadow: 0 4px 20px -5px rgba(16, 185, 129, 0.45);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px -5px rgba(16, 185, 129, 0.35);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px -2px rgba(16, 185, 129, 0.65);
+  box-shadow: 0 8px 30px -2px rgba(16, 185, 129, 0.55);
+  filter: brightness(1.08);
 }
 
 .btn-secondary {
