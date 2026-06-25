@@ -1,0 +1,297 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+interface Props {
+  lang: 'en' | 'es';
+  policy: 'privacy' | 'terms';
+}
+
+const { lang, policy } = Astro.props;
+
+// Localized Content Map
+const content = {
+  en: {
+    back: 'Back to Home',
+    lastUpdated: 'Last Updated: June 25, 2026',
+    privacy: {
+      title: 'Privacy Policy',
+      description: 'How we collect, protect, and handle your data at escal-ai.',
+      intro: 'At escal-ai, we value your privacy and are committed to protecting your personal information. This Privacy Policy describes how we collect, use, and safeguard the data you provide to us when visiting our website and inquiring about our services.',
+      sections: [
+        {
+          title: '1. Information We Collect',
+          content: 'We only collect personal data that you voluntarily provide to us through our contact forms or email inquiries. This information may include your name, email address, company name, and a description of your project or business needs.'
+        },
+        {
+          title: '2. How We Use Your Information',
+          content: 'We use the collected information solely to contact you regarding your inquiries, provide the requested consulting or development services, and customize your experience with our products. We do not sell, rent, or trade your data to third parties for marketing purposes.'
+        },
+        {
+          title: '3. Theme Cookies & Local Storage',
+          content: 'We use light-weight local storage and cookies to save your user interface preferences (such as light or dark mode selection). These preferences do not track your browsing history or identify you personally, and are stored locally on your device.'
+        },
+        {
+          title: '4. Data Security & Encryption',
+          content: 'We implement industry-standard technical and organizational security measures to protect your data. All communication through our website is encrypted via Secure Socket Layer (SSL) technology. We store your contact details securely and restrict access to authorized personnel only.'
+        },
+        {
+          title: '5. AI Processing & Confidentiality',
+          content: 'When you contract our services to develop custom autonomous AI agents, any data used for fine-tuning or prompt engineering is kept strictly confidential within private environments. We ensure that your proprietary business logic and datasets are never leaked or used to train public LLM models.'
+        },
+        {
+          title: '6. Changes to this Policy',
+          content: 'We reserve the right to modify this Privacy Policy at any time. Any changes will be posted on this page with an updated revision date. We encourage you to review this policy periodically.'
+        }
+      ]
+    },
+    terms: {
+      title: 'Terms of Service',
+      description: 'Operating guidelines and service terms for escal-ai.',
+      intro: 'Welcome to escal-ai. These Terms of Service ("Terms") govern your access to and use of our website, consulting services, and custom autonomous agents. By accessing our website or utilizing our services, you agree to comply with and be bound by these Terms.',
+      sections: [
+        {
+          title: '1. Services & Custom AI Agents',
+          content: 'escal-ai provides strategic Artificial Intelligence consulting, automation pipeline audits, and custom autonomous software agent development. Detailed specifications, timelines, and deliverables for development projects are governed by separate, signed Statements of Work (SOW).'
+        },
+        {
+          title: '2. AI Suggestions & Code Review Disclaimer',
+          content: 'Our automated code analysis systems (including the GitHub AI Reviewer / escal-reviewer) generate review comments, code modifications, and technical debt issues based on large language models. These automated outputs are strictly advisory. Software developers must review, validate, and test all AI-generated suggestions prior to merging or deploying code. We assume no liability for bugs, security issues, or service outages caused by code changes suggested by our AI agents.'
+        },
+        {
+          title: '3. Intellectual Property Rights',
+          content: 'Clients retain full, exclusive ownership of custom source code, configurations, and deliverables developed specifically for them and delivered under a completed contract. escal-ai retains all ownership, patents, and copyright in its pre-existing core software, development frameworks, and general-purpose prompt libraries.'
+        },
+        {
+          title: '4. Acceptable & Lawful Use',
+          content: 'You agree to use our website, tools, and developed agents only for lawful purposes. You must not use our services to create agents that engage in malicious activities, spamming, phishing, automated harassment, or violate the API guidelines of third-party platforms (such as WhatsApp, GitHub, or OpenAI).'
+        },
+        {
+          title: '5. Limitation of Liability',
+          content: 'To the maximum extent permitted by applicable law, escal-ai and its directors shall not be liable for any direct, indirect, special, incidental, or consequential damages resulting from the use or inability to use our systems, consulting recommendations, or custom AI agents.'
+        },
+        {
+          title: '6. Governing Law',
+          content: 'These Terms and any disputes arising out of them shall be governed by and construed in accordance with the laws of the State of Wyoming, USA, without regard to its conflict of law provisions.'
+        }
+      ]
+    }
+  },
+  es: {
+    back: 'Volver al Inicio',
+    lastUpdated: 'Última actualización: 25 de junio de 2026',
+    privacy: {
+      title: 'Política de Privacidad',
+      description: 'Cómo recopilamos, protegemos y manejamos tus datos en escal-ai.',
+      intro: 'En escal-ai, valoramos tu privacidad y estamos comprometidos con la protección de tu información personal. Esta Política de Privacidad describe cómo recopilamos, utilizamos y resguardamos los datos que nos proporcionas al visitar nuestro sitio web e interactuar con nuestros servicios.',
+      sections: [
+        {
+          title: '1. Información que Recopilamos',
+          content: 'Solo recopilamos información personal que nos proporcionas voluntariamente a través de nuestros formularios de contacto o consultas por correo electrónico. Esta información puede incluir tu nombre, dirección de correo electrónico, nombre de la empresa y una descripción de tu proyecto o necesidades comerciales (especialmente enfocado a PYMEs).'
+        },
+        {
+          title: '2. Cómo Utilizamos tu Información',
+          content: 'Utilizamos la información recopilada únicamente para responder a tus consultas, proporcionar los servicios de consultoría o desarrollo solicitados y personalizar tu experiencia con nuestros productos. No vendemos, alquilamos ni comercializamos tus datos con terceros para fines publicitarios.'
+        },
+        {
+          title: '3. Cookies y Almacenamiento Local',
+          content: 'Utilizamos cookies ligeras y almacenamiento local en tu navegador para guardar tus preferencias de interfaz de usuario (como la selección del modo claro u oscuro). Estas preferencias no rastrean tu historial de navegación ni te identifican personalmente, y se almacenan localmente en tu dispositivo.'
+        },
+        {
+          title: '4. Seguridad y Cifrado de Datos',
+          content: 'Implementamos medidas de seguridad técnicas y organizativas estándar de la industria para proteger tus datos. Toda comunicación a través de nuestro sitio web está cifrada mediante tecnología SSL (Secure Socket Layer). Almacenamos tus datos de contacto de forma segura y el acceso está restringido únicamente a personal autorizado.'
+        },
+        {
+          title: '5. Procesamiento de IA y Confidencialidad',
+          content: 'Cuando contratas nuestros servicios para desarrollar agentes de IA autónomos a medida, cualquier dato utilizado para el ajuste fino (fine-tuning) o ingeniería de prompts se mantiene bajo estricta confidencialidad en entornos privados. Garantizamos que tus datos comerciales y propiedad intelectual nunca se filtrarán ni se utilizarán para entrenar modelos de LLM públicos.'
+        },
+        {
+          title: '6. Cambios a esta Política',
+          content: 'Nos reservamos el derecho de modificar esta Política de Privacidad en cualquier momento. Cualquier cambio se publicará en esta página con una fecha de revisión actualizada. Te sugerimos revisar esta política periódicamente.'
+        }
+      ]
+    },
+    terms: {
+      title: 'Términos de Servicio',
+      description: 'Pautas de operación y condiciones de servicio para escal-ai.',
+      intro: 'Bienvenido a escal-ai. Estos Términos de Servicio ("Términos") rigen tu acceso y uso de nuestro sitio web, servicios de consultoría y agentes autónomos. Al acceder a nuestro sitio web o utilizar nuestros servicios, aceptas cumplir y estar sujeto a estos Términos.',
+      sections: [
+        {
+          title: '1. Servicios y Agentes de IA a Medida',
+          content: 'escal-ai ofrece consultoría estratégica de Inteligencia Artificial, auditorías de flujos de automatización y desarrollo de agentes autónomos de software personalizados. Las especificaciones detalladas, cronogramas y entregables de cada proyecto de desarrollo se rigen por contratos de trabajo independientes firmados por ambas partes.'
+        },
+        {
+          title: '2. Descargo de Responsabilidad de IA y Revisiones de Código',
+          content: 'Nuestros sistemas automatizados de análisis de código (incluido el GitHub AI Reviewer / escal-reviewer) generan comentarios de revisión, sugerencias de código e incidencias de deuda técnica basados en modelos de lenguaje avanzados. Estos entregables automatizados son de carácter consultivo. Los desarrolladores de software humanos deben revisar, validar y probar todas las sugerencias generadas por la IA antes de fusionar o desplegar el código. No asumimos responsabilidad alguna por fallas, vulnerabilidades de seguridad o interrupciones del servicio causadas por cambios de código sugeridos por nuestros agentes de IA.'
+        },
+        {
+          title: '3. Derechos de Propiedad Intelectual',
+          content: 'Los clientes conservan la propiedad total y exclusiva del código fuente personalizado, configuraciones y entregables desarrollados específicamente para ellos bajo un contrato completado. escal-ai conserva la propiedad, patentes y derechos de autor de su software base preexistente, frameworks de desarrollo y librerías de prompts de propósito general.'
+        },
+        {
+          title: '4. Uso Aceptable y Lícito',
+          content: 'Aceptas utilizar nuestro sitio web, herramientas y agentes desarrollados únicamente para fines lícitos. No debes usar nuestros servicios para crear agentes que realicen actividades maliciosas, spamming, phishing, acoso automatizado o que infrinjan los términos de servicio de plataformas de terceros (como WhatsApp, GitHub o OpenAI).'
+        },
+        {
+          title: '5. Limitación de Responsabilidad',
+          content: 'En la máxima medida permitida por la ley aplicable, escal-ai y sus directores no serán responsables de ningún daño directo, indirecto, incidental o consecuente que resulte del uso o la incapacidad de usar nuestros sistemas, recomendaciones de consultoría o agentes de IA personalizados.'
+        },
+        {
+          title: '6. Ley Aplicable',
+          content: 'Estos Términos y cualquier disputa que surja de ellos se regirán e interpretarán de acuerdo con las leyes del Estado de Wyoming, EE. UU., sin tener en cuenta sus disposiciones sobre conflictos de leyes.'
+        }
+      ]
+    }
+  }
+};
+
+const current = content[lang];
+const policyData = current[policy];
+---
+
+<MainLayout 
+  lang={lang}
+  title={`${policyData.title} | escal-ai`}
+  description={policyData.description}
+>
+  <div class="legal-page section">
+    <div class="container">
+      <!-- Back Navigation -->
+      <div class="back-nav">
+        <a href={getRelativeLocaleUrl(lang, '/')} class="back-link">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          {current.back}
+        </a>
+      </div>
+
+      <!-- Legal Content Container -->
+      <div class="legal-card-wrapper">
+        <article class="legal-card glass">
+          <header class="legal-header">
+            <h1 class="legal-title">{policyData.title}</h1>
+            <p class="last-updated">{current.lastUpdated}</p>
+          </header>
+          
+          <div class="legal-body">
+            <p class="legal-intro">{policyData.intro}</p>
+            
+            <div class="legal-sections">
+              {policyData.sections.map((section) => (
+                <section class="legal-section">
+                  <h2 class="section-heading">{section.title}</h2>
+                  <p class="section-content">{section.content}</p>
+                </section>
+              ))}
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</MainLayout>
+
+<style>
+  .legal-page {
+    padding: 3rem 0 6rem 0;
+    position: relative;
+    background-image: radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.03) 0%, transparent 60%);
+  }
+
+  .back-nav {
+    margin-bottom: 2.5rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    transition: color var(--transition-fast);
+  }
+
+  .back-link:hover {
+    color: var(--text-primary);
+  }
+
+  .back-link svg {
+    transition: transform var(--transition-fast);
+  }
+
+  .back-link:hover svg {
+    transform: translateX(-4px);
+  }
+
+  .legal-card-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .legal-card {
+    padding: 2.5rem 1.5rem;
+    border-radius: 16px;
+    text-align: left;
+  }
+
+  @media (min-width: 768px) {
+    .legal-card {
+      padding: 4rem 3rem;
+    }
+  }
+
+  .legal-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .legal-title {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .last-updated {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .legal-intro {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    margin-bottom: 2.5rem;
+  }
+
+  .legal-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .legal-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .section-heading {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .section-content {
+    font-size: 0.975rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+</style>
