@@ -4,6 +4,7 @@ import { useTranslations } from '../i18n/utils';
 import type { ui } from '../i18n/ui';
 import Mascot from './Mascot.astro';
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import ReviewMockup from './ReviewMockup.astro';
 
 interface Props {
   lang: keyof typeof ui;
@@ -247,39 +248,10 @@ const t = useTranslations(lang);
           </div>
           
           <!-- Interactive AI Code Review Simulator -->
-          <div class="simulator-wrapper review-simulator" role="region" aria-label={lang === 'es' ? "Simulador interactivo de revisión de código por IA" : "Interactive AI code review simulator"}>
-            <div class="review-mockup glass">
-              <div class="review-header">
-                <span class="review-status-dot"></span>
-                <span class="review-pr-title">PR #42: Improve primary button contrast</span>
-              </div>
-              <div class="review-code-diff font-mono">
-                <div class="diff-line diff-del">-   color: #ffffff;</div>
-                <div class="diff-line diff-add">+   color: #0c0d0e; /* Compliant contrast (>5.3:1) */</div>
-                <div class="diff-line diff-add">+   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);</div>
-              </div>
-              <div class="review-bot-comment">
-                <div class="comment-author">
-                  <Mascot type="head" size="small" animated={false} className="comment-avatar" />
-                  <div class="author-details">
-                    <span class="author-name">escal-reviewer</span>
-                    <span class="author-badge">bot</span>
-                  </div>
-                </div>
-                <div class="comment-body">
-                  <p><strong>blocking:</strong> White text on green fails WCAG 2.1 AA (2.53:1). Restored dark gray text (#0c0d0e) with a light text-shadow for a compliant contrast and premium look.</p>
-                </div>
-              </div>
-              <div class="merge-action-badge">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <line x1="12" y1="8" x2="12" y2="12"></line>
-                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                </svg>
-                <span>Merge: Auto-issues created</span>
-              </div>
-            </div>
-          </div>
+          <ReviewMockup 
+            lang={lang} 
+            ariaLabel={lang === 'es' ? "Simulador interactivo de revisión de código por IA" : "Interactive AI code review simulator"} 
+          />
         </div>
       </div>
     </div>
@@ -725,7 +697,7 @@ const t = useTranslations(lang);
     font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
-    color: var(--color-primary);
+    color: var(--color-badge-text);
     background: rgba(16, 185, 129, 0.08);
     padding: 0.25rem 0.75rem;
     border-radius: 9999px;
@@ -1629,137 +1601,7 @@ const t = useTranslations(lang);
     transform: translateX(4px);
   }
 
-  /* Product 3 Simulator (AI Reviewer) */
-  .review-simulator {
-    grid-template-columns: 1fr !important;
-    max-width: 480px;
-    margin: 0 auto;
-    width: 100%;
-  }
 
-  .review-mockup {
-    border-radius: 16px;
-    border-color: var(--mockup-border);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    box-shadow: var(--shadow-lg);
-  }
-
-  .review-header {
-    height: 42px;
-    background: var(--mockup-header-bg);
-    display: flex;
-    align-items: center;
-    padding: 0 1rem;
-    gap: 0.75rem;
-    border-bottom: 1px solid var(--mockup-border);
-  }
-
-  .review-status-dot {
-    width: 8px;
-    height: 8px;
-    background-color: var(--color-primary);
-    border-radius: 50%;
-    box-shadow: 0 0 8px var(--color-primary);
-  }
-
-  .review-pr-title {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    font-family: 'Outfit', sans-serif;
-  }
-
-  .review-code-diff {
-    background: var(--mockup-bg-deep);
-    padding: 1rem;
-    border-bottom: 1px solid var(--mockup-border);
-    font-size: 0.75rem;
-    text-align: left;
-  }
-
-  .diff-line {
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    margin-bottom: 0.15rem;
-  }
-
-  .diff-del {
-    background: rgba(239, 68, 68, 0.15);
-    color: #f87171;
-  }
-
-  .diff-add {
-    background: rgba(16, 185, 129, 0.15);
-    color: #34d399;
-  }
-
-  .review-bot-comment {
-    padding: 1.25rem;
-    background: var(--bg-card-hover);
-    border-bottom: 1px solid var(--mockup-border);
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    text-align: left;
-  }
-
-  .comment-author {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .comment-avatar {
-    width: 28px !important;
-    height: 28px !important;
-    border-radius: 50%;
-    border: 1px solid var(--border-hover);
-    background: var(--bg-color);
-    padding: 2px;
-  }
-
-  .author-details {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .author-name {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--text-primary);
-  }
-
-  .author-badge {
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    background: rgba(16, 185, 129, 0.1);
-    color: var(--color-primary);
-    border: 1px solid rgba(16, 185, 129, 0.2);
-    padding: 0.1rem 0.35rem;
-    border-radius: 4px;
-    letter-spacing: 0.05em;
-  }
-
-  .comment-body {
-    font-size: 0.85rem;
-    line-height: 1.5;
-    color: var(--text-secondary);
-  }
-
-  .merge-action-badge {
-    padding: 0.75rem 1rem;
-    background: var(--mockup-header-bg);
-    display: flex;
-    align-items: center;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--color-primary);
-    border-top: 1px solid var(--mockup-border);
-  }
 
   /* Keyframe Animations */
   @keyframes orb-spin {

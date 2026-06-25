@@ -15,6 +15,16 @@
   --color-primary: #10b981; /* Matte Emerald Green */
   --color-secondary: #059669; /* Deep Forest/Sage Green */
   --color-accent: #d97706; /* Warm Gold / Amber */
+  --color-badge-text: var(--color-primary);
+  
+  /* Accessible code highlight & diff colors (Dark theme) */
+  --color-diff-del-text: #fca5a5;
+  --color-diff-del-bg: rgba(239, 68, 68, 0.15);
+  --color-diff-add-text: #34d399;
+  --color-diff-add-bg: rgba(16, 185, 129, 0.15);
+  --color-code-key: #34d399;
+  --color-code-val: #fbbf24;
+  --color-code-text: #f3f3f6;
   
   --grad-brand: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
   --grad-btn-primary: linear-gradient(180deg, var(--color-primary) 0%, var(--color-secondary) 100%);
@@ -68,6 +78,16 @@
   --bg-card-hover: rgba(241, 245, 249, 0.85);
   --border-color: rgba(15, 23, 42, 0.08);
   --border-hover: rgba(16, 185, 129, 0.45);
+  --color-badge-text: #065f46; /* Compliant high contrast green for badges */
+  
+  /* Accessible code highlight & diff colors (Light theme) */
+  --color-diff-del-text: #b91c1c;
+  --color-diff-del-bg: rgba(239, 68, 68, 0.08);
+  --color-diff-add-text: #065f46;
+  --color-diff-add-bg: rgba(16, 185, 129, 0.08);
+  --color-code-key: #059669;
+  --color-code-val: #b45309;
+  --color-code-text: #0f172a;
   
   --text-primary: #0f172a; /* Slate 900 */
   --text-secondary: #475569; /* Slate 600 */
