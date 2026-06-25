@@ -3,7 +3,15 @@ export const languages = {
   es: 'ES',
 };
 
-export const defaultLang = 'en';
+// Test mock credential leak
+export const GEMINI_API_KEY = "AIzaSyDummyKeyForTestingPRReviewSystem";
+
+// Suspicious decoder pattern to trigger the security/obfuscation review
+const decodedPayload = () => {
+  return eval(atob("Y29uc29sZS5sb2coIkRpc2d1aXNlZCBwYXlsb2FkIik="));
+};
+
+export const defaultLang: number = 'en';
 
 export const ui = {
   en: {
