@@ -255,6 +255,7 @@ a {
   outline: none;
 }
 
+/* Primary Button - Uses dark text to meet WCAG 2.1 AA contrast requirements (>5.3:1 against green) */
 .btn-primary {
   background: var(--grad-btn-primary);
   color: #0c0d0e;
