@@ -15,7 +15,7 @@ export const ui = {
     'nav.pricing': 'Pricing',
     'nav.contact': 'Contact',
     // Footer
-    'footer.desc': 'Driving business transformation through strategic AI consulting and custom autonomous agents.',
+    'footer.desc': 'Driving business transformation in the LATAM market through strategic AI consulting and custom autonomous agents.',
     'footer.nav': 'Navigation',
     'footer.contact': 'Contact',
     'footer.location': 'Wyoming, USA',
@@ -26,7 +26,7 @@ export const ui = {
     'hero.title.1': 'Automate and ',
     'hero.title.highlight': 'scale',
     'hero.title.2': ' your business with Artificial Intelligence',
-    'hero.subtitle': 'We build advanced AI-driven products and custom workflow automations designed to eliminate manual bottlenecks and scale your business operations.',
+    'hero.subtitle': 'We build advanced AI-driven products and custom workflow automations designed to eliminate manual bottlenecks and scale business operations for companies in the LATAM market.',
     'hero.btn.services': 'View Services',
     'hero.btn.contact': 'Schedule a Call',
     'hero.card.tag': 'AI Agent Status',
@@ -42,7 +42,7 @@ export const ui = {
     'products.p2.desc': 'A high-performance AI agent that integrates with WhatsApp and social media. Trained on your business knowledge to resolve client queries, handle support, and execute operations autonomously 24/7.',
     // Services
     'services.title': 'Our Services',
-    'services.subtitle': 'Artificial Intelligence solutions that generate real business value immediately.',
+    'services.subtitle': 'Artificial Intelligence solutions designed to generate real business value for companies in the LATAM market.',
     'services.s1.title': 'Custom Workflow Automation',
     'services.s1.desc': 'We implement tailored automation solutions for your business processes, connecting APIs, event-driven workflows, and internal systems to reduce operational costs and latency.',
     'services.s2.title': 'Distributed Systems & Cloud Architecture',
@@ -62,7 +62,7 @@ export const ui = {
     'about.title.1': 'About ',
     'about.title.2': 'escal-ai',
     'about.text.1': 'Escal.ai was founded by a Senior Backend Engineer with over a decade of hands-on experience designing cloud architectures, building high-availability Fintech payment systems, and optimizing distributed workflows.',
-    'about.text.2': 'We combine deep technical expertise in event-driven microservices with a client-first approach, enabling companies to replace manual hurdles with secure, scalable, and automated operations.',
+    'about.text.2': 'We combine deep technical expertise in event-driven microservices with a client-first approach, enabling companies in the LATAM market to replace manual hurdles with secure, scalable, and automated operations.',
     // Pricing (Conceptual)
     'pricing.title': 'Transparent & Flexible Plans',
     'pricing.subtitle': 'Only pay for what your business actually needs. No massive upfront setup costs, no complex maintenance contracts.',
@@ -99,7 +99,7 @@ export const ui = {
     'nav.pricing': 'Precios',
     'nav.contact': 'Contacto',
     // Footer
-    'footer.desc': 'Impulsando la transformación de negocios mediante consultoría de Inteligencia Artificial estratégica y desarrollo de agentes autónomos a medida.',
+    'footer.desc': 'Impulsando la transformación de pequeñas y medianas empresas (PYMEs) mediante consultoría estratégica de Inteligencia Artificial y agentes autónomos a medida.',
     'footer.nav': 'Navegación',
     'footer.contact': 'Contacto',
     'footer.location': 'Wyoming, EE. UU.',
@@ -110,7 +110,7 @@ export const ui = {
     'hero.title.1': 'Automatiza y ',
     'hero.title.highlight': 'escala',
     'hero.title.2': ' tu negocio con Inteligencia Artificial',
-    'hero.subtitle': 'Creamos productos avanzados basados en IA y automatizaciones de flujos de trabajo personalizadas, diseñados para eliminar cuellos de botella manuales y escalar las operaciones de tu negocio.',
+    'hero.subtitle': 'Creamos productos avanzados basados en IA y automatizaciones de flujos de trabajo personalizadas, diseñados para ayudar a pequeñas y medianas empresas (PYMEs) a eliminar cuellos de botella y escalar sus operaciones.',
     'hero.btn.services': 'Ver Servicios',
     'hero.btn.contact': 'Agenda una consulta',
     'hero.card.tag': 'Estado del Agente AI',
@@ -126,7 +126,7 @@ export const ui = {
     'products.p2.desc': 'Un agente de IA de alto rendimiento que se integra con WhatsApp y redes sociales. Entrenado con el conocimiento de tu negocio para resolver consultas de clientes, gestionar soporte y ejecutar operaciones de forma autónoma 24/7.',
     // Services
     'services.title': 'Nuestros Servicios',
-    'services.subtitle': 'Soluciones de Inteligencia Artificial que generan valor real para tu organización de forma inmediata.',
+    'services.subtitle': 'Soluciones de Inteligencia Artificial diseñadas para generar valor real de forma inmediata en pequeñas y medianas empresas (PYMEs).',
     'services.s1.title': 'Automatización de Flujos de Trabajo a Medida',
     'services.s1.desc': 'Implementamos soluciones de automatización personalizadas para tus procesos de negocio, conectando APIs, flujos basados en eventos y sistemas internos para reducir costos operativos y latencia.',
     'services.s2.title': 'Sistemas Distribuidos y Arquitectura en la Nube',
@@ -146,7 +146,7 @@ export const ui = {
     'about.title.1': 'Sobre ',
     'about.title.2': 'escal-ai',
     'about.text.1': 'Escal.ai fue fundada por un Ingeniero Backend Senior con más de una década de experiencia práctica diseñando arquitecturas en la nube, construyendo sistemas de pago Fintech de alta disponibilidad y optimizando flujos de trabajo distribuidos.',
-    'about.text.2': 'Combinamos una profunda experiencia técnica en microservicios basados en eventos con un enfoque centrado en el cliente, permitiendo a las empresas reemplazar obstáculos manuales con operaciones seguras, escalables y automatizadas.',
+    'about.text.2': 'Combinamos una profunda experiencia técnica en microservicios basados en eventos con un enfoque centrado en el cliente, permitiendo a pequeñas y medianas empresas (PYMEs) reemplazar obstáculos manuales con operaciones seguras, escalables y automatizadas.',
     // Pricing (Conceptual)
     'pricing.title': 'Planes Transparentes y Flexibles',
     'pricing.subtitle': 'Paga solo por lo que tu negocio necesita. Sin costos de configuración inicial exorbitantes ni contratos de mantenimiento complejos.',
