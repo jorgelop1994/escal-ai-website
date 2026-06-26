@@ -684,6 +684,13 @@ const t = useTranslations(lang);
     align-items: center;
   }
 
+  @media (max-width: 768px) {
+    .product-item {
+      padding: 2.5rem 1.25rem;
+      gap: 2rem;
+    }
+  }
+
   @media (min-width: 1024px) {
     .product-item {
       grid-template-columns: 1fr 1.2fr;
@@ -819,6 +826,11 @@ const t = useTranslations(lang);
     flex-direction: column;
     justify-content: flex-start;
     color: var(--mockup-terminal-text);
+  }
+
+  .terminal-body p {
+    white-space: pre-wrap;
+    word-break: break-all;
   }
 
   /* Simulated typing animations */
@@ -1033,6 +1045,15 @@ const t = useTranslations(lang);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0.5rem;
+  }
+
+  @media (max-width: 480px) {
+    .kanban-mockup {
+      height: auto;
+    }
+    .kanban-columns {
+      grid-template-columns: 1fr;
+    }
   }
 
   .kanban-col {
@@ -1449,6 +1470,12 @@ const t = useTranslations(lang);
     gap: 1.25rem;
     position: relative;
     overflow: hidden;
+  }
+
+  @media (max-width: 600px) {
+    .app-download-card {
+      padding: 2rem 1.25rem;
+    }
   }
 
   .download-badge {
