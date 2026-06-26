@@ -275,6 +275,11 @@ a {
   outline: none;
 }
 
+.btn-sm {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+}
+
 /* Primary Button - Uses dark text to meet WCAG 2.1 AA contrast requirements (>5.3:1 against green) */
 .btn-primary {
   background: var(--grad-btn-primary);
